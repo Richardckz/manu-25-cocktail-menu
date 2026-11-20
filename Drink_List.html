@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#5a1120">
+<title>Manu 25 – Drink list</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light dark;
+  --bg:#fff3ef; --ink:#2a0d14; --mute:#6f4a52; --chip:#2a0d14;
+  --wine:#5a1120; --wine-hi:#7d1c30; --gold:#ffd23f; --on:#2a0d14;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d0e12;--ink:#fbeee9;--mute:#c4a5aa;--chip:#fbeee9}}
+:root[data-theme="dark"]{--bg:#1d0e12;--ink:#fbeee9;--mute:#c4a5aa;--chip:#fbeee9}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "DM Sans",system-ui,sans-serif}
+h1,.name{font-family:Fraunces,Georgia,serif}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.hero{position:relative;overflow:hidden;background:var(--wine);color:#fff;padding:2.5rem 1.25rem 2.25rem;border-radius:0 0 32px 32px}
+.hero .in{position:relative;max-width:30rem;margin:0 auto}
+.blob{position:absolute;border-radius:50%;opacity:.9}
+.b1{width:9rem;height:9rem;background:#ffd23f;right:-3rem;top:-3rem}
+.b2{width:5rem;height:5rem;background:#ff8fa3;right:3.5rem;bottom:-1.5rem}
+.b3{width:3rem;height:3rem;background:#5ed1c4;left:-1rem;bottom:1rem}
+h1{font-size:clamp(2.4rem,11.5vw,3.4rem);line-height:1.02;font-weight:800;margin:0 0 1rem;letter-spacing:-.015em}
+h1 em{color:var(--gold);font-weight:600}
+.lead{margin:0;max-width:32ch;color:#f6d9d6;font-size:1.05rem}
+.wrap{max-width:30rem;margin:0 auto;padding:1.5rem 1.25rem 2rem}
+.pick{display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.cta{background:var(--gold);color:#2a0d14;border:0;padding:.8rem 1.3rem;border-radius:999px;font-weight:700;box-shadow:0 3px 0 #b88f00;transition:transform .15s}
+.cta:active{transform:translateY(2px);box-shadow:0 1px 0 #b88f00}
+#result:empty{display:none}
+#result{margin-bottom:1.25rem}
+.pick{scroll-margin-top:1rem}
+#status{margin:0;color:var(--mute);font-size:.95rem;flex:1 1 12rem}
+.chips{display:flex;gap:.5rem;overflow-x:auto;margin:0 -1.25rem 1rem;padding:0 1.25rem .25rem;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;background:none;border:2px solid var(--chip);padding:.3rem .9rem;border-radius:999px;font-weight:500;font-size:.92rem}
+.chip[aria-pressed="true"]{background:var(--chip);color:var(--bg)}
+ul{list-style:none;margin:0;padding:0;display:grid;gap:.75rem}
+li{background:var(--c);color:var(--on);border-radius:22px;padding:0 1.1rem;transition:transform .2s}
+li.hide{display:none}
+li.flash{transform:scale(1.03) rotate(-.6deg)}
+.row{width:100%;background:none;border:0;text-align:left;padding:1rem 0;display:flex;gap:.8rem;align-items:flex-start}
+.em{font-size:1.9rem;line-height:1.2;flex:none}
+.txt{flex:1}
+.name{display:block;font-size:1.35rem;font-weight:600;line-height:1.2}
+.ing{display:block;font-size:.9rem;margin-top:.2rem;opacity:.85}
+.chev{flex:none;width:1.1rem;height:1.1rem;margin-top:.5rem;stroke:currentColor;fill:none;stroke-width:2.5;transition:transform .25s}
+.row[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.more{display:grid;grid-template-rows:0fr;visibility:hidden;transition:grid-template-rows .3s ease,visibility .3s}
+.more.open{grid-template-rows:1fr;visibility:visible}
+.more>div{overflow:hidden}
+.more p{margin:0 0 .7rem;padding-left:2.7rem}
+.str{display:flex;align-items:center;gap:.3rem;font-size:.85rem;padding:0 0 1rem 2.7rem}
+.dot{width:.6rem;height:.6rem;border-radius:50%;border:2px solid currentColor}
+.dot.on{background:currentColor}
+li.signature{--c:var(--wine);color:#fff;margin-top:.5rem;border:2px solid var(--gold)}
+li.signature .name{color:var(--gold)}
+footer{margin-top:2rem;color:var(--mute);font-size:.9rem}
+footer p{margin:0 0 .4rem;max-width:40ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+  <div class="in">
+    <h1>25 anni di Manu.<br><em>Il resto è da bere.</em></h1>
+    <p class="lead">Open bar per tutta la sera. Il merito del drink è del barman, la colpa del secondo giro è tua.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="pick">
+    <button class="cta" id="pick" type="button">Scegli per me 🎲</button>
+    <p id="status" role="status" aria-live="polite"></p>
+  </div>
+  <ul id="result" aria-live="polite"></ul>
+  <div class="chips" id="chips" role="group" aria-label="Filtra per gusto"></div>
+  <ul id="list"></ul>
+  <ul id="sig"></ul>
+  <footer>
+    <p>Chi guida beve analcolico. Chi non guida offre da bere a chi guida.</p>
+    <p>Vuoi qualcosa di più leggero o senza alcol? Chiedilo al barman, accetta anche richieste strane.</p>
+  </footer>
+</div>
+
+<script>
+const DRINKS = [
+  {id:"pina", e:"🍍", c:"#ffd23f", name:"Piña Colada", ing:"Rum, cocco, ananas", tags:["tropicale"], s:2,
+   d:"Cremosa e golosa. Ti fa sentire alle Maldive anche se è novembre e siamo in Italia."},
+  {id:"paloma", e:"🍊", c:"#ff8fa3", name:"Paloma", ing:"Tequila, pompelmo, lime, sale a scelta", tags:["fresco"], s:2,
+   d:"Fresca e un po’ amara, come certi commenti sotto le foto. Il sale è facoltativo, il sorriso no."},
+  {id:"gin", e:"🍋", c:"#5ed1c4", name:"Gin Tonic o Gin Lemon", ing:"Gin, acqua tonica o lemon soda", tags:["classico","fresco"], s:2,
+   d:"Il classico che non sbaglia mai. Con la tonica è asciutto, con la lemon soda più dolce. Il limone conta come frutta."},
+  {id:"basil", e:"🌿", c:"#a6e86a", name:"Basil Smash", ing:"Gin, sciroppo di basilico, sambuco, limone, cetriolo, menta", tags:["erbaceo","fresco"], s:2,
+   d:"Verde e fresco. Tecnicamente è un’insalata, ed è la ragione per cui puoi berne due."},
+  {id:"brezza", e:"🌸", c:"#c9b0ff", name:"Brezza Mediterranea", ing:"Gin, pompelmo rosa, sciroppo di rosa e di basilico, lime, tonica", tags:["erbaceo","fresco"], s:2,
+   d:"Floreale e leggera, con il pompelmo rosa a farla da padrone. Il drink di chi viene bene in foto."},
+  {id:"spritz", e:"🥂", c:"#ff9a3c", name:"Aperol Spritz", ing:"Aperol, prosecco, soda", tags:["classico"], s:1,
+   d:"Il più leggero di tutti. È il primo drink della serata, e anche il terzo."}
+];
+const SIG = {id:"manu", e:"✨", name:"Manu", ing:"Il drink della festa. Tocca per scoprire il segreto.", s:3,
+  d:"Ingredienti segreti: tanta allegria, risate senza fine, sguardi complici e tutto l’amore del mondo. Preparato solo per questo compleanno. Dà dipendenza e non esiste cura."};
+const FILTERS = ["tutti","fresco","tropicale","erbaceo","classico"];
+const LABEL = {tutti:"Tutti", fresco:"Freschi", tropicale:"Tropicali", erbaceo:"Erbacei", classico:"Classici"};
+const STR = ["","Leggero","Medio","Deciso"];
+const JOKES = ["Non accettiamo reclami.","Il barman approva.","Se non ti piace, è colpa del destino.","Fidati, ha studiato.","Scelta saggia, o almeno coraggiosa."];
+const CHEV = '<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+
+const $ = id => document.getElementById(id);
+const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function item(x, cls, pre){
+  pre = pre || "";
+  const dots = [1,2,3].map(i => '<span class="dot' + (i <= x.s ? ' on' : '') + '"></span>').join("");
+  return '<li id="' + pre + 'li-' + x.id + '" class="' + (cls || "") + '" data-tags="' + (x.tags || []).join(" ") + '"' + (x.c ? ' style="--c:' + x.c + '"' : '') + '>' +
+    '<button class="row" type="button" aria-expanded="false" aria-controls="' + pre + 'm-' + x.id + '">' +
+    '<span class="em" aria-hidden="true">' + x.e + '</span>' +
+    '<span class="txt"><span class="name">' + esc(x.name) + '</span><span class="ing">' + esc(x.ing) + '</span></span>' + CHEV + '</button>' +
+    '<div class="more" id="' + pre + 'm-' + x.id + '"><div><p>' + esc(x.d) + '</p>' +
+    '<div class="str">' + dots + '<span>' + STR[x.s] + '</span></div></div></div></li>';
+}
+function toggle(li, force){
+  const btn = li.querySelector(".row"), box = li.querySelector(".more");
+  const open = force !== undefined ? force : btn.getAttribute("aria-expanded") !== "true";
+  btn.setAttribute("aria-expanded", open);
+  box.classList.toggle("open", open);
+}
+
+$("list").innerHTML = DRINKS.map(d => item(d)).join("");
+$("sig").innerHTML = item(SIG, "signature");
+$("chips").innerHTML = FILTERS.map(f =>
+  '<button class="chip" type="button" data-f="' + f + '" aria-pressed="' + (f === "tutti") + '">' + LABEL[f] + '</button>').join("");
+
+document.addEventListener("click", e => {
+  const row = e.target.closest(".row");
+  if (row) toggle(row.parentElement);
+  const chip = e.target.closest(".chip");
+  if (chip) {
+    document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c === chip));
+    const f = chip.dataset.f;
+    document.querySelectorAll("#list li").forEach(li =>
+      li.classList.toggle("hide", f !== "tutti" && !li.dataset.tags.split(" ").includes(f)));
+  }
+});
+
+$("pick").addEventListener("click", () => {
+  const d = DRINKS[Math.floor(Math.random() * DRINKS.length)];
+  const res = $("result");
+  res.innerHTML = item(d, "", "r-");
+  const li = res.firstElementChild;
+  requestAnimationFrame(() => requestAnimationFrame(() => toggle(li, true)));
+  li.classList.add("flash");
+  setTimeout(() => li.classList.remove("flash"), 1800);
+  $("status").textContent = "Il barman consiglia: " + d.name + ". " + JOKES[Math.floor(Math.random() * JOKES.length)];
+  document.querySelector(".pick").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion:reduce)").matches ? "auto" : "smooth", block:"start"});
+});
+</script>
+</body>
+</html>
