@@ -21,6 +21,7 @@
       --on: #2a0d14;
       --card: #ffffff;
       --line: rgba(90, 17, 32, .16);
+      --bg-25: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='120' viewBox='0 0 140 120'%3E%3Ctext x='14' y='44' font-family='Georgia, serif' font-weight='700' font-size='28' fill='%235a1120' fill-opacity='0.065' transform='rotate(-16 30 35)'%3E25%3C/text%3E%3Ctext x='82' y='98' font-family='Georgia, serif' font-weight='700' font-size='24' fill='%235a1120' fill-opacity='0.055' transform='rotate(14 96 90)'%3E25%3C/text%3E%3C/svg%3E");
       box-sizing: border-box;
       padding-top: env(safe-area-inset-top, 0px);
       padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -33,6 +34,7 @@
         --chip: #fbeee9;
         --card: #2a141a;
         --line: rgba(251, 238, 233, .16);
+        --bg-25: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='120' viewBox='0 0 140 120'%3E%3Ctext x='14' y='44' font-family='Georgia, serif' font-weight='700' font-size='28' fill='%23e6c88f' fill-opacity='0.075' transform='rotate(-16 30 35)'%3E25%3C/text%3E%3Ctext x='82' y='98' font-family='Georgia, serif' font-weight='700' font-size='24' fill='%23e6c88f' fill-opacity='0.06' transform='rotate(14 96 90)'%3E25%3C/text%3E%3C/svg%3E");
       }
     }
     :root[data-theme="dark"] {
@@ -42,6 +44,7 @@
       --chip: #fbeee9;
       --card: #2a141a;
       --line: rgba(251, 238, 233, .16);
+      --bg-25: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='120' viewBox='0 0 140 120'%3E%3Ctext x='14' y='44' font-family='Georgia, serif' font-weight='700' font-size='28' fill='%23e6c88f' fill-opacity='0.075' transform='rotate(-16 30 35)'%3E25%3C/text%3E%3Ctext x='82' y='98' font-family='Georgia, serif' font-weight='700' font-size='24' fill='%23e6c88f' fill-opacity='0.06' transform='rotate(14 96 90)'%3E25%3C/text%3E%3C/svg%3E");
     }
     html {
       scroll-padding-top: env(safe-area-inset-top, 0px);
@@ -50,7 +53,9 @@
     *, *::before, *::after { box-sizing: border-box; }
     body {
       margin: 0;
-      background: var(--bg);
+      background-color: var(--bg);
+      background-image: var(--bg-25);
+      background-repeat: repeat;
       color: var(--ink);
       font: 400 16px/1.5 "DM Sans", system-ui, sans-serif;
     }
@@ -63,11 +68,12 @@
       position: relative;
       overflow: hidden;
       background: var(--wine);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='95' viewBox='0 0 110 95'%3E%3Ctext x='12' y='36' font-family='Georgia, serif' font-weight='700' font-size='22' fill='%23e6c88f' fill-opacity='0.08' transform='rotate(-15 24 28)'%3E25%3C/text%3E%3Ctext x='64' y='78' font-family='Georgia, serif' font-weight='700' font-size='18' fill='%23e6c88f' fill-opacity='0.07' transform='rotate(15 74 72)'%3E25%3C/text%3E%3C/svg%3E");
       color: #fff;
       padding: 2.5rem 1.25rem 2.25rem;
       border-radius: 0 0 32px 32px;
     }
-    .big25 { position: absolute; right: -.4rem; bottom: -2.6rem; font-family: Fraunces, Georgia, serif; font-weight: 800; font-size: 11rem; line-height: 1; color: rgba(230, 200, 143, .2); pointer-events: none; user-select: none; }
+    .big25 { position: absolute; right: -.4rem; bottom: -2.6rem; font-family: Fraunces, Georgia, serif; font-weight: 800; font-size: 11rem; line-height: 1; color: rgba(230, 200, 143, .22); pointer-events: none; user-select: none; }
     .hero .in { position: relative; max-width: 30rem; margin: 0 auto; }
     h1 {
       font-size: clamp(2.4rem, 11.5vw, 3.4rem);
@@ -107,7 +113,7 @@
     .chips::-webkit-scrollbar { display: none; }
     .chip {
       flex: none;
-      background: none;
+      background: var(--card);
       border: 2px solid var(--chip);
       padding: .3rem .9rem;
       border-radius: 999px;
@@ -158,12 +164,46 @@
     .dot { width: .6rem; height: .6rem; border-radius: 50%; border: 2px solid currentColor; }
     .dot.on { background: currentColor; }
 
-    .nb { display: inline-block; margin-top: .3rem; font-size: .72rem; font-weight: 700; border: 1.5px solid currentColor; border-radius: 999px; padding: 0 .5rem; }
-
-    /* Drink della festa */
-    li.signature { --c: var(--wine); background: var(--wine); color: #fff; margin-top: .5rem; border: 2px solid var(--gold); }
-    li.signature .name { color: var(--gold); }
-    li.signature .em { background: rgba(255, 255, 255, .14); }
+    /* Drink speciale della festa */
+    #sig { margin-bottom: 1.15rem; }
+    li.signature {
+      --c: var(--wine);
+      background: linear-gradient(135deg, var(--wine-hi) 0%, var(--wine) 100%);
+      color: #fff;
+      border: 2.5px solid var(--gold);
+      border-radius: 26px;
+      padding: .2rem 1.2rem;
+      box-shadow: 0 12px 28px -8px rgba(90, 17, 32, .45);
+    }
+    li.signature .row { padding: 1.15rem 0; align-items: center; }
+    .sig-tag {
+      display: inline-block;
+      background: var(--gold);
+      color: #2a0d14;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: .18rem .65rem;
+      border-radius: 999px;
+      margin-bottom: .35rem;
+    }
+    li.signature .name {
+      color: var(--gold);
+      font-size: 1.65rem;
+      font-weight: 800;
+    }
+    li.signature .ing { color: #fbeee9; opacity: .95; font-weight: 500; }
+    li.signature .em {
+      width: 3.4rem;
+      height: 3.4rem;
+      font-size: 1.85rem;
+      background: rgba(230, 200, 143, .18);
+      border: 1.5px solid rgba(230, 200, 143, .55);
+    }
+    li.signature .chev { color: var(--gold); margin-top: 0; }
+    li.signature .more p { padding-left: 4.2rem; }
+    li.signature .str { padding-left: 4.2rem; color: var(--gold); }
 
     /* Coriandoli */
     .bit { position: fixed; top: -2.5rem; font-size: 1.6rem; pointer-events: none; z-index: 20; animation: fall var(--t) ease-in forwards; }
@@ -228,12 +268,12 @@
       <p class="hint">Non sai cosa scegliere? Rispondi a 4 domande e Manu ti consiglia il drink giusto.</p>
     </div>
     <section id="quiz" hidden aria-label="Cosa consiglia Manu"></section>
+    <ul id="sig"></ul>
     <div class="chips" id="chips" role="group" aria-label="Filtra per gusto"></div>
     <ul id="list"></ul>
-    <ul id="sig"></ul>
     <footer>
       <p>Chi guida beve analcolico. Chi non guida offre da bere a chi guida.</p>
-      <p>Vuoi qualcosa di più leggero? Prova l’Aperol Spritz oppure scegli uno dei drink senza alcol.</p>
+      <p>Vuoi qualcosa senza alcol o più leggero? Chiedi al barman: quasi tutti i drink si possono preparare anche in versione analcolica.</p>
       <p class="sponsor">Sponsorizzato da Team Legacy</p>
     </footer>
   </div>
@@ -241,63 +281,50 @@
   <script>
     const DRINKS = [
       { id: "pina", e: "🍍", c: "#ffd23f", name: "Piña Colada",
-        ing: "Rum, cocco, ananas", tags: ["alcol", "tropicale"], s: 2,
+        ing: "Rum, cocco, ananas", tags: ["tropicale"], s: 2,
         d: "Cremosa e golosa, è il drink più dolce della lista." },
       { id: "mojito", e: "🍃", c: "#b8f0c8", name: "Mojito",
-        ing: "Rum bianco, lime, menta, zucchero di canna, soda", tags: ["alcol", "tropicale", "erbaceo", "fresco"], s: 2,
+        ing: "Rum bianco, lime, menta, zucchero di canna, soda", tags: ["tropicale", "erbaceo", "fresco"], s: 2,
         d: "Menta, lime e soda: fresco e facile da bere. Controlla di non avere la menta tra i denti prima delle foto." },
       { id: "gintonic", e: "🍋", c: "#5ed1c4", name: "Gin Tonic",
-        ing: "Gin, acqua tonica", tags: ["alcol", "classico", "fresco"], s: 2,
+        ing: "Gin, acqua tonica", tags: ["classico", "fresco"], s: 2,
         d: "Il classico che non sbaglia mai: secco, frizzante e leggermente amaro grazie alla tonica." },
       { id: "ginlemon", e: "🥤", c: "#f2ee6e", name: "Gin Lemon",
-        ing: "Gin, lemon soda", tags: ["alcol", "classico", "fresco"], s: 2,
+        ing: "Gin, lemon soda", tags: ["classico", "fresco"], s: 2,
         d: "Come il Gin Tonic, ma più dolce e morbido. Per chi trova la tonica troppo amara." },
       { id: "basil", e: "🌿", c: "#a6e86a", name: "Basil Smash",
-        ing: "Gin, sciroppo di basilico, sambuco, limone, cetriolo, menta", tags: ["alcol", "erbaceo", "fresco"], s: 2,
+        ing: "Gin, sciroppo di basilico, sambuco, limone, cetriolo, menta", tags: ["erbaceo", "fresco"], s: 2,
         d: "Verde, fresco e profumato di basilico, con cetriolo e menta. Per chi ama i sapori erbacei." },
       { id: "breeze", e: "🌸", c: "#c9b0ff", name: "Mediterranean Breeze",
-        ing: "Gin, pompelmo rosa, sciroppo di rosa e di basilico, lime, tonica", tags: ["alcol", "erbaceo", "fresco"], s: 2,
+        ing: "Gin, pompelmo rosa, sciroppo di rosa e di basilico, lime, tonica", tags: ["erbaceo", "fresco"], s: 2,
         d: "Floreale e leggera, con il pompelmo rosa in primo piano. Ideale se ami i sapori delicati." },
       { id: "collins", e: "🥒", c: "#9ad9ff", name: "Cucumber & Elderflower Collins",
-        ing: "Gin, liquore di sambuco, limone, cetriolo, menta", tags: ["alcol", "erbaceo", "fresco"], s: 2,
+        ing: "Gin, liquore di sambuco, limone, cetriolo, menta", tags: ["erbaceo", "fresco"], s: 2,
         d: "Fresca, floreale e leggermente dolce. Cetriolo e sambuco la rendono delicata e facile da bere." },
       { id: "mule", e: "🥃", c: "#ff8a65", name: "Moscow Mule",
-        ing: "Vodka, ginger beer, lime", tags: ["alcol", "fresco"], s: 2,
+        ing: "Vodka, ginger beer, lime", tags: ["fresco"], s: 2,
         d: "Frizzante e piccante grazie al ginger beer, con il lime a dare freschezza." },
       { id: "vodkalemon", e: "🧊", c: "#ffe8a3", name: "Vodka Lemon",
-        ing: "Vodka, lemon soda", tags: ["alcol", "classico", "fresco"], s: 2,
+        ing: "Vodka, lemon soda", tags: ["classico", "fresco"], s: 2,
         d: "Semplice, fresco e facile da bere. Se non sai cosa ordinare, parti da qui." },
       { id: "spritz", e: "🥂", c: "#ff9a3c", name: "Aperol Spritz",
-        ing: "Aperol, prosecco, soda", tags: ["alcol", "classico"], s: 1,
-        d: "Il più leggero della lista: frizzante, leggermente amaro e perfetto per iniziare la serata." },
-      { id: "vmojito", e: "🌱", c: "#b8f0c8", name: "Virgin Mojito",
-        ing: "Lime, menta, zucchero di canna, soda", tags: ["analcolico", "erbaceo", "fresco"], s: 0,
-        d: "Come il Mojito, ma senza rum: menta, lime e soda, freschi e facili da bere." },
-      { id: "vcolada", e: "🥥", c: "#ffd23f", name: "Virgin Piña Colada",
-        ing: "Cocco, ananas", tags: ["analcolico", "tropicale"], s: 0,
-        d: "Cocco e ananas, cremosi e golosi come l’originale ma senza alcol." },
-      { id: "vmule", e: "🍹", c: "#ff8a65", name: "Virgin Mule",
-        ing: "Ginger beer, lime", tags: ["analcolico", "fresco"], s: 0,
-        d: "Ginger beer e lime: frizzante e piccante, come il Moscow Mule ma senza vodka." },
-      { id: "cooler", e: "💧", c: "#9ad9ff", name: "Cucumber Cooler",
-        ing: "Cetriolo, limone, menta, soda", tags: ["analcolico", "erbaceo", "fresco"], s: 0,
-        d: "Cetriolo, limone, menta e soda. Leggero, fresco e dissetante." }
+        ing: "Aperol, prosecco, soda", tags: ["classico"], s: 1,
+        d: "Il più leggero della lista: frizzante, leggermente amaro e perfetto per iniziare la serata." }
     ];
 
     const SIG = {
-      id: "manu", e: "✨", name: "Manu",
-      ing: "Il drink della festa. Tocca per scoprire il segreto.", s: 3,
+      id: "manu", e: "🥂", badge: "✦ Drink speciale della festa ✦", name: "Manu",
+      ing: "Il cocktail esclusivo dei 25 anni. Tocca per scoprire il segreto.", s: 3,
       d: "Ingredienti segreti: allegria, risate, amici e un pizzico di follia. Preparato solo per questo compleanno e impossibile da replicare."
     };
 
-    const FILTERS = ["tutti", "alcol", "analcolico", "fresco", "tropicale", "erbaceo", "classico"];
-    const LABEL = { tutti: "Tutti", alcol: "Con alcol", analcolico: "Senza alcol", fresco: "Freschi", tropicale: "Tropicali", erbaceo: "Erbacei", classico: "Classici" };
+    const FILTERS = ["tutti", "fresco", "tropicale", "erbaceo", "classico"];
+    const LABEL = { tutti: "Tutti", fresco: "Freschi", tropicale: "Tropicali", erbaceo: "Erbacei", classico: "Classici" };
     const STR = ["", "Leggero", "Medio", "Deciso"];
     const CHEV = '<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
 
     const $ = id => document.getElementById(id);
     const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-    const isDry = d => (d.tags || []).includes("analcolico");
     const rnd = a => a[Math.floor(Math.random() * a.length)];
     const reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
 
@@ -306,10 +333,11 @@
       return '<li id="li-' + x.id + '" class="' + (cls || "") + '" data-tags="' + (x.tags || []).join(" ") + '"' + (x.c ? ' style="--c:' + x.c + '"' : '') + '>' +
         '<button class="row" type="button" aria-expanded="false" aria-controls="m-' + x.id + '">' +
         '<span class="em" aria-hidden="true">' + x.e + '</span>' +
-        '<span class="txt"><span class="name">' + esc(x.name) + '</span>' + (isDry(x) ? '<span class="nb">Senza alcol</span>' : '') + '<span class="ing">' + esc(x.ing) + '</span></span>' + CHEV +
+        '<span class="txt">' + (x.badge ? '<span class="sig-tag">' + esc(x.badge) + '</span>' : '') +
+        '<span class="name">' + esc(x.name) + '</span><span class="ing">' + esc(x.ing) + '</span></span>' + CHEV +
         '</button>' +
         '<div class="more" id="m-' + x.id + '"><div><p>' + esc(x.d) + '</p>' +
-        (x.s ? '<div class="str">' + dots + '<span>' + STR[x.s] + '</span></div>' : '') + '</div></div></li>';
+        '<div class="str">' + dots + '<span>' + STR[x.s] + '</span></div></div></div></li>';
     }
 
     function toggle(li, force) {
@@ -360,24 +388,23 @@
     /* Cosa consiglia Manu */
     const QUIZ = [
       { q: "Che gusto preferisci?", e: "😋", w: 2, a: [
-        ["🍬", "Dolce e goloso", ["pina", "pina", "breeze", "collins", "ginlemon", "spritz", "vcolada", "vcolada"]],
-        ["🧊", "Fresco e frizzante", ["mojito", "mojito", "gintonic", "vodkalemon", "basil", "collins", "ginlemon", "vmojito", "vmojito", "cooler", "vmule"]],
+        ["🍬", "Dolce e goloso", ["pina", "pina", "breeze", "collins", "ginlemon", "spritz"]],
+        ["🧊", "Fresco e frizzante", ["mojito", "mojito", "gintonic", "vodkalemon", "basil", "collins", "ginlemon"]],
         ["🍊", "Amaro e secco", ["spritz", "spritz", "gintonic", "gintonic"]],
-        ["🌿", "Erbaceo e floreale", ["basil", "basil", "collins", "breeze", "mojito", "vmojito", "cooler"]],
-        ["🌶️", "Speziato e piccante", ["mule", "mule", "mule", "vmule", "vmule", "vmule"]]
+        ["🌿", "Erbaceo e floreale", ["basil", "basil", "collins", "breeze", "mojito"]],
+        ["🌶️", "Speziato e piccante", ["mule", "mule", "mule"]]
       ]},
       { q: "Che base preferisci?", e: "🍸", w: 2, a: [
         ["🍸", "Gin", ["gintonic", "ginlemon", "basil", "breeze", "collins"]],
         ["🥥", "Rum", ["pina", "pina", "mojito", "mojito"]],
         ["❄️", "Vodka", ["mule", "mule", "vodkalemon", "vodkalemon"]],
         ["🥂", "Aperitivo", ["spritz", "spritz", "spritz"]],
-        ["🧃", "Senza alcol", [], true],
         ["🤷", "Per me è uguale", []]
       ]},
       { q: "Che drink cerchi?", e: "🎯", w: 1, a: [
-        ["🛡️", "Un classico sicuro", ["gintonic", "ginlemon", "vodkalemon", "mojito", "spritz", "pina", "vmojito", "vcolada"]],
-        ["🎨", "Qualcosa di particolare", ["basil", "breeze", "collins", "mule", "cooler", "vmule"]],
-        ["🪶", "Leggero, per durare tutta la sera", ["spritz", "spritz", "spritz", "ginlemon", "mojito", "vmojito", "cooler"]],
+        ["🛡️", "Un classico sicuro", ["gintonic", "ginlemon", "vodkalemon", "mojito", "spritz", "pina"]],
+        ["🎨", "Qualcosa di particolare", ["basil", "breeze", "collins", "mule"]],
+        ["🪶", "Leggero, per durare tutta la sera", ["spritz", "spritz", "spritz", "ginlemon", "mojito"]],
         ["🎲", "Non so, sorprendimi", []]
       ]},
       { q: "Che tipo da festa sei?", e: "🥳", w: 1, a: [
@@ -390,10 +417,6 @@
     ];
 
     const REC = {
-      vmojito: "È fresco e facile da bere, ideale se ti piace la menta e non vuoi alcol.",
-      vcolada: "È cremoso e goloso, ideale se vuoi un drink dolce senza alcol.",
-      vmule: "È frizzante e piccante grazie al ginger beer, ideale se non vuoi alcol ma cerchi carattere.",
-      cooler: "È leggero e dissetante, ideale se cerchi qualcosa di fresco senza alcol.",
       pina: "Se ami i drink dolci e cremosi, è la scelta giusta.",
       mojito: "È fresco e facile da bere, ideale se ti piace la menta.",
       gintonic: "È un classico che non delude, ideale se vuoi andare sul sicuro.",
@@ -414,7 +437,7 @@
     ];
 
     const quiz = $("quiz");
-    let qi = 0, score = {}, persona = 0, lastRec = null, dry = false;
+    let qi = 0, score = {}, persona = 0, lastRec = null;
 
     function showQ() {
       const q = QUIZ[qi];
@@ -432,7 +455,7 @@
     }
 
     function finishQuiz() {
-      const rank = DRINKS.filter(d => isDry(d) === dry).map(d => ({ d: d, n: score[d.id] || 0 }));
+      const rank = DRINKS.map(d => ({ d: d, n: score[d.id] || 0 }));
       const top = Math.max(...rank.map(r => r.n));
       const first = rnd(rank.filter(r => r.n === top)).d;
       const rest = rank.filter(r => r.d !== first);
@@ -461,7 +484,6 @@
     function startQuiz() {
       qi = 0;
       score = {};
-      dry = false;
       quiz.hidden = false;
       showQ();
       quiz.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
@@ -507,7 +529,6 @@
       const i = +opt.dataset.i;
       const w = QUIZ[qi].w;
       QUIZ[qi].a[i][2].forEach(id => { score[id] = (score[id] || 0) + w; });
-      if (QUIZ[qi].a[i][3]) dry = true;
       if (qi === QUIZ.length - 1) persona = i;
       qi++;
       if (qi < QUIZ.length) { showQ(); } else { finishQuiz(); }
@@ -515,6 +536,3 @@
   </script>
 </body>
 </html>
-```[cite: 1]
-
-Provalo sul telefono: se vuoi cambiare qualche analcolico in base a quello che ha il barman o regolare il contrasto, dimmelo pure!
