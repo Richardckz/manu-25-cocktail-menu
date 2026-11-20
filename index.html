@@ -83,7 +83,18 @@
       letter-spacing: -.015em;
     }
     h1 em { color: var(--gold); font-weight: 600; }
-    .lead { margin: 0; max-width: 32ch; color: #f6d9d6; font-size: 1.05rem; }
+    .lead {
+      margin: 0;
+      max-width: 32ch;
+      color: #f6d9d6;
+      font-size: clamp(1.15rem, 4.4vw, 1.3rem);
+      line-height: 1.42;
+      font-weight: 500;
+    }
+    .lead strong {
+      color: var(--gold);
+      font-weight: 700;
+    }
 
     /* Layout */
     .wrap { max-width: 30rem; margin: 0 auto; padding: 1.5rem 1.25rem 2rem; }
@@ -257,8 +268,8 @@
   <header class="hero">
     <span class="big25" aria-hidden="true">25</span>
     <div class="in">
-      <h1>25 anni di Manu.<br><em>Il resto è da bere.</em></h1>
-      <p class="lead">Qui i drink si pagano con un “Auguri Manu!” urlato a voce alta. Se non senti la tua voce, non vale.</p>
+      <h1>25 anni di Manu.</h1>
+      <p class="lead">Qui i drink si pagano con un <strong>“Auguri Manu!” urlato a voce alta</strong>. Se non senti la tua voce, non vale.</p>
     </div>
   </header>
 
