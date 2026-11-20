@@ -11,14 +11,16 @@
   <style>
     :root {
       color-scheme: light dark;
-      --bg: #fff3ef;
+      --bg: #fbf6f2;
       --ink: #2a0d14;
       --mute: #6f4a52;
       --chip: #2a0d14;
       --wine: #5a1120;
       --wine-hi: #7d1c30;
-      --gold: #ffd23f;
+      --gold: #e6c88f;
       --on: #2a0d14;
+      --card: #ffffff;
+      --line: rgba(90, 17, 32, .16);
       box-sizing: border-box;
       padding-top: env(safe-area-inset-top, 0px);
       padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -29,6 +31,8 @@
         --ink: #fbeee9;
         --mute: #c4a5aa;
         --chip: #fbeee9;
+        --card: #2a141a;
+        --line: rgba(251, 238, 233, .16);
       }
     }
     :root[data-theme="dark"] {
@@ -36,6 +40,8 @@
       --ink: #fbeee9;
       --mute: #c4a5aa;
       --chip: #fbeee9;
+      --card: #2a141a;
+      --line: rgba(251, 238, 233, .16);
     }
     html {
       scroll-padding-top: env(safe-area-inset-top, 0px);
@@ -61,11 +67,8 @@
       padding: 2.5rem 1.25rem 2.25rem;
       border-radius: 0 0 32px 32px;
     }
+    .big25 { position: absolute; right: -.4rem; bottom: -2.6rem; font-family: Fraunces, Georgia, serif; font-weight: 800; font-size: 11rem; line-height: 1; color: rgba(230, 200, 143, .2); pointer-events: none; user-select: none; }
     .hero .in { position: relative; max-width: 30rem; margin: 0 auto; }
-    .blob { position: absolute; border-radius: 50%; opacity: .9; }
-    .b1 { width: 9rem; height: 9rem; background: #ffd23f; right: -3rem; top: -3rem; }
-    .b2 { width: 5rem; height: 5rem; background: #ff8fa3; right: 3.5rem; bottom: -1.5rem; }
-    .b3 { width: 3rem; height: 3rem; background: #5ed1c4; left: -1rem; bottom: 1rem; }
     h1 {
       font-size: clamp(2.4rem, 11.5vw, 3.4rem);
       line-height: 1.02;
@@ -86,13 +89,11 @@
       padding: .8rem 1.3rem;
       border-radius: 999px;
       font-weight: 700;
-      box-shadow: 0 3px 0 #b88f00;
+      box-shadow: 0 3px 0 #b8975a;
       transition: transform .15s;
     }
-    .cta:active { transform: translateY(2px); box-shadow: 0 1px 0 #b88f00; }
-    #result { margin-bottom: 1.25rem; }
-    #result:empty { display: none; }
-    #status { margin: 0; color: var(--mute); font-size: .95rem; flex: 1 1 12rem; }
+    .cta:active { transform: translateY(2px); box-shadow: 0 1px 0 #b8975a; }
+    .hint { margin: 0; color: var(--mute); font-size: .95rem; flex: 1 1 12rem; }
 
     /* Filtri */
     .chips {
@@ -117,9 +118,8 @@
 
     /* Lista drink */
     ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; }
-    li { background: var(--c); color: var(--on); border-radius: 22px; padding: 0 1.1rem; transition: transform .2s; }
+    li { background: var(--card); color: var(--ink); border: 1.5px solid var(--line); border-radius: 22px; padding: 0 1.1rem; transition: transform .2s; }
     li.hide { display: none; }
-    li.flash { transform: scale(1.03) rotate(-.6deg); }
     .row {
       width: 100%;
       background: none;
@@ -130,7 +130,7 @@
       gap: .8rem;
       align-items: flex-start;
     }
-    .em { font-size: 1.9rem; line-height: 1.2; flex: none; }
+    .em { width: 2.9rem; height: 2.9rem; border-radius: 50%; background: var(--c); display: grid; place-items: center; font-size: 1.6rem; flex: none; }
     .txt { flex: 1; }
     .name { display: block; font-size: 1.35rem; font-weight: 600; line-height: 1.2; }
     .ing { display: block; font-size: .9rem; margin-top: .2rem; opacity: .85; }
@@ -153,29 +153,27 @@
     }
     .more.open { grid-template-rows: 1fr; visibility: visible; }
     .more > div { overflow: hidden; }
-    .more p { margin: 0 0 .7rem; padding-left: 2.7rem; }
-    .str { display: flex; align-items: center; gap: .3rem; font-size: .85rem; padding: 0 0 1rem 2.7rem; }
+    .more p { margin: 0 0 .7rem; padding-left: 3.7rem; }
+    .str { display: flex; align-items: center; gap: .3rem; font-size: .85rem; padding: 0 0 1rem 3.7rem; }
     .dot { width: .6rem; height: .6rem; border-radius: 50%; border: 2px solid currentColor; }
     .dot.on { background: currentColor; }
 
-    /* Drink della festa */
-    li.signature { --c: var(--wine); color: #fff; margin-top: .5rem; border: 2px solid var(--gold); }
-    li.signature .name { color: var(--gold); }
+    .nb { display: inline-block; margin-top: .3rem; font-size: .72rem; font-weight: 700; border: 1.5px solid currentColor; border-radius: 999px; padding: 0 .5rem; }
 
-    /* Scegli per me */
-    .cta:disabled { opacity: .85; cursor: progress; }
-    li.spin .em { display: inline-block; animation: wob .22s ease-in-out infinite alternate; }
-    @keyframes wob { from { transform: rotate(-14deg) scale(1); } to { transform: rotate(14deg) scale(1.25); } }
+    /* Drink della festa */
+    li.signature { --c: var(--wine); background: var(--wine); color: #fff; margin-top: .5rem; border: 2px solid var(--gold); }
+    li.signature .name { color: var(--gold); }
+    li.signature .em { background: rgba(255, 255, 255, .14); }
+
+    /* Coriandoli */
     .bit { position: fixed; top: -2.5rem; font-size: 1.6rem; pointer-events: none; z-index: 20; animation: fall var(--t) ease-in forwards; }
     @keyframes fall { to { transform: translate(var(--dx), 112vh) rotate(var(--r)); } }
 
-    /* Test: che drink sei? */
-    .cta.alt { background: none; color: var(--ink); border: 2px solid var(--chip); box-shadow: none; padding: calc(.8rem - 2px) calc(1.3rem - 2px); }
-    .cta.alt:active { transform: translateY(2px); }
+    /* Cosa consiglia Manu */
     #quiz { --c: var(--wine); background: var(--c); color: #fff; border-radius: 26px; padding: 1.1rem 1.1rem 1rem; margin-bottom: 1.25rem; border: 2px solid var(--gold); }
     #quiz[hidden] { display: none; }
-    #quiz.done { color: #2a0d14; border-color: #2a0d14; padding-top: 1.6rem; }
-    #quiz.done button:focus-visible { outline-color: #2a0d14; }
+    #quiz.done { background: var(--card); color: var(--ink); border-color: var(--wine); padding-top: 1.6rem; }
+    #quiz.done button:focus-visible { outline-color: var(--wine); }
     .prog { display: flex; gap: .35rem; margin-bottom: 1.1rem; }
     .prog i { flex: 1; height: .35rem; border-radius: 99px; background: rgba(255, 255, 255, .25); }
     .prog i.on { background: var(--gold); }
@@ -191,19 +189,17 @@
     .opt:hover { background: rgba(255, 255, 255, .2); }
     .opt:active { background: var(--gold); color: #2a0d14; transform: scale(.98); }
     .qx { background: none; border: 0; color: #f6d9d6; text-decoration: underline; padding: .8rem 0 0; font-size: .9rem; }
-    .rbig { width: 6rem; height: 6rem; border-radius: 50%; background: rgba(255, 255, 255, .55); display: grid; place-items: center; font-size: 3.4rem; margin: 0 auto .9rem; animation: pop .6s cubic-bezier(.3, 1.6, .5, 1); }
+    .rbig { width: 6rem; height: 6rem; border-radius: 50%; background: var(--c); display: grid; place-items: center; font-size: 3.4rem; margin: 0 auto .9rem; animation: pop .6s cubic-bezier(.3, 1.6, .5, 1); }
     @keyframes pop { from { transform: scale(.2) rotate(-25deg); opacity: 0; } }
     .rsub { margin: 0; text-align: center; font-size: .9rem; opacity: .85; }
     .rname { font-family: Fraunces, Georgia, serif; font-size: clamp(1.8rem, 8vw, 2.3rem); font-weight: 800; line-height: 1.05; text-align: center; margin: .1rem 0 .4rem; }
     .rwho { text-align: center; margin: 1rem 0; font-size: 1.05rem; }
-    .traits { display: flex; flex-wrap: wrap; justify-content: center; gap: .4rem; margin-bottom: .9rem; }
-    .traits span { border: 2px solid #2a0d14; border-radius: 999px; padding: .15rem .8rem; font-size: .88rem; font-weight: 500; }
-    .rmatch { background: rgba(255, 255, 255, .5); border-radius: 16px; padding: .6rem .9rem; text-align: center; font-size: .92rem; margin: 0 0 1rem; }
+    .rmatch { background: rgba(127, 127, 127, .14); border-radius: 16px; padding: .6rem .9rem; text-align: center; font-size: .92rem; margin: 0 0 1rem; }
     .racts { display: flex; gap: .6rem; justify-content: center; flex-wrap: wrap; }
-    .racts button { border: 2px solid #2a0d14; border-radius: 999px; padding: .6rem 1.1rem; font-weight: 700; }
-    .racts a { border: 2px solid #2a0d14; border-radius: 999px; padding: .6rem 1.1rem; font-weight: 700; text-decoration: none; }
-    .racts .go { background: #2a0d14; color: #fff3ef; }
-    .racts .re { background: none; color: #2a0d14; }
+    .racts button { border: 2px solid var(--ink); border-radius: 999px; padding: .6rem 1.1rem; font-weight: 700; }
+    .racts a { border: 2px solid var(--ink); border-radius: 999px; padding: .6rem 1.1rem; font-weight: 700; text-decoration: none; }
+    .racts .go { background: var(--ink); color: var(--bg); }
+    .racts .re { background: none; color: var(--ink); }
     @media (prefers-reduced-motion: reduce) { .qbody, .rbig { animation: none; } }
 
     /* Footer */
@@ -219,146 +215,101 @@
 </head>
 <body>
   <header class="hero">
-    <span class="blob b1"></span>
-    <span class="blob b2"></span>
-    <span class="blob b3"></span>
+    <span class="big25" aria-hidden="true">25</span>
     <div class="in">
       <h1>25 anni di Manu.<br><em>Il resto è da bere.</em></h1>
-      <p class="lead">Open bar per tutta la sera. Il merito del drink è del barman, la colpa del secondo giro è tua.</p>
+      <p class="lead">Qui i drink si pagano con un “Auguri Manu!” urlato a voce alta. Se non senti la tua voce, non vale.</p>
     </div>
   </header>
 
   <div class="wrap">
     <div class="pick">
-      <button class="cta" id="pick" type="button">Scegli per me 🎲</button>
-      <button class="cta alt" id="who" type="button">Che drink sei? 🔮</button>
-      <p id="status" role="status" aria-live="polite"></p>
+      <button class="cta" id="who" type="button">Cosa consiglia Manu? 💬</button>
+      <p class="hint">Non sai cosa scegliere? Rispondi a 4 domande e Manu ti consiglia il drink giusto.</p>
     </div>
-    <section id="quiz" hidden aria-label="Test: che drink sei?"></section>
-    <ul id="result" aria-live="polite"></ul>
+    <section id="quiz" hidden aria-label="Cosa consiglia Manu"></section>
     <div class="chips" id="chips" role="group" aria-label="Filtra per gusto"></div>
     <ul id="list"></ul>
     <ul id="sig"></ul>
     <footer>
       <p>Chi guida beve analcolico. Chi non guida offre da bere a chi guida.</p>
-      <p>Vuoi qualcosa di più leggero o senza alcol? Chiedilo al barman, accetta anche richieste strane.</p>
+      <p>Vuoi qualcosa di più leggero? Prova l’Aperol Spritz oppure scegli uno dei drink senza alcol.</p>
       <p class="sponsor">Sponsorizzato da Team Legacy</p>
     </footer>
   </div>
 
   <script>
     const DRINKS = [
-      {
-        id: "pina", e: "🍍", c: "#ffd23f",
-        name: "Piña Colada",
-        ing: "Rum, cocco, ananas",
-        tags: ["tropicale"], s: 2,
-        d: "Cremosa e golosa. Ti fa sentire alle Maldive anche se è novembre e siamo in Italia."
-      },
-      {
-        id: "mojito", e: "🍃", c: "#b8f0c8",
-        name: "Mojito",
-        ing: "Rum bianco, lime, menta, zucchero di canna, soda",
-        tags: ["erbaceo", "fresco"], s: 2,
-        d: "Menta, lime e bollicine. Il drink che ti fa credere di essere a L’Avana, anche se sei in piedi vicino al buffet."
-      },
-      {
-        id: "gintonic", e: "🍋", c: "#5ed1c4",
-        name: "Gin Tonic",
-        ing: "Gin, acqua tonica",
-        tags: ["classico", "fresco"], s: 2,
-        d: "Il classico che non sbaglia mai. Secco, frizzante e con la tonica che fa il suo lavoro. Il limone conta come frutta."
-      },
-      {
-        id: "ginlemon", e: "🥤", c: "#f2ee6e",
-        name: "Gin Lemon",
-        ing: "Gin, lemon soda",
-        tags: ["classico", "fresco"], s: 2,
-        d: "Come il Gin Tonic, ma più dolce e più morbido. Per chi la tonica la trova troppo seria."
-      },
-      {
-        id: "basil", e: "🌿", c: "#a6e86a",
-        name: "Basil Smash",
-        ing: "Gin, sciroppo di basilico, sambuco, limone, cetriolo, menta",
-        tags: ["erbaceo", "fresco"], s: 2,
-        d: "Verde e fresco. Tecnicamente è un’insalata, ed è la ragione per cui puoi berne due."
-      },
-      {
-        id: "breeze", e: "🌸", c: "#c9b0ff",
-        name: "Mediterranean Breeze",
-        ing: "Gin, pompelmo rosa, sciroppo di rosa e di basilico, lime, tonica",
-        tags: ["erbaceo", "fresco"], s: 2,
-        d: "Floreale e leggera, con il pompelmo rosa a farla da padrone. Il drink di chi viene bene in foto."
-      },
-      {
-        id: "collins", e: "🥒", c: "#9ad9ff",
-        name: "Cucumber & Elderflower Collins",
-        ing: "Gin, liquore di sambuco, limone, cetriolo, menta",
-        tags: ["erbaceo", "fresco"], s: 2,
-        d: "Fresca, floreale e leggermente dolce. Sembra una giornata alla spa in un bicchiere, ma con più gin."
-      },
-      {
-        id: "mule", e: "🥃", c: "#ff8a65",
-        name: "Moscow Mule",
-        ing: "Vodka, ginger beer, lime",
-        tags: ["fresco"], s: 2,
-        d: "Zenzero che pizzica e lime che sveglia. Si beve in fretta, e ti regala sempre una scusa per il prossimo."
-      },
-      {
-        id: "vodkalemon", e: "🧊", c: "#ffe8a3",
-        name: "Vodka Lemon",
-        ing: "Vodka, lemon soda",
-        tags: ["classico", "fresco"], s: 2,
-        d: "Semplice, ghiacciato e senza pensieri. Se non sai cosa ordinare, parti da qui."
-      },
-      {
-        id: "spritz", e: "🥂", c: "#ff9a3c",
-        name: "Aperol Spritz",
-        ing: "Aperol, prosecco, soda",
-        tags: ["classico"], s: 1,
-        d: "Il più leggero di tutti. È il primo drink della serata, e anche il terzo."
-      }
+      { id: "pina", e: "🍍", c: "#ffd23f", name: "Piña Colada",
+        ing: "Rum, cocco, ananas", tags: ["alcol", "tropicale"], s: 2,
+        d: "Cremosa e golosa, è il drink più dolce della lista." },
+      { id: "mojito", e: "🍃", c: "#b8f0c8", name: "Mojito",
+        ing: "Rum bianco, lime, menta, zucchero di canna, soda", tags: ["alcol", "tropicale", "erbaceo", "fresco"], s: 2,
+        d: "Menta, lime e soda: fresco e facile da bere. Controlla di non avere la menta tra i denti prima delle foto." },
+      { id: "gintonic", e: "🍋", c: "#5ed1c4", name: "Gin Tonic",
+        ing: "Gin, acqua tonica", tags: ["alcol", "classico", "fresco"], s: 2,
+        d: "Il classico che non sbaglia mai: secco, frizzante e leggermente amaro grazie alla tonica." },
+      { id: "ginlemon", e: "🥤", c: "#f2ee6e", name: "Gin Lemon",
+        ing: "Gin, lemon soda", tags: ["alcol", "classico", "fresco"], s: 2,
+        d: "Come il Gin Tonic, ma più dolce e morbido. Per chi trova la tonica troppo amara." },
+      { id: "basil", e: "🌿", c: "#a6e86a", name: "Basil Smash",
+        ing: "Gin, sciroppo di basilico, sambuco, limone, cetriolo, menta", tags: ["alcol", "erbaceo", "fresco"], s: 2,
+        d: "Verde, fresco e profumato di basilico, con cetriolo e menta. Per chi ama i sapori erbacei." },
+      { id: "breeze", e: "🌸", c: "#c9b0ff", name: "Mediterranean Breeze",
+        ing: "Gin, pompelmo rosa, sciroppo di rosa e di basilico, lime, tonica", tags: ["alcol", "erbaceo", "fresco"], s: 2,
+        d: "Floreale e leggera, con il pompelmo rosa in primo piano. Ideale se ami i sapori delicati." },
+      { id: "collins", e: "🥒", c: "#9ad9ff", name: "Cucumber & Elderflower Collins",
+        ing: "Gin, liquore di sambuco, limone, cetriolo, menta", tags: ["alcol", "erbaceo", "fresco"], s: 2,
+        d: "Fresca, floreale e leggermente dolce. Cetriolo e sambuco la rendono delicata e facile da bere." },
+      { id: "mule", e: "🥃", c: "#ff8a65", name: "Moscow Mule",
+        ing: "Vodka, ginger beer, lime", tags: ["alcol", "fresco"], s: 2,
+        d: "Frizzante e piccante grazie al ginger beer, con il lime a dare freschezza." },
+      { id: "vodkalemon", e: "🧊", c: "#ffe8a3", name: "Vodka Lemon",
+        ing: "Vodka, lemon soda", tags: ["alcol", "classico", "fresco"], s: 2,
+        d: "Semplice, fresco e facile da bere. Se non sai cosa ordinare, parti da qui." },
+      { id: "spritz", e: "🥂", c: "#ff9a3c", name: "Aperol Spritz",
+        ing: "Aperol, prosecco, soda", tags: ["alcol", "classico"], s: 1,
+        d: "Il più leggero della lista: frizzante, leggermente amaro e perfetto per iniziare la serata." },
+      { id: "vmojito", e: "🌱", c: "#b8f0c8", name: "Virgin Mojito",
+        ing: "Lime, menta, zucchero di canna, soda", tags: ["analcolico", "erbaceo", "fresco"], s: 0,
+        d: "Come il Mojito, ma senza rum: menta, lime e soda, freschi e facili da bere." },
+      { id: "vcolada", e: "🥥", c: "#ffd23f", name: "Virgin Piña Colada",
+        ing: "Cocco, ananas", tags: ["analcolico", "tropicale"], s: 0,
+        d: "Cocco e ananas, cremosi e golosi come l’originale ma senza alcol." },
+      { id: "vmule", e: "🍹", c: "#ff8a65", name: "Virgin Mule",
+        ing: "Ginger beer, lime", tags: ["analcolico", "fresco"], s: 0,
+        d: "Ginger beer e lime: frizzante e piccante, come il Moscow Mule ma senza vodka." },
+      { id: "cooler", e: "💧", c: "#9ad9ff", name: "Cucumber Cooler",
+        ing: "Cetriolo, limone, menta, soda", tags: ["analcolico", "erbaceo", "fresco"], s: 0,
+        d: "Cetriolo, limone, menta e soda. Leggero, fresco e dissetante." }
     ];
 
     const SIG = {
-      id: "manu", e: "✨",
-      name: "Manu",
-      ing: "Il drink della festa. Tocca per scoprire il segreto.",
-      s: 3,
-      d: "Ingredienti segreti: tanta allegria, risate senza fine, sguardi complici e tutto l’amore del mondo. Preparato solo per questo compleanno. Dà dipendenza e non esiste cura."
+      id: "manu", e: "✨", name: "Manu",
+      ing: "Il drink della festa. Tocca per scoprire il segreto.", s: 3,
+      d: "Ingredienti segreti: allegria, risate, amici e un pizzico di follia. Preparato solo per questo compleanno e impossibile da replicare."
     };
 
-    const FILTERS = ["tutti", "fresco", "tropicale", "erbaceo", "classico"];
-    const LABEL = { tutti: "Tutti", fresco: "Freschi", tropicale: "Tropicali", erbaceo: "Erbacei", classico: "Classici" };
+    const FILTERS = ["tutti", "alcol", "analcolico", "fresco", "tropicale", "erbaceo", "classico"];
+    const LABEL = { tutti: "Tutti", alcol: "Con alcol", analcolico: "Senza alcol", fresco: "Freschi", tropicale: "Tropicali", erbaceo: "Erbacei", classico: "Classici" };
     const STR = ["", "Leggero", "Medio", "Deciso"];
-    const JOKES = [
-      "Non accettiamo reclami.",
-      "Il barman approva.",
-      "Se non ti piace, è colpa del destino.",
-      "Fidati, ha studiato.",
-      "Scelta saggia, o almeno coraggiosa.",
-      "Il destino ha parlato, e aveva sete.",
-      "Foto obbligatoria prima del primo sorso.",
-      "Dicono tutti che è il migliore. Dicono anche di quello dopo.",
-      "Il fegato ringrazia in anticipo."
-    ];
-    const SPIN_TXT = ["Il barman agita…", "Giro la ruota…", "Suspense…", "Shakero il destino…"];
-    const AGAIN = ["Un altro giro! 🍾", "Ci riprovo 🎰", "Ancora, il fegato regge 💪", "Cambio idea 🔄"];
     const CHEV = '<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
 
     const $ = id => document.getElementById(id);
     const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const isDry = d => (d.tags || []).includes("analcolico");
+    const rnd = a => a[Math.floor(Math.random() * a.length)];
+    const reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
 
-    function item(x, cls, pre) {
-      pre = pre || "";
+    function item(x, cls) {
       const dots = [1, 2, 3].map(i => '<span class="dot' + (i <= x.s ? ' on' : '') + '"></span>').join("");
-      return '<li id="' + pre + 'li-' + x.id + '" class="' + (cls || "") + '" data-tags="' + (x.tags || []).join(" ") + '"' + (x.c ? ' style="--c:' + x.c + '"' : '') + '>' +
-        '<button class="row" type="button" aria-expanded="false" aria-controls="' + pre + 'm-' + x.id + '">' +
+      return '<li id="li-' + x.id + '" class="' + (cls || "") + '" data-tags="' + (x.tags || []).join(" ") + '"' + (x.c ? ' style="--c:' + x.c + '"' : '') + '>' +
+        '<button class="row" type="button" aria-expanded="false" aria-controls="m-' + x.id + '">' +
         '<span class="em" aria-hidden="true">' + x.e + '</span>' +
-        '<span class="txt"><span class="name">' + esc(x.name) + '</span><span class="ing">' + esc(x.ing) + '</span></span>' + CHEV +
+        '<span class="txt"><span class="name">' + esc(x.name) + '</span>' + (isDry(x) ? '<span class="nb">Senza alcol</span>' : '') + '<span class="ing">' + esc(x.ing) + '</span></span>' + CHEV +
         '</button>' +
-        '<div class="more" id="' + pre + 'm-' + x.id + '"><div><p>' + esc(x.d) + '</p>' +
-        '<div class="str">' + dots + '<span>' + STR[x.s] + '</span></div></div></div></li>';
+        '<div class="more" id="m-' + x.id + '"><div><p>' + esc(x.d) + '</p>' +
+        (x.s ? '<div class="str">' + dots + '<span>' + STR[x.s] + '</span></div>' : '') + '</div></div></li>';
     }
 
     function toggle(li, force) {
@@ -389,11 +340,6 @@
       }
     });
 
-    const reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
-    const rnd = a => a[Math.floor(Math.random() * a.length)];
-    const pickBtn = $("pick");
-    let last = null, count = 0, busy = false;
-
     function confetti(d) {
       if (reduce) return;
       const set = [d.e, d.e, "🎉", "✨", "🥳"];
@@ -411,108 +357,64 @@
       }
     }
 
-    pickBtn.addEventListener("click", () => {
-      if (busy) return;
-      busy = true;
-      count++;
-      const res = $("result");
-      let d;
-      do { d = rnd(DRINKS); } while (d === last);
-      last = d;
-
-      document.querySelector(".pick").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
-
-      const finish = () => {
-        res.removeAttribute("aria-busy");
-        res.innerHTML = item(d, "", "r-");
-        const li = res.firstElementChild;
-        requestAnimationFrame(() => requestAnimationFrame(() => toggle(li, true)));
-        li.classList.add("flash");
-        setTimeout(() => li.classList.remove("flash"), 1800);
-        confetti(d);
-        if (navigator.vibrate) navigator.vibrate([30, 40, 30]);
-        const joke = count % 4 === 0 ? "Quarto giro: il barman ti guarda male." : rnd(JOKES);
-        $("status").textContent = "Il barman consiglia: " + d.name + ". " + joke;
-        pickBtn.textContent = rnd(AGAIN);
-        pickBtn.disabled = false;
-        busy = false;
-      };
-
-      if (reduce) { finish(); return; }
-
-      pickBtn.disabled = true;
-      res.setAttribute("aria-busy", "true");
-      $("status").textContent = rnd(SPIN_TXT);
-      let n = 0, delay = 70, prev = null;
-      const tick = () => {
-        let x;
-        do { x = rnd(DRINKS); } while (x === prev);
-        prev = x;
-        res.innerHTML = item(x, "spin", "r-");
-        n++;
-        if (n < 16) { delay += 6; setTimeout(tick, delay); } else { finish(); }
-      };
-      tick();
-    });
-
-    /* Test: che drink sei? */
+    /* Cosa consiglia Manu */
     const QUIZ = [
-      { q: "Sabato sera, dove ti trovi?", e: "🌙", a: [
-        ["🪩", "In pista, l’ultimo a uscire", ["pina", "mule", "mojito"]],
-        ["🛋️", "Al tavolo a commentare tutti", ["gintonic", "vodkalemon"]],
-        ["🤝", "In giro a fare amicizia", ["spritz", "mule"]],
-        ["📸", "Fuori a fare foto", ["breeze", "collins"]]
+      { q: "Che gusto preferisci?", e: "😋", w: 2, a: [
+        ["🍬", "Dolce e goloso", ["pina", "pina", "breeze", "collins", "ginlemon", "spritz", "vcolada", "vcolada"]],
+        ["🧊", "Fresco e frizzante", ["mojito", "mojito", "gintonic", "vodkalemon", "basil", "collins", "ginlemon", "vmojito", "vmojito", "cooler", "vmule"]],
+        ["🍊", "Amaro e secco", ["spritz", "spritz", "gintonic", "gintonic"]],
+        ["🌿", "Erbaceo e floreale", ["basil", "basil", "collins", "breeze", "mojito", "vmojito", "cooler"]],
+        ["🌶️", "Speziato e piccante", ["mule", "mule", "mule", "vmule", "vmule", "vmule"]]
       ]},
-      { q: "Qual è il tuo superpotere?", e: "⚡", a: [
-        ["😂", "Ho sempre la battuta pronta", ["gintonic", "mule"]],
-        ["⏰", "Arrivo sempre in orario", ["spritz", "ginlemon"]],
-        ["📇", "Conosco tutti, davvero tutti", ["spritz", "basil"]],
-        ["✨", "Vengo bene in qualsiasi foto", ["breeze", "collins"]]
+      { q: "Che base preferisci?", e: "🍸", w: 2, a: [
+        ["🍸", "Gin", ["gintonic", "ginlemon", "basil", "breeze", "collins"]],
+        ["🥥", "Rum", ["pina", "pina", "mojito", "mojito"]],
+        ["❄️", "Vodka", ["mule", "mule", "vodkalemon", "vodkalemon"]],
+        ["🥂", "Aperitivo", ["spritz", "spritz", "spritz"]],
+        ["🧃", "Senza alcol", [], true],
+        ["🤷", "Per me è uguale", []]
       ]},
-      { q: "Che vacanza fa per te?", e: "🧳", a: [
-        ["🏖️", "Spiaggia, sole e cocco", ["pina", "mojito"]],
-        ["🏙️", "Città, aperitivo e giro in centro", ["spritz", "gintonic"]],
-        ["⛰️", "Montagna, prati e aria buona", ["basil", "collins"]],
-        ["🚗", "Road trip senza meta", ["mule", "vodkalemon"]]
+      { q: "Che drink cerchi?", e: "🎯", w: 1, a: [
+        ["🛡️", "Un classico sicuro", ["gintonic", "ginlemon", "vodkalemon", "mojito", "spritz", "pina", "vmojito", "vcolada"]],
+        ["🎨", "Qualcosa di particolare", ["basil", "breeze", "collins", "mule", "cooler", "vmule"]],
+        ["🪶", "Leggero, per durare tutta la sera", ["spritz", "spritz", "spritz", "ginlemon", "mojito", "vmojito", "cooler"]],
+        ["🎲", "Non so, sorprendimi", []]
       ]},
-      { q: "Quanto sei complicato?", e: "🧩", a: [
-        ["🎯", "Zero: semplice e diretto", ["vodkalemon", "ginlemon"]],
-        ["🙂", "Un po’, ma si capisce", ["gintonic", "mule", "mojito"]],
-        ["🌀", "Parecchio: ho mille ingredienti", ["basil", "breeze"]],
-        ["🍬", "Dolce fuori, intenso dentro", ["pina", "collins"]]
+      { q: "Che tipo da festa sei?", e: "🥳", w: 1, a: [
+        ["🪩", "Quello che balla", ["mule", "pina", "mojito"]],
+        ["🗣️", "Quello che chiacchiera", ["spritz", "gintonic", "ginlemon"]],
+        ["📸", "Quello che fa le foto", ["breeze", "collins", "basil"]],
+        ["🍾", "Quello che offre il giro", ["vodkalemon", "gintonic", "spritz"]],
+        ["🥴", "Quello che si ubriaca", ["spritz", "spritz", "mojito", "ginlemon"]]
       ]}
     ];
-    const WHO = {
-      mojito: "Sei fresco e vivace: ovunque arrivi, la serata sembra una vacanza a Cuba.",
-      pina: "Sei puro sole: cremoso, goloso e sempre in vacanza, anche a novembre.",
-      gintonic: "Sei il classico che non sbaglia mai: asciutto, elegante e con la battuta giusta.",
-      ginlemon: "Sei morbido e solare: tutti ti trovano simpatico, nessuno sa spiegare perché.",
-      basil: "Sei fresco e verde, fai bene a tutti. Ma ti nascondi dietro le erbe aromatiche.",
-      breeze: "Sei leggero e floreale, vieni bene in foto e lo sai benissimo.",
-      collins: "Sei elegante e un po’ misterioso: sembri una spa, ma hai più gin di quanto si veda.",
-      mule: "Sei pungente e pieno di energia: pizzichi un po’, ma poi tutti ti vogliono.",
-      vodkalemon: "Sei semplice e diretto, zero fronzoli. In una serata complicata sei il punto fermo.",
-      spritz: "Sei il re dell’aperitivo: il primo ad arrivare e l’ultimo ad alzarsi dal tavolo."
-    };
-    const TRAITS = {
-      mojito: ["Vivace", "Fresco", "Spirito libero"],
-      pina: ["Solare", "Goloso", "Sempre in vacanza"],
-      gintonic: ["Elegante", "Sicuro di sé", "Battuta pronta"],
-      ginlemon: ["Morbido", "Simpatico", "Solare"],
-      basil: ["Fresco", "Eclettico", "Fa bene a tutti"],
-      breeze: ["Leggero", "Floreale", "Fotogenico"],
-      collins: ["Raffinato", "Misterioso", "Zen"],
-      mule: ["Pungente", "Energico", "Contagioso"],
-      vodkalemon: ["Diretto", "Affidabile", "Senza fronzoli"],
-      spritz: ["Socievole", "Puntuale", "Anima dell’aperitivo"]
-    };
-    const MATCH = { mojito: "pina", pina: "spritz", gintonic: "collins", ginlemon: "vodkalemon", basil: "breeze", breeze: "basil", collins: "gintonic", mule: "pina", vodkalemon: "ginlemon", spritz: "mule" };
-    const quiz = $("quiz");
-    const whoBtn = $("who");
-    let qi = 0, score = {};
 
-    let lastWho = null;
-    const byId = id => DRINKS.find(d => d.id === id);
+    const REC = {
+      vmojito: "È fresco e facile da bere, ideale se ti piace la menta e non vuoi alcol.",
+      vcolada: "È cremoso e goloso, ideale se vuoi un drink dolce senza alcol.",
+      vmule: "È frizzante e piccante grazie al ginger beer, ideale se non vuoi alcol ma cerchi carattere.",
+      cooler: "È leggero e dissetante, ideale se cerchi qualcosa di fresco senza alcol.",
+      pina: "Se ami i drink dolci e cremosi, è la scelta giusta.",
+      mojito: "È fresco e facile da bere, ideale se ti piace la menta.",
+      gintonic: "È un classico che non delude, ideale se vuoi andare sul sicuro.",
+      ginlemon: "È più dolce e morbido del Gin Tonic, quindi adatto a chi non ama l’amaro.",
+      basil: "Ha un gusto verde e profumato, ideale se ti piacciono le erbe aromatiche.",
+      breeze: "È floreale e delicata, ideale se vuoi provare qualcosa di diverso senza esagerare.",
+      collins: "È fresca e delicata, con cetriolo e sambuco: ideale se cerchi qualcosa di particolare.",
+      mule: "Ha il carattere dello zenzero ed è molto frizzante: ideale se ti piace il piccante.",
+      vodkalemon: "È semplice e fresco: ideale se non hai voglia di pensarci troppo.",
+      spritz: "È il più leggero della lista, ideale per iniziare o per durare tutta la sera."
+    };
+    const PERSONA = [
+      "Ottimo da tenere in mano mentre balli.",
+      "Si sorseggia con calma, perfetto per chiacchierare.",
+      "Fa la sua figura nelle foto.",
+      "Si ordina senza spiegazioni, ideale quando offri un giro.",
+      "Bevilo con calma e alterna con un bicchiere d’acqua."
+    ];
+
+    const quiz = $("quiz");
+    let qi = 0, score = {}, persona = 0, lastRec = null, dry = false;
 
     function showQ() {
       const q = QUIZ[qi];
@@ -530,48 +432,47 @@
     }
 
     function finishQuiz() {
-      const max = Math.max(...DRINKS.map(d => score[d.id] || 0));
-      const d = rnd(DRINKS.filter(x => (score[x.id] || 0) === max));
-      const m = byId(MATCH[d.id]);
-      lastWho = d;
+      const rank = DRINKS.filter(d => isDry(d) === dry).map(d => ({ d: d, n: score[d.id] || 0 }));
+      const top = Math.max(...rank.map(r => r.n));
+      const first = rnd(rank.filter(r => r.n === top)).d;
+      const rest = rank.filter(r => r.d !== first);
+      const next = Math.max(...rest.map(r => r.n));
+      const alt = rnd(rest.filter(r => r.n === next)).d;
+      lastRec = first;
       quiz.className = "done";
-      quiz.style.setProperty("--c", d.c);
+      quiz.style.setProperty("--c", first.c);
       quiz.innerHTML =
         '<div class="qbody">' +
-        '<div class="rbig" aria-hidden="true">' + d.e + '</div>' +
-        '<p class="rsub">Il tuo drink è</p>' +
-        '<h2 class="rname" tabindex="-1">' + esc(d.name) + '</h2>' +
-        '<p class="rsub">' + esc(d.ing) + '</p>' +
-        '<p class="rwho">' + esc(WHO[d.id]) + '</p>' +
-        '<div class="traits">' + TRAITS[d.id].map(t => '<span>' + esc(t) + '</span>').join("") + '</div>' +
-        '<p class="rmatch">Vai d’accordo con <b>' + m.e + ' ' + esc(m.name) + '</b></p>' +
+        '<div class="rbig" aria-hidden="true">' + first.e + '</div>' +
+        '<p class="rsub">Manu ti consiglia</p>' +
+        '<h2 class="rname" tabindex="-1">' + esc(first.name) + '</h2>' +
+        '<p class="rsub">' + esc(first.ing) + '</p>' +
+        '<p class="rwho">' + esc(REC[first.id] + " " + PERSONA[persona]) + '</p>' +
+        '<p class="rmatch">Piano B: <b>' + alt.e + ' ' + esc(alt.name) + '</b></p>' +
         '<div class="racts">' +
-        '<a class="go" target="_blank" rel="noopener" href="https://wa.me/?text=' + encodeURIComponent(shareText(d) + " " + location.href.split("#")[0]) + '">WhatsApp 💬</a>' +
+        '<a class="go" target="_blank" rel="noopener" href="https://wa.me/?text=' + encodeURIComponent(shareText(first) + " " + location.href.split("#")[0]) + '">WhatsApp 💬</a>' +
         '<button class="go" type="button" id="share">Condividi 📲</button>' +
         '<button class="re" type="button" id="again">Rifai il test</button></div></div>';
       quiz.querySelector(".rname").focus({ preventScroll: true });
-      whoBtn.textContent = "Rifai il test 🔮";
-      confetti(d);
+      confetti(first);
       if (navigator.vibrate) navigator.vibrate([30, 40, 30]);
     }
 
     function startQuiz() {
-      if (busy) return;
       qi = 0;
       score = {};
-      $("result").innerHTML = "";
-      $("status").textContent = "";
+      dry = false;
       quiz.hidden = false;
       showQ();
       quiz.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
     }
 
     function shareText(d) {
-      return "Al compleanno di Manu sono " + d.name + " " + d.e + ". " + WHO[d.id] + " E tu che drink sei?";
+      return "Manu mi consiglia: " + d.name + " " + d.e + ". E a te cosa consiglia?";
     }
 
     async function shareResult(btn) {
-      const text = shareText(lastWho);
+      const text = shareText(lastRec);
       const url = location.href.split("#")[0];
       if (navigator.share) {
         try { await navigator.share({ title: "Manu 25", text: text, url: url }); return; }
@@ -594,8 +495,7 @@
       else { window.prompt("Copia il testo e mandalo ai tuoi amici:", full); }
     }
 
-    whoBtn.addEventListener("click", startQuiz);
-    pickBtn.addEventListener("click", () => { quiz.hidden = true; });
+    $("who").addEventListener("click", startQuiz);
 
     quiz.addEventListener("click", e => {
       if (e.target.closest("#qx")) { quiz.hidden = true; return; }
@@ -604,10 +504,17 @@
       if (sh) { shareResult(sh); return; }
       const opt = e.target.closest(".opt");
       if (!opt) return;
-      QUIZ[qi].a[+opt.dataset.i][2].forEach(id => { score[id] = (score[id] || 0) + 1; });
+      const i = +opt.dataset.i;
+      const w = QUIZ[qi].w;
+      QUIZ[qi].a[i][2].forEach(id => { score[id] = (score[id] || 0) + w; });
+      if (QUIZ[qi].a[i][3]) dry = true;
+      if (qi === QUIZ.length - 1) persona = i;
       qi++;
       if (qi < QUIZ.length) { showQ(); } else { finishQuiz(); }
     });
   </script>
 </body>
 </html>
+```[cite: 1]
+
+Provalo sul telefono: se vuoi cambiare qualche analcolico in base a quello che ha il barman o regolare il contrasto, dimmelo pure!
