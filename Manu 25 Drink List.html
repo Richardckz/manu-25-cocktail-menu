@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#5a1120">
+  <meta name="description" content="Manu 25: drink list, quiz e missione segreta per la festa dei 25 anni di Manu. / Drink list, quiz and secret mission for Manu's 25th birthday.">
+  <meta property="og:title" content="25 anni di Manu">
+  <meta property="og:description" content="Drink list, missione segreta e un unico metodo di pagamento: Auguri Manu! urlato a voce alta.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E🥂%3C/text%3E%3C/svg%3E">
+  <title>Manu 25 Drink List</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,600&display=swap" rel="stylesheet">
+  <style>
+    /* Layout: colonna unica da telefono. Hero bordeaux, due schede (Drink / Missione), pulsante "Auguri Manu!" fisso in basso. */
+    :root {
+      color-scheme: light dark;
+      --bg: #fbf6f2;
+      --ink: #2a0d14;
+      --mute: #6f4a52;
+      --chip: #2a0d14;
+      --wine: #5a1120;
+      --wine-hi: #7d1c30;
+      --gold: #e6c88f;
+      --card: #ffffff;
+      --line: rgba(90, 17, 32, .16);
+      --font-display: Fraunces, Georgia, serif;
+      --font-body: "DM Sans", system-ui, sans-serif;
+      --bg-25: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='120' viewBox='0 0 140 120'%3E%3Ctext x='14' y='44' font-family='Georgia, serif' font-weight='700' font-size='28' fill='%235a1120' fill-opacity='0.15' transform='rotate(-16 30 35)'%3E25%3C/text%3E%3Ctext x='82' y='98' font-family='Georgia, serif' font-weight='700' font-size='24' fill='%235a1120' fill-opacity='0.13' transform='rotate(14 96 90)'%3E25%3C/text%3E%3C/svg%3E");
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #1d0e12;
+        --ink: #fbeee9;
+        --mute: #c4a5aa;
+        --chip: #fbeee9;
+        --card: #2a141a;
+        --line: rgba(251, 238, 233, .16);
+        --bg-25: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='120' viewBox='0 0 140 120'%3E%3Ctext x='14' y='44' font-family='Georgia, serif' font-weight='700' font-size='28' fill='%23e6c88f' fill-opacity='0.17' transform='rotate(-16 30 35)'%3E25%3C/text%3E%3Ctext x='82' y='98' font-family='Georgia, serif' font-weight='700' font-size='24' fill='%23e6c88f' fill-opacity='0.14' transform='rotate(14 96 90)'%3E25%3C/text%3E%3C/svg%3E");
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #1d0e12;
+      --ink: #fbeee9;
+      --mute: #c4a5aa;
+      --chip: #fbeee9;
+      --card: #2a141a;
+      --line: rgba(251, 238, 233, .16);
+      --bg-25: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='120' viewBox='0 0 140 120'%3E%3Ctext x='14' y='44' font-family='Georgia, serif' font-weight='700' font-size='28' fill='%23e6c88f' fill-opacity='0.17' transform='rotate(-16 30 35)'%3E25%3C/text%3E%3Ctext x='82' y='98' font-family='Georgia, serif' font-weight='700' font-size='24' fill='%23e6c88f' fill-opacity='0.14' transform='rotate(14 96 90)'%3E25%3C/text%3E%3C/svg%3E");
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+    body { margin: 0; background-color: var(--bg); background-image: var(--bg-25); background-repeat: repeat; color: var(--ink); font: 400 16px/1.5 var(--font-body); }
+    h1, h2, h3, .name { font-family: var(--font-display); text-wrap: balance; }
+    button, input { font: inherit; color: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+
+    /* Hero */
+    .hero { position: relative; overflow: hidden; background-color: var(--wine); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='95' viewBox='0 0 110 95'%3E%3Ctext x='12' y='36' font-family='Georgia, serif' font-weight='700' font-size='22' fill='%23e6c88f' fill-opacity='0.17' transform='rotate(-15 24 28)'%3E25%3C/text%3E%3Ctext x='64' y='78' font-family='Georgia, serif' font-weight='700' font-size='18' fill='%23e6c88f' fill-opacity='0.15' transform='rotate(15 74 72)'%3E25%3C/text%3E%3C/svg%3E"); color: #fff; padding: calc(2.5rem + env(safe-area-inset-top, 0px)) 1.25rem 2.25rem; border-radius: 0 0 32px 32px; }
+    .big25 { position: absolute; right: -.4rem; bottom: -2.6rem; font-family: var(--font-display); font-weight: 800; font-size: 11rem; line-height: 1; color: rgba(230, 200, 143, .22); pointer-events: none; user-select: none; }
+    .hero .in { position: relative; max-width: 30rem; margin: 0 auto; }
+    h1 { font-size: clamp(2.4rem, 11.5vw, 3.4rem); line-height: 1.02; font-weight: 800; margin: 0 0 1rem; letter-spacing: -.015em; }
+    .lead { margin: 0; max-width: 32ch; color: #f6d9d6; font-size: clamp(1.15rem, 4.4vw, 1.3rem); line-height: 1.42; font-weight: 500; }
+    .lead strong { color: var(--gold); font-weight: 700; }
+    .sponsor { position: absolute; top: -1.7rem; right: 0; margin: 0; font-size: .7rem; line-height: 1; letter-spacing: .02em; color: #f6d9d6; opacity: .85; }
+    .lang { position: absolute; top: -2.05rem; left: 0; display: flex; gap: .3rem; }
+    .lang button { background: rgba(255, 255, 255, .12); border: 1px solid rgba(255, 255, 255, .35); color: #fff; border-radius: 999px; padding: .15rem .65rem; font-size: .75rem; font-weight: 700; letter-spacing: .04em; }
+    .lang button[aria-pressed="true"] { background: var(--gold); color: #2a0d14; border-color: var(--gold); }
+
+    /* Struttura */
+    .wrap { max-width: 30rem; margin: 0 auto; padding: 1.25rem 1.25rem calc(6.5rem + env(safe-area-inset-bottom, 0px)); }
+    .tabs { display: flex; gap: .3rem; background: var(--card); border: 2px solid var(--chip); border-radius: 999px; padding: .25rem; margin-bottom: 1.25rem; }
+    .tabs button { flex: 1; background: none; border: 0; border-radius: 999px; padding: .55rem .5rem; font-weight: 700; font-size: .95rem; }
+    .tabs button[aria-selected="true"] { background: var(--chip); color: var(--bg); }
+    .pick { display: flex; align-items: center; gap: .9rem; flex-wrap: wrap; margin-bottom: 1.25rem; scroll-margin-top: 1rem; }
+    .cta { background: var(--gold); color: #2a0d14; border: 0; padding: .8rem 1.3rem; border-radius: 999px; font-weight: 700; box-shadow: 0 3px 0 #b8975a; transition: transform .15s; }
+    .cta:active { transform: translateY(2px); box-shadow: 0 1px 0 #b8975a; }
+    .hint { margin: 0; color: var(--mute); font-size: .95rem; flex: 1 1 12rem; }
+
+    /* Lista e filtri */
+    .menu-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin: 0 0 .75rem; }
+    .menu-head h2 { margin: 0; font-size: 1.5rem; font-weight: 800; }
+    #count { color: var(--mute); font-size: .9rem; font-variant-numeric: tabular-nums; }
+    .fl { margin: 0 0 .35rem; font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--mute); }
+    .chips { display: flex; gap: .5rem; overflow-x: auto; margin: 0 -1.25rem .85rem; padding: 0 1.25rem .25rem; scrollbar-width: none; }
+    .chips::-webkit-scrollbar { display: none; }
+    .chip { flex: none; background: var(--card); border: 2px solid var(--chip); padding: .3rem .9rem; border-radius: 999px; font-weight: 500; font-size: .92rem; }
+    .chip[aria-pressed="true"] { background: var(--chip); color: var(--bg); }
+    .empty { text-align: center; padding: 1.5rem 1rem; background: var(--card); border: 1.5px dashed var(--line); border-radius: 22px; margin: 0; }
+    .empty p { margin: 0 0 .75rem; }
+    .link { background: none; border: 0; padding: .2rem; color: var(--ink); text-decoration: underline; font-weight: 500; }
+    #reset { margin: -.25rem 0 .9rem; }
+    ul, ol { list-style: none; margin: 0; padding: 0; }
+    ul.cards { display: grid; gap: .75rem; }
+    li.drink { background: var(--card); color: var(--ink); border: 1.5px solid var(--line); border-radius: 22px; padding: 0 1.1rem; transition: box-shadow .3s, border-color .3s; }
+    li.hide { display: none; }
+    li.flash { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold); }
+    .row { width: 100%; background: none; border: 0; text-align: left; padding: 1rem 0; display: flex; gap: .8rem; align-items: flex-start; }
+    .em { width: 2.9rem; height: 2.9rem; border-radius: 50%; background: var(--c); display: grid; place-items: center; font-size: 1.6rem; flex: none; }
+    .txt { flex: 1; min-width: 0; }
+    .name { display: block; font-size: 1.35rem; font-weight: 600; line-height: 1.2; }
+    .ing { display: block; font-size: .9rem; margin-top: .2rem; opacity: .85; }
+    .chev { flex: none; width: 1.1rem; height: 1.1rem; margin-top: .5rem; stroke: currentColor; fill: none; stroke-width: 2.5; transition: transform .25s; }
+    .row[aria-expanded="true"] .chev { transform: rotate(180deg); }
+    .more { display: grid; grid-template-rows: 0fr; visibility: hidden; transition: grid-template-rows .3s ease, visibility .3s; }
+    .more.open { grid-template-rows: 1fr; visibility: visible; }
+    .more > div { overflow: hidden; }
+    .more p { margin: 0 0 .7rem; padding-left: 3.7rem; }
+    .str { display: flex; align-items: center; gap: .3rem; font-size: .85rem; padding: 0 0 1rem 3.7rem; }
+    .dot { width: .6rem; height: .6rem; border-radius: 50%; border: 2px solid currentColor; }
+    .dot.on { background: currentColor; }
+    .str span:last-child { margin-left: .2rem; }
+    #sig { margin-bottom: 1.5rem; }
+    li.signature { --c: var(--wine); background: linear-gradient(135deg, var(--wine-hi) 0%, var(--wine) 100%); color: #fff; border: 2.5px solid var(--gold); border-radius: 26px; padding: .2rem 1.2rem; box-shadow: 0 12px 28px -8px rgba(90, 17, 32, .45); }
+    li.signature .row { padding: 1.15rem 0; align-items: center; }
+    .sig-tag { display: inline-block; background: var(--gold); color: #2a0d14; font-size: .72rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: .18rem .65rem; border-radius: 999px; margin-bottom: .35rem; }
+    li.signature .name { color: var(--gold); font-size: 1.65rem; font-weight: 800; }
+    li.signature .ing { color: #fbeee9; opacity: .95; font-weight: 500; }
+    li.signature .em { width: 3.4rem; height: 3.4rem; font-size: 1.85rem; background: rgba(230, 200, 143, .18); border: 1.5px solid rgba(230, 200, 143, .55); }
+    li.signature .chev { color: var(--gold); margin-top: 0; }
+    li.signature .more p { padding-left: 4.2rem; }
+    li.signature .str { padding-left: 4.2rem; color: var(--gold); }
+
+    /* Quiz */
+    #quiz { --c: var(--wine); background: var(--c); color: #fff; border-radius: 26px; padding: 1.1rem 1.1rem 1rem; margin-bottom: 1.25rem; border: 2px solid var(--gold); scroll-margin-top: 1rem; }
+    #quiz.done { background: var(--card); color: var(--ink); border-color: var(--wine); padding-top: 1.6rem; }
+    #quiz.done button:focus-visible, #quiz.done a:focus-visible { outline-color: var(--wine); }
+    .prog { display: flex; gap: .35rem; margin-bottom: 1.1rem; }
+    .prog i { flex: 1; height: .35rem; border-radius: 99px; background: rgba(255, 255, 255, .25); }
+    .prog i.on { background: var(--gold); }
+    .qbody { animation: qin .3s ease-out; }
+    @keyframes qin { from { opacity: 0; transform: translateY(10px); } }
+    .qn { margin: 0; font-size: .85rem; color: #f6d9d6; }
+    .qe { font-size: 2.4rem; line-height: 1.2; }
+    .qq { font-size: 1.45rem; font-weight: 600; line-height: 1.2; margin: .2rem 0 1rem; color: var(--gold); }
+    .qq:focus, .rname:focus { outline: none; }
+    .qa { display: grid; gap: .55rem; }
+    .opt { display: flex; align-items: center; gap: .75rem; width: 100%; text-align: left; background: rgba(255, 255, 255, .1); color: #fff; border: 2px solid rgba(255, 255, 255, .3); border-radius: 18px; padding: .7rem 1rem; font-weight: 500; transition: background .15s, transform .15s; }
+    .opt .oe { font-size: 1.5rem; flex: none; }
+    .opt:hover { background: rgba(255, 255, 255, .2); }
+    .opt:active { background: var(--gold); color: #2a0d14; transform: scale(.98); }
+    .qnav { display: flex; justify-content: space-between; padding-top: .4rem; }
+    .qx { background: none; border: 0; color: #f6d9d6; text-decoration: underline; padding: .6rem 0 0; font-size: .9rem; }
+    .rbig { width: 6rem; height: 6rem; border-radius: 50%; background: var(--c); display: grid; place-items: center; font-size: 3.4rem; margin: 0 auto .9rem; animation: pop .6s cubic-bezier(.3, 1.6, .5, 1); }
+    @keyframes pop { from { transform: scale(.2) rotate(-25deg); opacity: 0; } }
+    .rsub { margin: 0; text-align: center; font-size: .9rem; opacity: .85; }
+    .rname { font-size: clamp(1.8rem, 8vw, 2.3rem); font-weight: 800; line-height: 1.05; text-align: center; margin: .1rem 0 .4rem; }
+    .rwho { text-align: center; margin: 1rem 0; font-size: 1.05rem; }
+    .rmatch { background: rgba(127, 127, 127, .14); border-radius: 16px; padding: .6rem .9rem; text-align: center; font-size: .92rem; margin: 0 0 1rem; }
+    .racts { display: flex; gap: .6rem; justify-content: center; flex-wrap: wrap; }
+    .racts button, .racts a { border: 2px solid var(--ink); border-radius: 999px; padding: .6rem 1.1rem; font-weight: 700; text-decoration: none; }
+    .racts .go { background: var(--ink); color: var(--bg); }
+    .racts .re { background: none; color: var(--ink); }
+
+    /* Missione segreta */
+    .gh { margin: 0 0 .35rem; font-size: 1.7rem; font-weight: 800; line-height: 1.1; }
+    .gp { margin: 0 0 1rem; color: var(--mute); }
+    .login { background: linear-gradient(135deg, var(--wine-hi), var(--wine)); color: #fff; border: 2.5px solid var(--gold); border-radius: 26px; padding: 1.3rem 1.2rem; box-shadow: 0 12px 28px -8px rgba(90, 17, 32, .45); }
+    .login .gh { color: var(--gold); }
+    .login .gp { color: #f6d9d6; }
+    .login label { display: block; font-size: .8rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; margin-bottom: .35rem; color: var(--gold); }
+    .frow { display: flex; gap: .5rem; }
+    .frow input { flex: 1; min-width: 0; background: rgba(255, 255, 255, .12); border: 2px solid rgba(255, 255, 255, .4); border-radius: 16px; padding: .7rem .9rem; color: #fff; font-size: 1.05rem; }
+    .frow input::placeholder { color: rgba(255, 255, 255, .55); }
+    .frow button { background: var(--gold); color: #2a0d14; border: 0; border-radius: 16px; padding: 0 1.2rem; font-weight: 700; }
+    .err { margin: .8rem 0 0; color: #ffd9d4; font-size: .95rem; }
+    .err button { display: block; margin-top: .6rem; background: none; border: 2px solid var(--gold); color: var(--gold); border-radius: 999px; padding: .45rem 1rem; font-weight: 700; }
+    .honor { margin: .9rem 0 0; font-size: .85rem; color: #f6d9d6; opacity: .9; }
+    .who { margin: 0 0 .2rem; color: var(--mute); font-size: .9rem; }
+    .gcard { background: var(--card); border: 1.5px solid var(--line); border-radius: 22px; padding: 1rem 1.1rem; margin-bottom: .75rem; }
+    .codebox { display: flex; align-items: center; justify-content: space-between; gap: .8rem; flex-wrap: wrap; background: linear-gradient(135deg, var(--wine-hi), var(--wine)); color: #fff; border: 2px solid var(--gold); border-radius: 22px; padding: .9rem 1.1rem; margin-bottom: .75rem; }
+    .codebox .lbl { display: block; font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--gold); }
+    .codebox .code { font-family: var(--font-display); font-size: 2rem; font-weight: 800; letter-spacing: .18em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+    .codebox button { background: var(--gold); color: #2a0d14; border: 0; border-radius: 999px; padding: .45rem 1rem; font-weight: 700; }
+    .codebox .mini { flex-basis: 100%; margin: 0; font-size: .85rem; color: #f6d9d6; }
+    .pts { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 .75rem; font-weight: 700; }
+    .pts b { font-family: var(--font-display); font-size: 1.5rem; }
+    .mission { display: grid; grid-template-columns: 2.6rem minmax(0, 1fr); gap: .8rem; background: var(--card); border: 1.5px solid var(--line); border-radius: 22px; padding: 1rem 1.1rem; margin-bottom: .75rem; }
+    .mission .lv { width: 2.6rem; height: 2.6rem; border-radius: 50%; background: var(--wine); color: var(--gold); display: grid; place-items: center; font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; }
+    .mission h3 { margin: 0; font-size: 1.1rem; font-weight: 600; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .1rem .6rem; }
+    .mission h3 span { font-family: var(--font-body); font-size: .8rem; font-weight: 700; color: var(--mute); white-space: nowrap; }
+    .mission p { margin: .3rem 0 0; }
+    .mission.locked { opacity: .55; }
+    .mission.locked .lv { background: var(--line); color: var(--mute); }
+    .mission.done { border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold); }
+    .mission.done .lv { background: var(--gold); color: #2a0d14; }
+    .mission form { display: flex; gap: .5rem; margin-top: .7rem; min-width: 0; }
+    .mission > div { min-width: 0; }
+    .mission input, .reveal input { flex: 1; min-width: 0; background: var(--bg); border: 2px solid var(--chip); border-radius: 14px; padding: .55rem .8rem; text-transform: uppercase; letter-spacing: .08em; }
+    .mission form button, .reveal form button { background: var(--chip); color: var(--bg); border: 0; border-radius: 14px; padding: 0 1rem; font-weight: 700; }
+    .merr { color: #b3261e; font-size: .9rem; margin-top: .4rem; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .merr { color: #ffb4ab; } }
+    :root[data-theme="dark"] .merr { color: #ffb4ab; }
+    .legend { background: var(--gold); color: #2a0d14; border-radius: 18px; padding: .8rem 1rem; font-weight: 700; text-align: center; margin-bottom: .75rem; }
+    details.rules { margin: 1rem 0; }
+    details.rules summary { cursor: pointer; font-weight: 700; padding: .4rem 0; }
+    details.rules ol { list-style: decimal; padding-left: 1.3rem; display: grid; gap: .35rem; margin-top: .4rem; }
+    .reveal { margin-top: 1rem; }
+    .reveal h3 { margin: 0 0 .2rem; font-size: 1.2rem; }
+    .reveal form { display: flex; gap: .5rem; margin-top: .6rem; }
+    .reveal ul { display: grid; gap: .5rem; margin-top: .8rem; }
+    .reveal li { background: var(--card); border: 1.5px solid var(--line); border-radius: 16px; padding: .6rem .9rem; font-size: .95rem; }
+    .steps { counter-reset: st; display: grid; gap: .6rem; margin: .7rem 0 0; }
+    .steps li { counter-increment: st; display: grid; grid-template-columns: 1.9rem minmax(0, 1fr); gap: .65rem; align-items: start; font-size: 1rem; }
+    .steps li::before { content: counter(st); width: 1.9rem; height: 1.9rem; border-radius: 50%; background: var(--wine); color: var(--gold); display: grid; place-items: center; font-family: var(--font-display); font-weight: 800; }
+    .example { background: var(--gold); color: #2a0d14; border-radius: 16px; padding: .75rem .95rem; margin: .9rem 0 0; font-weight: 500; }
+    details.howd { background: var(--card); border: 1.5px solid var(--line); border-radius: 22px; padding: .5rem 1.1rem 1rem; margin-bottom: .75rem; }
+    details.howd summary { cursor: pointer; font-weight: 700; padding: .5rem 0; }
+    .how .gh { margin-bottom: .2rem; }
+    .boss { text-align: center; }
+    .boss .big { font-size: 3.2rem; line-height: 1.1; }
+
+    /* Pulsante fisso "Auguri Manu!" */
+    .dock { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; display: flex; flex-direction: column; align-items: center; gap: .5rem; padding: 0 1rem calc(.9rem + env(safe-area-inset-bottom, 0px)); pointer-events: none; }
+    .dock > * { pointer-events: auto; }
+    .toast { margin: 0; max-width: 22rem; text-align: center; background: var(--chip); color: var(--bg); padding: .5rem .95rem; border-radius: 16px; font-size: .9rem; font-weight: 500; opacity: 0; transform: translateY(6px); transition: opacity .2s, transform .2s; pointer-events: none; }
+    .toast.show { opacity: 1; transform: none; }
+    .shout { display: flex; align-items: center; gap: .6rem; background: linear-gradient(135deg, var(--wine-hi), var(--wine)); color: #fff; border: 2px solid var(--gold); border-radius: 999px; padding: .6rem .7rem .6rem 1.1rem; font-weight: 700; box-shadow: 0 10px 24px -6px rgba(90, 17, 32, .6); transition: transform .15s; }
+    .shout:active { transform: scale(.96); }
+    .shout.bump { animation: bump .35s; }
+    @keyframes bump { 40% { transform: scale(1.08); } }
+    .sh-n { min-width: 1.9rem; height: 1.9rem; padding: 0 .45rem; border-radius: 999px; background: var(--gold); color: #2a0d14; display: grid; place-items: center; font-variant-numeric: tabular-nums; }
+
+    .bit { position: fixed; top: -2.5rem; font-size: 1.6rem; pointer-events: none; z-index: 20; animation: fall var(--t) ease-in forwards; }
+    @keyframes fall { to { transform: translate(var(--dx), 112vh) rotate(var(--r)); } }
+    footer { margin-top: 2rem; color: var(--mute); font-size: .9rem; }
+    footer p { margin: 0 0 .4rem; max-width: 40ch; }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; animation: none !important; } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <span class="big25" aria-hidden="true">25</span>
+    <div class="in">
+      <div class="lang" role="group" aria-label="Lingua / Language">
+        <button type="button" data-l="it" aria-pressed="true">IT</button>
+        <button type="button" data-l="en" aria-pressed="false">EN</button>
+      </div>
+      <p class="sponsor" data-t="sponsor"></p>
+      <h1 data-t="h1"></h1>
+      <p class="lead" data-th="lead"></p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" id="tab-drink" data-v="drink" aria-selected="true" aria-controls="v-drink" data-t="tabDrink"></button>
+      <button type="button" role="tab" id="tab-game" data-v="game" aria-selected="false" aria-controls="v-game" data-t="tabGame"></button>
+    </div>
+
+    <div id="v-drink" role="tabpanel" aria-labelledby="tab-drink">
+      <div class="pick">
+        <button class="cta" id="who" type="button" aria-controls="quiz" data-t="quizCta"></button>
+        <p class="hint" data-t="quizHint"></p>
+      </div>
+      <section id="quiz" hidden></section>
+      <ul class="cards" id="sig"></ul>
+      <section aria-labelledby="menu-h">
+        <div class="menu-head">
+          <h2 id="menu-h" data-t="menu"></h2>
+          <span id="count" aria-live="polite"></span>
+        </div>
+        <p class="fl" id="fl-taste" data-t="fTaste"></p>
+        <div class="chips" id="chips-taste" role="group" aria-labelledby="fl-taste"></div>
+        <p class="fl" id="fl-base" data-t="fBase"></p>
+        <div class="chips" id="chips-base" role="group" aria-labelledby="fl-base"></div>
+        <button class="link" id="reset" type="button" hidden data-t="reset"></button>
+        <ul class="cards" id="list"></ul>
+        <div class="empty" id="empty" hidden>
+          <p data-t="empty"></p>
+          <button class="link" id="empty-reset" type="button" data-t="reset"></button>
+        </div>
+      </section>
+      <footer>
+        <p data-t="foot1"></p>
+        <p data-t="foot2"></p>
+        <p data-t="foot3"></p>
+      </footer>
+    </div>
+
+    <div id="v-game" role="tabpanel" aria-labelledby="tab-game" hidden>
+      <div id="game"></div>
+    </div>
+  </main>
+
+  <div class="dock">
+    <p class="toast" id="toast" role="status"></p>
+    <button class="shout" id="shout" type="button">
+      <span aria-hidden="true">📣</span>
+      <span data-t="shoutBtn"></span>
+      <span class="sh-n" id="shout-n" aria-hidden="true">0</span>
+    </button>
+  </div>
+
+  <script>
+    /* ====================== Dati del gioco (cifrati) ====================== */
+    const GAME = {"salt":"manu25-game-v1","kdf":100000,"vkdf":20000,"blobs":[{"iv":"Rc+K8JeL93UJbgLP","ct":"X5stVfllT4ze8Wdz1MDDNLR5UBpJqQKlvt0x4W5KQQtblbXBExAcDB5JPW/gS2nSe1aXKJE+TsKlQuqUv9blUi30Vlr9ckX6zMYgjiHFfZWbOyMz2s3LbH0ZirtdBgIRcDJC3W86qTan71gHYdwVQpRbzPkjMMPVGLzDaxeZyCd9MKa/M/DZJ1cDIVlwhfNkUVIypgf/vwKKMO/ESP0ODvBO78ntaB3WCxVwUWtQXNkyJCeU+Wa2xXCoBkYxFOPCLdnungLI0NfUk07wRMr4cGxAvQ+5AAlAesWhl8J1WnmNvZSY0NmQBvqRQvPOQCNdfmBetHviYkvkSdLLLWyghpJcFz12e+WutHYDSFt0Whihuy+8jMPUKu3tbDVjMCPp+49/9MLgTjiiY7O37ICTPN0KddSCxDK4+GuuFO1FB5ipUG8W/K4l1QPX0KH2B6xjF0engsbxDCJZ2kq7F1zC5xzprfMHk8b5BQ7MEcFlEGdw7AW9Ybm83ojBtxxaQIy+IDuut7p+LPzGneoSvkvWRKapDK6hYaNcVAu3bQuAyftdNY9LV7MzmVg4Z9IT9vDNz004+tjlnivCVrrN1pFotJMZkn2H9BQnrrQegbuqbfO/Ebv25myJW6kGFujlaVNX6wJKUNx47eKUeyjyQ+TcBb5AX22asyfN1S9/5UYY1vg1czUlBNokXucF2JYmuV8H94XZptf3Oh2AurCidOHE6l72qJwUHc15aI0RBS3bOtJD2rVxBJYqxPA3CKdSx9hmL/CpYVpLJDFoLLhZOTWP3jOJ/Xk3id6xZejsBYtWKn9PXU3oXlq5HEAV9MhsxqGWaHB3Er5tTgpraDGT1UsRBiHS7Xgiv7Ga/2wrPwBcTWvBO9rH3bgCbJP9G1XCM/mhKdZO+FTmHsFruudgebm2KKhvZbmL4q4nH3prmgFULW1EVisXb70dlZdfe/4x2xipsRH4Od5YmQ5jrHZBqGRA8VPbPd55d+Gx/wf8qPAMo+CBrAeZR8C1yeOgqCpsY8RJ2MCVaLfB9x7a4+cJBTPr5Spn6NgoPenBF2RK1zm4wDvzC2A+B0jvNvNVfsIpiqfVYQjldYmg9u03Dxrqxu98sQW+5poYiOddn2soXWKhkZEKoWo8El8B7Z8xBxWXkqctNn1y"},{"iv":"vof3zjSg47j9/pAi","ct":"LkI0o+k4BY2JX3GQQNmLC6HxRas+QKZqT2ldTsonOdfeUmHba2twUA6PVu1uvxw9Sp3xpY6bcoUIYlnOLWK8bsnHqIfPXxsAv0FYVUq/0YgCxzkubyZqfh7PTuxxHeMRGmYckCq6xV6pQeTdDEPIyjhvp33SMqddUMUD3IZnL3924gLlepT43kUKkwBBEYRIjqPS+teplIYUrLu0Dpwe/VxvsKOnTvqalI80NsGCRiYxlVrjl8GhWfXdBJAM3biYvUbA54rJlQlttCgLwbJ1+1uRjdLg+nQqJjOXZXUZCHw/u/ugGdgOx5TwOmQ2Q7zI+575vEb5ni4eNU1i8M4+fl9g8QWgVYweFORRT2X4F7C8IWZUx+J2mCaMR0HNULTwbKY+izzGHprrqz4ud3/9UMg5zDdHT6eReEPMgM/s+vn8YUiFJKHxJ7y6cGg+engUjTijXzgsKwSobxImwMe7uRWRsdTLwCKgRVESacCE/0S779p1j5HOj7Q+vV0NJBIvUCy8JRq8hpVK9cBHymlXu41CPhjhorxAaczXYUArRQnb64p6a+mwjlWShQv1imqPbGNsx+NwIWx3U2vkHQcg8NyDO54sw/bTizy2HBYsx3vyNqz06B6RXbHDDIcvs58uI8K3FKyuC4YSqLI9YLcmX9+9HB+dg49aMZSW+gzozokgf9BrpHrT1k3szUiBkkvBNdEm/8RxagNt7na1T9PUgLdbQ2qeLv8wEBchW8SobT0x16F/GKMs8FPGTRrnDcv89z2ZkhBYOIKFE+shEIIPcv1kFddNdAakYXPLS5V/C4mGOch/IAmJtZnINhZJtvFHkkjDe+zHIPiBS6d36ex92t9vIfW2siwGvkrv1kLKFcJGjqEzzs5OZG6RQbkn7BYJjkH++I5YYjaUF9AU/LNyaoSt4Ce5xZ9OETm+IqyJWMj4nZ9EBE5I/GoxMRv1gRneuMcFCkIvqfXLHX+qQYpO9BtLWa8Batu4pez7LEY3ZK1niKRQbd5jNheQHTQMkHYn9xycdg3FbbRsj35BIeOTZdW39B35Sa0wOP+Lf1psjQBsGipa7hYvTRzlAbyZ+M/yY5n1Wi9dFZ0LEZvPg1Z0lA9rYID1IPuxpJPeLAUBh+EV"},{"iv":"YOzCLp+b0bwe2vb1","ct":"UFyecVuAc4UJArPKWR+E98uQV0naMwJXGqp04rNCBepllCcardPyNa8ZQ8KwlWbF0i2VaTs7aL6xZSmzojFHv16V+WQXGSprpN5lpRYfj0/7Npp6YLjJI24oBsYSnodHuwS1kmS41Ujl+mRG5qm+w6ay/Zxp5omaDs4MoLF2JxVVr2EXsNCIoR3i8QI2xhTX29nleCH+1Pzt7xXrfkUhEVhK5VHskc9toRL2ZK2Ti54BVyOijIvFD3y9dNu2pwvxXzeoX7O7R7iNaEwpxX1aLqYZVqRwqese2H87n05nHKzbVoDLSod3rVCn2228/Z9FnUoWTihTn1Rq1f4vbg/+nOggvTE8TFVO5uTLRetVCSdbl27s/jD/js32nrERehT8jClrrLYea/niLNIgQ2D1pgQelr0ULcGu8pdVstCsRkUQN5aSKfh+CO8vSSDsl/1hR1V6V4A7M82l1fld+hsVbI7+zAiw/jLtPUTZnXsBXo9Bme0SbMb+MM+SH985xEF3oEQoUxHTd9N2oow6j5jiPrXk7VYeHTrWsADdLTORMycsgh4lB7yPfO27SqO3YVQwFcHw+uwca5rvENGfzODu0/BSpRAYOPuxYszKr9q1mQz4PXbNut8cLu0yefMUWrjvgZDF/IGjnpmRlt3MSTnm5yZZpXDeWVvaUozVG7lj4wYCOrhKiBp8j5rE1cGHUcJUagza+4C0gKDoc6TDlXHQXhm2uT2BkGIsXt040pMNDRF8CkXDl//+mvuVQ0NA3eVvTPtH1kCGt7NOIrb2x9cuZGePGRevGlWYI5goOo1NskfWsahM3DZSEQbZZq6fLYl3iZkB0FHVIU3zaLkIPiB1iJVlf8sG/wIWKf10Dghwzeu1e6gYTS0Ste8mslrdanzJkVCebY1bNVpacJQjtJQmuLt6p2uiuHExoBtjB9KuyPGSsNAQmIfXYhOAun2j4JPOGIePOIzqBOvAlPZ8+pnknVov"},{"iv":"Z0OWuFycyixn5OOf","ct":"XNLNtrUrQU7W5UnR85nQpBMMoPsmoXWm/xa/fwcBHTUzIPWOeWC4xkvZgMD+I2jCMcTAjexmXAu4bRZRA3UwRChIOqvACAJWPfU6y7eBAEj7ixm5lCrXx1aOoBnVjaKNu7yPCc8aJAvGSlfIc8TFxfSTPtI9b+ZfDjtQyxvt0Y+JiMHXbWLamdaouk9oQ7ue7z/wDGA04JpmxdAJvTvmgmcd+G9IE/PIb4FH8vQbPoznYJBGtg746cMj+Iqtuv5hZ2PmwSyaQhHZUsc3dmIYE4ps/OPkOhtGbxJ1fRkIaGbEZerXVscj72RLZ35zkcSOUnvJEo6imEgZT/bOGzMOFDwD3B2pE+h4RLbEf0ivAW6ZHVQLOuIuwklt4ht/Y5hxa4LHxikgmGEDVnlVTOB11EjuiDy3Et37I0bUS/onxAXet+wIaG+/MjIx4B2Nre32s7iCPD1sJwLVNYa6/e7j+WrTN9O/6ufJhuSKUfRDzRzOr+wDQfyiQHVngQFkUI091+OdVvNtTY/dKrPyzeHsuubNv8lY4pgj1GETO4kXL3WH1WLWgePos3zgoSp/i4SuCgQlixzeCSj0IAy3+wrY9hMn4INS+5isYkfjcEL+drdsoFaScrBF+RE0TbuVyrNWyyAnVU1b3nfN0WHE5qDxEVcw9kcNkEYbq6AEcAIoVXPlaidU0OABLyIzDCusJEunH1uQbuxB3I9UqN0sibMG1/ND/oexVqrv5wY5lNAUYagqeUdKuuut4pOZS80wNzOxR069VMhP3ZZH/FI3u0p03tU+qwdZw6mPndihW5n3vfRNWSUXnCX9e+e65j84Snu1o81+uhfnFSTZ0y68jPaoFzNe7x+meDoZA/JmRL8STEYboJrgw2QztGRjIjk0pRt/PUptiquIUnaz4O9HQLuXi4RbMKVluKE6xSXpGwb4DPmUTFX9UczYyuwAGhrb3mwGn+qRf0fp5KFxQbmPjjDteyD8lFEMStL8vI2Z1Y7dIS0wMpQ5L33HG8m8KzLAHvxOy+VY0qXRIGhnp4y1dCfz+PFrD3kUoK/2aDwg3PY6DOb1uQXXDdrGlJ94qaze2tmFgzq3sz9m6SYI3nSCfuS3OksQD04g23QLo1cps2ZFD3Uq+JM7QeCrUKVTojSpjYN1sFT0oIK1PI3matEs"},{"iv":"J7Q6ieioC6ANJFva","ct":"3xRp0nwQ0iOs+Cz3pD2mQMBXDIDUfHKlMbvxEcsV1htSCuLikk5jdda7XpkyCS0q4u+YzgtL63CLUe+tTRBrwV3JQu/cc6b3kW9OC/ukh4KaB1sMnapu3GUqymda0Up48BSit36v2UupbaN7i3KIpheWZhD2umC4lov1pcTO69+LiVsFXu0DRWZAnISJP54xTKVUXSU+1oVzt4B7k8zTJaYat0cQ7CpjhMxeS1I6hyox02b4VN6K8KrBxo0joBawlnl5dFgIP/ziDINg28DD+CECneB8l4PJ1DG7k2r4OUinjTvH9MvFGJZGbsc5UBNK4fx7CCOYgghWHgLaWFZYLvUZxwv6i6+mkx/COQSDQGzClHu1Ava0cbGU8wTsRMBVL5XvxMe1NQn0t9yb8GG3OMc+/eEu7DfYAesU6SGfP2x6A8D4/tjyDKSBd0V1Qc+yCLqh4NL9w1eApAeNorWvO/O/GvLKfwii5K8U6nRQ2VZiQrgeocU/1Yqfp9gu3U48D14hFE5ENXzUQXRCHBs6LwcHwztAmixth5bLkwsHvjrCdjdLmtK1HLkq8VdSUCSFspYvjXB/SKndhWlHvYZkThq+vbQnY3X79XwobtKwW/SrPmH1zNNRrRZQaoYO2xLE0z7isyfynr4n2S1hganZeQER3qjSRiEz+T/+Um4DgK3r7xVx8K+i+norfT2FMx3nHViS7UrdEBD6miQFktl8IDELNqpbEUIBbzusEcQ9dqCBHd9BW2SDKaKoNDD/aaLIIOtRlMJbfLl775dH678cZC1WMYLsxIYVSuZ5uirEnppmJXHUomhbuHqx6jd4GHLE/JXhsaKI7U9RkpTgEqivWux6LcuC9vtfXSpnQrRG7gEgXjHZsYcJ4N+EKZqbSG5PaSW/TDmquh2PYjgRce7RJTvllIJixrS7eh/fQSKHdDHViir4+Uf+N82bXKjPulDnKdbkPXiEMNdXK4O9sjlMk794z1rbrLw3zuZksXLYzeeFD47J+yvHncQ9YuifpT+tU9JCdtI9a2ZrNR7JhyL0bHmF/N2GvrGALAXv2Y1DdlfA4yeX6ZeowyfuJ+VFJ5PNKvUIUjwU/w=="},{"iv":"LE19WGyOZsxVzvcC","ct":"8J1YNcM3oE+Sv/XP+WZnoi6pA3/byRDWWJKtyVK5FDu9daVAoDfo8RdhAuR/axX2pzYLo6LvUrgC7fXzZM23vhSR/N4FznaBcp/ZsiBeDahJN+lZYwvwF7NVdUk5mEZhjCb+IRlV/07fTpcPlI7Vhb0hxUZUMr4iDr2fnXR93zlQzsqcPPtMOP+tHJy2NBtPoib9LNxRiLe0d9Zlw53PAwyrcl5MywbTt+/IiyDNoUwiftgBzhWbzTUTklUGZEu4eZHVTsv0C6Khw3ldZniEyBKlot45ygwgLzlBxImxZ+lvYe9bCBkAKQnJvdYLeExL/NYnNmi19WzfLKteGAmhfl5+1oJeLKAJhXh9XWfRVRr+Kf03QZtmifSeFf8xuzH7ZUW8N4K6GE9dkRprnrJEklsrvw/dHqdki/QywV31IsWOOaJu6TmN18Od+h5MJGLo99F14IcqZevILLtJbVyTHcmlTk530XyCyzyaaLNsNxrS6tVi7dvzL/R9oSgDdNVNjr/+LBkEe2NpAmBLZfL4h5+BUju+IQEZz3iHwpxzxpH8y1HO39p0YY0sjZPJTXxieP47D7kry4C6HlGHZkmbAxVBpkDh3vu9pIqyzAV/5yco8ZZL99BnmExBuvSGKJ7H07snAJ7QokLAETnZ5mTwP11VDpWiKrCs/GuU22kCUM/Q+nVzn19pXzaWRO8bh+OHRlRX7ra9/S3PH4xOSjnWz40yfFdTeLiFXPRm5W/V3ePSFxhTcR4MvHEFD4tcgmPfDtKH2Z57dUCOJ8KAXA+diEnstPSfocLMI3WIyjyri4ZCGow0kK+l/XL5/MU6mSfUdDgArsQxIweri+cNmdabOhCgKqRxSYykqSfW0qBVWm8n/qNM3fi16KOOOYLe1T0blmpGFPkl/ZbE531tfuelFWbRkcC3o8gxeTmqytys3k7+09loh/knZ30gOrImko9RLzhoCH8cUxUtW0e30Pz15hqKwJbbLsbGErbyyS3c41NRMkB8UirMk0DTqGd4H+jIPYGT6qSOtmX81M4RQltnGrQqzGPauumTVFdhY4khDhRLmWqCikADT+m2hg=="},{"iv":"zlFes2CVfMvcmXk7","ct":"KVrmgkLjB4+Q3izgv7rlXqOken6Gx9bSveaqEXChIkIwqKjGtLcxsEtE8987Fr9C98vPF26ABm9yC91OY30RFSy73RqZN0/HEkgtYlGz6HI2HC3duo2U1W6LMe0dUwy16K6p8m7disdYPGDA92La6rW04Mp1Ha0QF+0b6+Cn5b+E23Jqs32Eslc53hbRqjQZa5r86Gym/QYkz3aRN0zzarHD2Gu24kvdW5BPZM58nKfQlHiJCddYnv3h2oiVSe7sJwbhAfOylSDuiuCJBd1wv2DoSH8ddetlUEBBkBqkmmrQX2rOa6TWc1sGY0H0NMCW98c2Y3dJoZLsC/Scr2wdeyDr5tkE1vxSlY/wS9Yx+FkhUE/t3f/SxalkMVNK0i2iLG83TxLcuTLhGHKdK9HNWTUcwXURVqiw/dQc8yqZ97xvR6IbQGdmxar/ghkLMEzIY3l1y2lQHLqcdfYVi+mEyisUAFnjUMn3GqpAoH6uK89waV0JKF9qg8zww804+gX/yIJ4CEDZijqTOanoZ5GW1keslXCjX3X/Qj0cK25XMnigbMyYLLiW4Mv47RzZoQ8l9c/O7rd7fCe2wxKKjpGfk/npEE8LeF+eJa3ja/az0ZenMw/T3bJkRckMkFYNbzND1seLlCyUUUBfRTvvmE7aSpKCNq7qZc6EZMraqw/5gCFhvStJ04ukEgCy1QE8LIoW3BSQmbAwSwJFwt161teXQB4f141+BXn/42CNtcR97FHRcaoGg40Myl97us4JSk4xN1Q9EbIxg8OmF1YACAHDnSWLfmn2f106UvMOaDwCASLlF0+2/xaa3lxrjSXPJgZck860CfZspGgmCJOesSUOtq2Q6HtN4Q+LKl+SmFhy4e+XNXuWfUbZ0mMT9+IoGNWIlYVeESi84/lm0vCFqyAVa/ZQ9DYvTHBOvRYxbzQ5jW43GuCRvIQ8bJirQLZvg0KNvII4nFciFyBxmPdSY4U8i/HHy2SdoQhoCPYc438bjFAOd8JUbXfczJXF2NxTgmHlNGtP/auS1T3MCFdKLHVwpGQThAB1TFJD6eJerTYDRxczzZgvee1/4dMdMRz9Y9mvO9BSq8Esl4KTuPXYm7U="},{"iv":"o7PSaK3aCMLxiKrm","ct":"q3+XnHKtZ1dwSOSW7FGznMaCGnRAZU8cUXsr8UtrAYpGaotvUBtiFoRRid6SCbjPJzU1VkYuhf5yoVkAYkfhDOanSbJB2McPNCZKWGCoh6lft7E7BlD97SX6kCNbKL6rxnoR3QyBju+93vAZfrF6+5hmFndYKTD1A4C2DgiC1CCGU2YF6ThMbI8AaGUivBgt8NKVJiotP2m732IF1BANckpDGaqGKmIip70YqGm4/lcWyNt5qKnmD5T+Xko7SAuvsJcj3fefXsbuCgdyvlQxNA7PVB1N7wRmSjQpivND7TadGqVuKdfw5yf5DeuG5T7Oeg7yfzeVGnFQlzj1OfeaEsU0N2bT3UG/rjyk38odRmhGGlne4dEakXHZeA4OXCRvoZO1TMXjnLFbUog8I7K3wUVWWs9d/83mWmrWkofspC3I97BMWA5C7lix/oCB1Xb8wfCcz+X1mdHRHfHGHKoM1J1CoAshapCNyKZKlJqXHUZtURFm8s5FvqvZFEr4FOcHWW0TEtbwANvYyzeCFYV6IXAJb855wf41yeT/yCbZtAkJjuAXq905muBF7x+bU96/apqdP1GMFPlerzBzsJA89QvWBVg9+/0G13bTBiJLJRDsZhWGZLfc2h69T/AyVRNquchCClC/tk8Uhw9goGPLBkQuHcyR7F2St3cmszyZBBfZd9groqtrZMa5j4CLYfT5JPGk7M+xtP5nIeN95drD0k+C5+NFo4dYhn3HiTLJ9h8HFYm7pQs0aUUuV0trZwTCGDfsrzXYfRxpjxb/bBfnaljE366MQJWPmrz1XSrTzUCGoRxhlxtRIkYt8FO2MYT88C5f7SSczTExYx7LCLYK+XZfsm3BS/xK/L+dQEBZuh2QIpzwane5B+fjEcvNb0AHkXGqkqbQ3zET+PjzztSmK30jPrkSew0UCFh3QV4MEnNskLXprB1dqyMlgOoElsrswzv+luz4qA3XYuxOsAdST0CJUn7AAyGSF6YbN7PFbTAUqc05o+7iOfsUlYrIF4yjvvieXLLIjqNknbn1/cRaklC0jsY/NOZAzrpUqjjLFlTXLpBxEF/1+rXlSt+lE8V4lLoTTPJR7IV64HQJOXwr0UpUuE+CkZ25MA6xHTYrkPSF"},{"iv":"8/fiqAqdlJUh+Ins","ct":"9cSF3mY9L9UuSOdRih7e0mEQWnUZxctk/fYhvF4WEvFWjpSLVNpZyt/BdCRizJvlV5o9TVMHNjejuCaxAOv4dR1aC40PLMDEnh4ozv1odlQrJiz4Wn+UrhRlOrgGmBJ9Dbz3m/805nGg+nW45OOitPJzvKlxVPp+0KYHBOQmmQfPPcbv/omnsExpwBLsQMHuYHAVwrHX8mkEVxin+mz33j8XcByUX4DL0MRpMfzzid0N6CPr9oJbhntT9brRQCZhFDfNHyqVtdVkW4s0PubREYOteevaGROZ/AffYF6+M2ycdwU6IIDSjthzxJqCbyqhZCkSr5I7znHqOPKO+fTPNV1uBKUgSljnGm8qUO305h27nUxoT7EUQgJ8tgy/0R9jrRSj1fq8B7jrLTRkbKKIhu2qHMT1b8eDWAT9Bq3VjxHicEIudGnG7uRBTty0FjiqF1010WYWnd5Whf+oXFNNoygAWEUxri3VcNDCcwqLCXNb6cH4ViSubf2LHt/WNgckWNSZZDFyCneMkCvsQmNB09d/CxKeSKR/ak++OjfPK8uvLB3RJZjFQ3Ra+CX9cY9WayXrfpVTllz71W/l2bpihpnAw0Y0ryKywJxPHin2XDkexp2bq6TfOZ27j0nUBrZ++JRpuGynV4nR9kyCyUhfT07m2KEZfhJE1viNhc1A+Z5jnfdQprmlyg/xXqlAl+ixhf/pTFveWKnODPnuSIr3rNEdgJlMXebiRvZzxY6zCML6esnfgACRRK8LILtmJe2BMW1cLPbMnbGn8XZ6isz6h6ntguifma1VH5HNHwCWle7IdGHtlf9sDyfROyn0zctO5KmgQbmWOgSwVJ5NUtES2enowHVjA8FvfSiD8eyc+hU/Q1rUrvG9Bl+QDjyDAwoFtKrUfg1hvCJKtRmuP8s05ulRdaifTY00cZ+0um4lbMyM0qilgvqB++gH5OKvuxXz8NZNrje8lEdOY3i3cZGGsfBKDQzjqWaFgTHXn2mvVZuRfikammTg/LAbOu3aOwNk4gCBBp9KeGaJXEuglgRhYMX8xoeGYueVLWjbgnk9QkQbiHv/oJlZbm46c/OMIvLmdvRwrRZy/LIURYWvFerJ7eHU02XR5LC8Igzr0FN5JPInUA=="},{"iv":"GijBpsF8tlbV+haY","ct":"VyGQP5+bQbFykfpGIOJ9O3cWr+YxXaQDb7M3/ijF84G74lIXjwApPMWlnB6B3tc3tp2iZWEV2op3UIeWJ6zZYgIWsYPRFZGkQ8d6BSATt77NQeTORdzObCwf89Cvfgk26ablfRtV6P++kqF425GzBSneH2JpTnDxZjdpWXKxNodSyGW+ezOk8JDENJlTJ0HxAK1GSDYyLRiD361v5jb1xuDxss5bWv+Y7xqsyofClZUvPVPcCT6ZFLs8FbXS76KORtDaiDOYJLZNBPT8t87GZzGkiJ36k9lL3XY2udmhXZfeG+tmRSNmOU1QKDmpNbOIVauDfW3Llii9mr2ZQAfahc+3ErzO+Sqmu36qhnFMIXf4Dq4qFatyp3E2q74qZbpWYbDh1kEBJQeTPkMi/V8DGY205i8RHCM5tFUtaV9j1+VOiULU0XCoZ5EYD/juHFbVWY7TTzqfgCRYyXI+BK1NmD1OMjkMVNRjs4bicVd0hCsH2lrGIJRweoCjqdy3vf4CbD9dpCJbYAGkKDjoHBLnkCGXIQdqdZxy7sNDwKRT0XxffoH94o76PrANs5vjs/zIkTDj5YbaEQKO197MUa/LqzKUCUdiO/SCi1ZSq8rkr7mt3QC2FI2u97pOJx6qPnVa2uohEDQPUzxoz6zGVbqs1oZb7DEgz6qoNjv0v0Uw/igt8Dniy2ORMpK/WrzY8LnjffKvK17glXBq1+j9tVWW3QPKHohyV0Kog0hygR+SdLMMzghiKvyXnJ1kd31HrpnlsHhI0IKYDrA4Ez/pJ5TJd9C1RTAxEW2k2YnzdE6I938YQmwos60qCStUoqAulz11LlZdVVtZ2kmxHGCLdQB+Z6dViVTeJxfLVD/CfaDUnCf+vPScZ+XV32P6r/UWIplhjA3pemiZNV5nBYFMYcS8VtKgBM5QmNGBKA6yPHzreh5jme4cgnx2mC/v0i/ESpawzEFaJFxFGpmXsyfD1wIOWhwz13DoNJR+l/v/dwDPcEs8pYrPSsViK5flBjNFRwHj45+ePHLsSXACst7l3l/6KB/mnzvar1Tzc0YbuLZKCL02DvICzsTAAwfetozWvMFtWYlgdt8g7/IZ9U44Ep9S6XvtLHCa0NiSms6eZVqn8Nu/"},{"iv":"9DBN+/DTZ8X6eDj3","ct":"UmDxpRLbOgPZpGVAr8nqf507KaRBvKcDxLMjugpbzeCPb+9cLHuZPkJEjcKIToMcvj/Z40vXn+UpE5sEf59pejug1n+eIkWivntNgcp1YTrbKQEhd4EUbGgefnVlRWmccxknCmEKP9m7witbz40as8shPpaVVN2SBdNXx+3pS6PQRJouc00WBbnPUkrwBIJgGRXpRwKwKR9Cxh/aLzhLCNScN2CCJYSGu62vIvj/rlyXQ8loZCfvqMeQhbXJQj1Pwkc0jf3vWguwyo2iswV9XZuHis/q9M1ScX1nCerQjGBhr971fdskhX7kSYd4/0r8ZPaPf3mBmOrOdXXyl4uyqpuZolFmTFkAIwbA59aDw9Iw7dklCPjpnekQ+ID7UuXPM1JDGeGARF9es2EA9z7nFaSifOx2bHRmoXws2qQQam2A6DqiJPkJ+dQmSNwCCM2xE/1Hl4cxy1Jk6qobL9cV4dZ57efuRrby11XiqqfwQD0pnNiUGdp+BbVFAAHvsJpqCLH1nrfvtt6bHb0K+agq8gqIbrQ34yUCXdDOkhYSOUbGzxVzlhEOI0ANrUrdgx4ce41R9SLIFj7HzvEa+RcKbnPqaEqM21uV6Ju+//dcBXoiQXlHI1imUknwiIoaCEOIZ6uV8cq/xvVl9DBSANLfovfUGyhU+rRbs6Ruz7pf3q0ye7VQiFAv1eGEaOXUMC1owRkdAqSmswAuguyUC7Jc0vKnR9Ff2g9QITWvq7SJhpG+Zwrsahsku5TtzusodzpVjRPFCKjsvL8kiNyRRzH9wPbAo8vppp9P3Qd87/rL8z4ZLgKrMVzzam9tr5bRjnd0BLB5BetPjEeM7ypFSSwvHvkwKKmvCU3MqZnJI4FcAv1w+WkvJjwIflW6DruQSIq1Csa+b22nO3EO5G7znQM/Wt9EF9hdQiplwEBjeUyKr5RNDFUXAmfSURBSO45oJrP/kx+mXGwdEPkCYDMypjKIZWxadZTrXHuNBZNKEx58vRNwH+5BAk/KnK+cYbzEJFNWUemaZkBYkNxHYnp+MNVvU3rEorji8Fy9Ac72IIG+4jxvhE7Lr9Jc37mpzMtZyL0+mNjuB5LI+Qg="},{"iv":"8Kv4X0YXKsKkaarq","ct":"mTALZ+SRlnGQyScWckQ942TDOpPyJsBaXU2Qbq2SWUDIVLrMxK5FUUZXdlj3z20211nT9Vb4+UX+bQL9DdqlJ+TQfNdqDiymmPp4vrRBmkbThrqqckC/zEYSwS5Wfr3PM3opnenL3rgBo2W7+FnmUY2HDdEn5tAr/N8tvzpKU3JEg6EPk2szttIEwbaQLSbMorKMSYmbngqIEBwYWRhbncNebboKH3PL5EtZayOtGIP5iCRzPoRt+EKpqrDn7G1fNS1i+pI5NFYzXyBoDlBJJChWAeSPx6qIClXmOzgH9FDhoqqy9Fdiq5NdA+yZ45yzLYQePdiLJeym6fOWnoYY+F1KyN7DXk+fItiQDnryAp5MbDqRPJfczvpGLWWInQhX20fex6uTHGd02yiHxNx26XRsOKKFqtmMq/PHy1nXQsIV2GiCM91wnW/FaLQ5zkFd0tG5ZpXuFzHPP7qB9NvHqtkw6T3Tssa4oGbMi+tdp8hJl5lpuEIDKiiHpkbyvdw0jM93CVz8KIH5bA5clEnZh98lKsu+d6ppFE5T+KDdWanGExJqpEYOgqXLY7JJ+/fDMZBm4EyvpYdOSOw2NnclGJlflHfR3AHSbTPFSbfznefx2wUAHpaJZeG2SQORnl2Qeko8kvV/ewb7R41WS2Pa1et/f28Fpw2KI4ehcETW+Ly0k8yrSZ8KGVtHmewcN/Gul3E1f1aEOG6LMRHMPN193UJ5u/uk2iL6RS7JIiOCsYdMvLoO+swC02VyXWJ3TONK8c79/tUdtXypNeLXIlwrqc3TKgZ/vG4NWI2kzZWGp136GM2Ijwk68IP9cs4l7b5UIV6I8t8bULCb9itYBiDUfHWC/R1lnerW43a9EaHhtyg19IfOfzuMkaFoz+DySLz8ZgkwppMTvDA16gCEmXT+FXXsWqniSjS3CV+Ra0mx/zB0bypd+Wgoa+p0X3pvyDl7KamAHPPaJusrF30bjKKKWYRts5eZ/Vq28NX363Ybcj1Hp84XWFcJxqkzAwRFq0eIEPFYGET+YRy7v/2+orFxKGnpyyAGTjFZ/DxTCXwUWQN00A=="},{"iv":"qpZyPC7txxlqCDaw","ct":"zwGKHaMNqSeFhcAcF4KrsEP91UuP2TCVvIyufw6IU+zOiQuyUUUgM46EJMkmMqk6P0kRPF5AuKqiKnz6Uc78pg06tyyYq/BGoDar7/jQ5DZr+MCE5pOKq9hsCgO2X3loA6IqYric2sxmChswB/CWW0o6/dV5lE6BCIa43b2Ac9aJrqKkXz8hsBsyhHCdKc3KMIHtqgM2AtkvegNv7zYeCdajo8rxbg/pu7DncmuX6maRh2UlpSEoIo7NReYG329f7vrvC5LCBFCG/fV1YPaQ6G5a2B18de/ePLBBHJGpIk9i1hgrEUC7HWQGjkjTlDrThG4ilSsRYiAhK72UOsz/Y94yKPd+mGz6t7sjQrScjiNjCvs/cvpLkvLXhIvWhfyyD6JHCwYPRN6qRE6PsMbn2p2Bg7bvU/oWtuN3qaPTIQbJ8ZZEZf2OeyDmd1l843yivZ+ct8+P5prqVoPHCtjfZg3kPl5A+54jTYK7++Rs47ED3YUeaGAVDg54gp4Q4vyIHXhb0fpAcG3tpP/P2kItUu579UbrthOhcX3T+E5uV+oo/jBfqGP4FhdlcQQS32gDzwuel4nhNsAlBb/5mdg34iXvPfNYX4jkMatiZMUjTqS+mf+FOHtcPovt2kdOIDYBFS53DBPqPa2p5gXIlf9O4pOVe50SXN7TrDrig/zlpOlTg73iJPL2i8dOV2nVWIcV2Qvk+jh7j7KfmGI2I1z9F/1a/ShBQ0ALMImxaLyIt61+dR4408MM3gqyuyYNwiIvhQPo5/+Zx8WqUxi8W7VOKaqEPmQeI9z8N9d6AWpOTy41u+V+GUQ4iliYjBgbCEpHRiN7dD6yBsy3k9ZalTLpRPEOHLeHdLIq40SGIg+wm+Sq8ZvlgMArOYNj8MBfVLd7DnTNh6pNrdPXoGB62//Eb19Se+W/PT1QTLrx82qGy/MfOUqwYsANr+HBOOGesXWjn6hn+l0/k0VMT/Koh100sgylm7rkKH/o7DvnmtpsHz/pHDlucFadvDRz9aOAi6aUcuHJjcT9FPY4RDaoaQLbyYhOYWHgRizJ02Q+zuulBxUKoQ=="},{"iv":"Y58DQkrD2uvtdci2","ct":"Fi/3uiznQRHXN083wgMOujrMT6gtx45v3t6ZR6uZMs7yjxq1Ihrl/XLBxgaZBiS2wJn9LJRzejNdhngkqebSOpM45znDaASpiT8c/oRk3n3oZf0UOW5RB8xXZ6CYGyw9CujlDALJ3O6pa9T0B/4QE5iao5M/4M4mFQU7c8DND6Z+L90ugtM+6paRlV1ejoV+XyiUUXosnUJkKwMEYT3T/rp8/4BSB8L2+TW2HArPauhJcx9qUBsn1hEIIdbWmDnRPZMOxbhpdzyf3pkYFpl1+qaySuHxN5ggJGE4tfoXy/6N8ke6yOQcikTnz2Ph+1FkxFGvsRu4+cVDqJCZZV296nMowQ1nR5MFjb+TAT07uQNLU1lQEhgeqFNFJk6SrNN7MLO86B8Lg+h8N4IhL5W+FQ07LPc7+FACrYULeXPdnRr50lWpu1UMQPT4F7aRH4iPDjgELevhtECLvAIjTQfCB8MtwW2oxYwCw9mhg+MxoX10VUfdiKH/C1bLejUm6e3TY0ecpvT8n7fRDlaFIKmnt5mHO+om1x6wK6eyabDleu97rarZXIBjOcZgZgAo6BYAhG9e6TaPTD3e66ILm1vq/QFb+u/i6Ad+JlO7k0h1mOj2uVLmND7SSPjmYoBfjiduvsmUOXUDdnDgqsOYvjL6ZK6G1eWIPAonMnuZY6nc54aeQVFgGiOnuxgpNHdGGJJwWqzbvKAvalx9f5UsDUK6OpOGYGkvxV+C7k8FWxeO+pmHlOUztKqwtAv/4H3IEO7ox5Q32/GVTcgnp51TgzORr5FX9/cHNT6sVU9UouSCCzOn4Ie+MIzfmjHiM9ew0Aa4WNNItWyLLiJjVRe8ZMf8TfciOVM/9TsWBFXIVwsWLoQYf5XhkrneR92I/Va3TMQZV4kDKeOLds2xdyBIrNEThxJPo/xyOqF84W6bHpHEAtnqsBwWfXPvnuDh7nSL/cDMD09L1ZknIHkcjKSO+VEeHiid8i/pVZjpYEYDutyDD1mRMhqGi7CLVir06Ony6XnxKtLMGCVSqNMlXxqy7lctIY/3PGmNuEXsKK8mOQdjoZXyAeUokyg1FaEgSsHQZsHKZM8A30YypUGLwAtjE3RJa2qzs+D8bB2KnDZyGa+OdanFrixKz2p6JByopQPwR9/LYb2ThdPmiYyG"},{"iv":"36dhmMDJ4q6JMAnp","ct":"A7xJnKIYakfTb2BzkOdH8VLC8fpw4tL2Rb8V2T7CaWrvF2BNaoGEWZSfIEndb/r5Q9y3OhOkbeqRYg604reQRve866a2+juXY/QVbJD9hdFr2Kz8u0PtSz6LSKJNzKbW1rLm1DGBnUZuuSdGvwRAMGVwirHv/vRdniYFmOiMldDJwMOHVgMp2/cNNTWuXBNN+S5x6KMrKZA3SYBAirBgBUkKFJCTQkbelIvm4Y3xGztclxjfCklvakZjU5p4J5CEokvWj7OmMCfhAI5fSH0+8S0c93mQcqUR4QxZemnh3Jvc+YzI5fws1xczuWYlyyUxIv0qg3TSViGdN0o971rtLCCJTXNRHsRUCnvz9Y+V0TiTMXx3fsAq7+CnveTyyD7KPTP7xk8fRUQ+jKU+u+lDx6FUeMDtZSzxzFpPEmlY4lTMAwAkP4cs3SRn+3Y+cqYTAoH+FXpkB+K775YiJdIgIPDbxSGJj5ZwrsAOJdogdJBe+bottL/Bm+D4xhZpOi/2GfmcHlvGZ4wcBbLTxKY7AhRc4WSMyxt5Sysa/d7exaVjmAFWTe7W98B3xs1yJLZxMGKILMiRDRcH2/Yz5fG3LppXVEDW/afUrU0KRY6qoesQ03Ma1JIu0E6pc47y77wGcYEsRr0brsFoT41LAIG557FVb2Hx9UboYDLDNDrSy5yiO0HnwWUEwvGyk2x9qaQ2CrBPW7hgshgFQ2gk0Q4j1Y0rqKv8vlkmbcv1WKiZPpHFhGixhkLl0d+G/xkOW4uLpIh76RKtnoZK+cI0Wg1CySpC10hEB5YCL1CDzkHMTKIhcbKr8chYSgK9O99O97rZpFr5ax/nWrrtFlRb4zSZBXKQTzbFSVddQ8aM9SedtLnvdlw2RBNz6ECMfuG7jE+PA7v495xmWajs0yHKe/7UIxSDdeHQUR6Du0ThkkMzYkxt/+bBFb6seovtQxpfy/Y+2y0jzIJAibCzCIeugHN+q3ZVzO11zsfIB7CiSgl1udLTkZnJ6QlZ3z1zmyI="},{"iv":"AlZb32G9WPshPKbA","ct":"ICGYNQbnwKbz39DXIAw6CweRv1wvndnKfoWYjy+D3cgZw6Xr+F4wRRcLdiqX4HASiNMFc30GmHYHHPB77gGovQWGyGQW6mn/nTQWzRKceageQnr0/sCT50vmhC5qyOREAnWJxCfVWkgiNjOFYzHwgLvrdefMfjp7y0B/5DKriAr2zwThwdd3h2QojwuXwEpnqj+L6V8urokzE37X8I/xQswx3MrfmqEWNdp6llIFoo+RK8bH2TOk1UiKHLAgSmBIaaZC2G1iov3AroAD62FVjFMwucSBKlVbgvTTRcMItkknMFxoH7MGPGkAcAzfAEA4lcDp6jDEIGOXJAJY3NVuAUg4laVJK30OyL5KJBEhFYMYJ0woOPeuAKzsR6Ga3TKLDxbLFdBSASZge9neexVAL08/7sq1Gv0Bj7ePoz+ELauNYJS2d6AfEFNLQVChWxIiBHl5wOr1z+gxhzAfJMZbHo5E/ipkSG/O3ESp1GEnt+FErhxHMycPVJQnwTGM/nhC8Q5nJqxGTdNJoQgO2XSaRVIVAbcgMVMqzWPRGrpdxMVq+SKArs2zrR28qrUQ36q7/mKO9GAYJuO0UKxYIg4kKlmM2ybc42RB0ZMTml0U5gyQtomYG1VbIR9FW0Hc/+gHwc4Y08NaRn+wQxHuj9Nmpguttcp3wGerjbCfIvlmDSKT9cCmW+cfQLIfhIw0+KFeKXboZqwsm+EIolDMXmcVsE1sOqm9c+qBwL57vbT6sj+jks9KWw1aQJUCZE8GUYmpjCEQpn+ZdS42JTE3+JJIiJxsypb2JUbS7DELDayGX512bdymwTUeJ5Jc73Bl35haItOEW+Xv0G9sme+JJ+prbQ/jUth14E+LVRgPbkg47xb8OLHtcyyeVh1tQAWdP3DLezsvAKazlO+sSl+BoPhENO1BYT0nXS53LbTfQxCnoLxP+r+K24rZ7P8kypAEOBkzvgThxtm3ocdFZ68BVJHyFRRx2PwvJYRJTASuuNOpTXYwkcZ17aRfTB1TDp7sOd0Ao5U/D/MsFBrM3gOkP0qTQm+2Te4qF/uNJLDGpGsQ6yWpxcHYw+PoBtCBTEt1j91/durE0uwTWQ=="},{"iv":"QlkDdK2dfLdgWNb6","ct":"bPTwCx1rbGQ+XmCg/tcgWqdllhVOWkpZYhPpuu5YmngrcRw+5FoTj/KdK8wn5FwJBXHYn43JquB9ybpuypYKNC127N/v8bkjOF8N5JjXMJwTpSzatLlQSbkReUvg8Yy6duFTBXVpH3+k7jLiw+cIX7ewWjtkzc90kDMl2uTKfyjyJd0wfj3MaW0bWv5HA6n1N+OQZ8HXff3vlL6OBGVQvW8SSW1vp1EUYk9dwc7zWUcy8RGxX4gAMRTAB3hnGmSr+EcVWpROtd63WcT4YIKD3rc045CR6VoLt7hwm1n7HCrTQx/qTBDZSbTPXdwmSYc7M8wvTVRdfVsZRZHZCfg6ii72cAld4RwIz5Jv+zD0QV5yem+nSQ7V2vxg4GZ3Gk0fiH4Y9yDoARhkBd9qYabnzUugQk9aclaufYjnIa/rAckotlc9jgH7aBcR5snjcLIt612LYtFb8G4oKr2s7Ne74OE0+k7mq77C88ghEzfx4gg16/sOTyfBmxp1idJEOowjGqTDyiSVDCw4Ga+h9HRd/ZYz7ZWanU2hWPu0vXUPuE0jIYAFdNnXg60t7oPSHTF3Xz+otFXXcRJk1SsbOkrXqbl4w/nufOR7scleB22KoCHhqtwcif4wAWkcQZsEsUAhLM42dXsRGCGI48BQNOaWuL4PijRmKhEgsB8XrEJnQ+2mlpUxHj/TXMQ0UpaxALFWfDbfKp1H90TQOK8dceRN+aIzVoRUdA/MrSoswCgJuO3aVlc2/WcsFpaADyzVVC7+zk1Brw/TMxABqEsWpace3NwUUDeuX59ORO1SHLfNNMnZawPrt1sO96BQ4fLpifkoFSyyEwddxOFIGMNk2NU5HyZb/I7a8wFZ/tHMBopCHNlrQbY5chlU2/IwvTVo9gwoTgfCG2L2R6lUf1Q8Feyp1aqAaGGSj4YMDJ/d75c="},{"iv":"6X87UnDPQ6cskpQi","ct":"oKXGoASmhkapMyZMFTanJ4c9BnmfmQcdqt4tcn/ghcENHCGx/c6gfU6zod38lB3Vl4sYKb4qLPxzQ5igOoOgbARRJTuVBj0hcRAHkll/niNOu8MXr5CgqRTn9s+IiousAe3HH8yS8S/NOKLGSDX8tbTf+Ikud4TE8ZoVYqIojUmNmhAnuI46QHnJ38Hrs2i7eSSyMA+BDJDxGwyGaeQeUpSlkEx0rmeQNDmR+Wp8Vx1xaM0vkCcPLxhXQhVS8YAh7gd+n6Puh76ElTL8i0ex5nF2mvnSkKJMXtiGAbAM4LqnTe3ICiwJcghkvONCmPO5m083RVUp9Mxug8l5632sHBX4pICEt6oNYrJIeyJxX+pqNMfNMvw954gHBX2LWRJaXVHpzPjFY8m6PbUTJEkKZz0/9AS4OXVeVhtlpkKOhJiYlAWeGb36F3QMTF+19p+gYeTzl5PHB1wYTspWmaVu+CCA4U6JUCcX3ULh1ICh1U10WTeAwLjE9Q9TnM3xw9N9Qi7+v5KkrxBpJOl3hmWwxkcs6OD7o1SxZ2J1uIn3u8BY4ytjGl59sIZKhc0xels0VCGWHMW3oTMzecGkpjMPU70yiQR6gor6+G+6pwqyFH5EoDWkv6j44KFTK/fiTK/OkkFgIpAVINTx8UsLHTALSqr55I6osIcCderXvtnCbiEAE/exgXAV1ftW6w+19wLE3OEeN7Ey5UBKA93vlyIgw5v/IPJFoX+Wp6Isf9CS+Jw8lR6xmZkwEmB+25xLzezLZP5XRsjdDgSWFnlQ4iDOXlSLo9lJiyP0TnVU1xCngT+/ZtNEXXxCJQC4lGgrV/9sxMsmNMpp55TxiafXsAOHap1thDpcOQ590z8JJN0wWJyG0G95gyM0yFDdCRWaNU1PmLu/RF5J1x1kEjFBx0xMKJdq78gQpsW/Z8AwP5aUp9mG/sduq9F6s4FqMb2MBf/FpavOgb+7J7yAU9P3Y9tA0rF6NXUMCC9HpkH8GsPPcoSY"},{"iv":"ikxE/U4tqEqcgWNr","ct":"L8ZjspveQ1y0b3ZVohGpCFSB+/eixATUJxrjd/TBZnfpfI4PeL/CHTbBmU8C6nWxMoSiKn9rJTFJSaFM/T6k8b1k3yaUj1BZZAIJsSQQ6VD2dvHVEATXSbMAlHufgsFOjNNrxB6so5y/kBArGuZ+z23OQ4TI/A/TzF+5xv2UuYI3e3DaY/IiEaTcpw+srkAAPjGyjqDOX+Ikz8N6yxCBJZcESBRygzjAjm82jNWny3eRgeSEvmeBGOG6zfLKFfHL50hUdh6F70/cB57cSkNy4glgGsfydP/VMgbdEpUPwnv8ohwrxNmgfiYjiflCb5zp3vzca+7oLOwYbGoi41g0KIXeStWd3a184E6Y/r/hqIv2pkqB5acVMdNqhRGZ/3glgRyhOIZdzyimMvbkgYfZkLYvshze1wLUul4kDADYYI5P765HeVwmG0HzgzJhW99UaSGpMZj7SZdfmY9gttVZ/D6Xq1Dpr6iNQDkYdiEALHB+Kh0RPmPsOWh2Rr/OBOUS9iTx+CoK/Y86UpWrBFvV/H0aHjvZ7ueQnTeg8zuVW45dm9xcJqOeTtwrzgzM8lWyl4COSJrDiL5dvOAjkHC5a86DJhRLzDR1GsNASq2ZXbVQDSeseIfUxbSXeasS4ZUZspbkylgjuVADNI9unLImyF1vIWJhqqHZqjJc4N9Hezh+zZwy8Nk/8eW/E7NlMisw1j4zPb/Z/f58BV6VKZFsGljdr87/FaddPKEVMVvp7ekd4s42ej1BptzJcoStMNwVjRx+sSw3cS7Ox2xnaqOCqDvsCqlHJZkFZ+yOQQh5gNS0t/YaTBcP9Qck1QAVZTfoKIZmnry3ssJSlu/y2iiWCYkHv0yf9YD0FKeJRXaACq+lf4bZE+ZKoa5QGEiFwXufA7w/x/KB8wdPBcvk8IYOy/AUpv0nSIt1YwcRPFPNAA5ZvtFV30kuY6iCPuiNLY7Pivu6o/BDtxm01I6e1Pm6xoB+msEDHapta0vZRq7AeE51+CuH0niwhKe1HtddoVdH7hgNjdyREdN2zZn0G5PZ3EpdNXBfzqvkaDoJXc+BXU4tAxFJXyogfeK/rxaFxtCyXbVhMHAtjRJLCWRe7q4sNLnDhPXcWShl7sEAJrUeUJJvPGgsAMM="},{"iv":"jZiNiY2DQtJFCOu6","ct":"7tEeb9vomo0oVRDSHLEe1aEdyx5QE5FwwI6PA6Kcl0jMOwQi9X24A3itPNewuYCfMqCG7VsUVbjafMdzMiSOS9aACahMp6rvIu+pi9RPwUaIKUCopwIXXLEVwjJUsHsfDYZfL2E3VAghrLlM7cyiWX5WvUONCt+qg283J4uDQmPc+OdggJtlwG+ApDVJdvKK7Eo5XuCpr79JiKXBCWrInk+az+M9Pjjo6GfsDM5lveDsJOFJkrCQSLp/wgYwp5/L7Ad4O9vpJuJTmw9ImF0o2MFVUVPSMJudd4CdPvm3zMXQ9JZg/mehd2+hZgK+AXkDKH5U0LXlhyv8MJ52lrCp3JoXnn9Oti7Xet8iYvUdZ5n7zIp5MqJabQn+sepkjZfCXWQ+R8qbesQ0oMYhtdzrH+0vas+Num8jHab5mXfYYT0arXStRynoLe2mdF+w1clysb8Xk0nrNBgXw8vn/eK+PD7zBN8Drxf+ABZP6Ups+IaW0Cu7FG6DbdMFJe2j9yTpwSq+MAphxrV1WlnjiA7Dgfw99+UIEr8t1VxIhHWAoIYvvvCS/k0hANVuWqaALKNPJZbwyVzWg5WWJssYFG1mYx0j0abAeiM81KmDLnOBuWiwrZILHwTAXag2X0FEvY+xJMyQtMqUkPpr5P0l/q9wlzCyhzzN2McuU8lH/VsSnrqZEHDinsZnU7yGKdKd07CCV6p0OvaXP9xJIBMXRRqAyr3mcpn6jJeuepqmrZxRIcXKJ8H1VAHZWbtxCuU2wxg2ibNtTumj2m3TFVp+TR7112N9Vo69wcVT/t/xhtJcMuwtbkCNo+5bLA5edGPiEYtvOOGayDfmqQH0B0xFCWzzXa9zVf6wQze+M/7+VmIklt/7QVDXWwfbmtgrcEfsgIJ/ewgSkHu+P91ctPkkevI7310zonGCuAYfvvQjh5R6wtYVLUSKtDI+DCPCeDYhNMnzRBShTXmGTeD+lJn+ZwWYWMG52qqsS0DxEwroryvXd3WT"},{"iv":"MladYQvq6eyfMKq+","ct":"VFz/fUPgHdU+OF9zwcjhY+vVTOAgnTO35cYzeEgMwu6h8RCZwSVy7yOOegT0G1YLByQh2yBHqwhct6KZW8uggTQx4ldJMAdlXwPuz56sJ3HzPED1f/aWX1yjOqsEnzQdv8D9p16VeNo0TLJsKg0IYnuG18dd+zOj+/ul5GCt5jxnYWfPZxkvKLAvESaRi6ylF2I39swcW7bJTm6ogLdqjfsxSpLzgATjt/xbkwwuc/uLMWdQz+LvXuqEk8PtsO7r8odSKhtEwtbppmBxB/r7hPJtjzTuMeZpz08pHBbU93g+dnWZ2eESb4Aepr0fnlxI1nFr3RjZiG33p2mgJ3iRRoz5KPLnw3pQ0/IR7pD0uxfgvj6fClLDtx2zbvzGHk8NbQI/wsyimgWr+Z23cYLHeAkMZvLgsValm9NY0Sag9ZWu/MpEkGW4Rdi1nabxPmt2HjFwxX3TgEt5H3jLUCoxNfXaZGkrrLY+Dw1Y0jKTUyC1/mvg9YT/E4wrrbEatJSIBeNJ1Vi2Esun+3ecdJsou8rHDkBTt9mr19O9gW0fJSIMQpj6xW9K6KKdaq/PZ3PwHRqRdbhdQRXognHB+/YiuC2EiCm4Ny/nP6o4gwBPvsXAF7kchmZTVrAxQwWsIAVGFHwUH6c2Raqth3PzJUO3Pppl5YCUpBzkz+TcDjREEYXCzvKJz4qzWJx7cX0It1lAFp5xnJKtTFq46V/OynQT+JqKTyGk/0lqh+AvhHJ1epDk2qhzflJxm4l+9BBDzWh5Or4WpdjijR3unKVVRNuDdQnNFr7saV7yCl3zf/Io1vFCgwDPvCKhBxhS1UjtYoiAo9v6t+M6UWjAcZdrNGKh/BNRis9lzS5e9053eu2hDvL0qk35itg5daYCTxFopBXtJW/jqFpbpTL+U1ptaqRyntmvYPNwbyQoSRJIRq1cJUhtCS2pMOHpBbqprP0Y49yV7gOk3hcBhkPCSB588wIWueWQKJ8RU/UsmoXgK8xm9m0VoKnn9ooJO7/4MA=="},{"iv":"wJBr3hMyciQYhR1/","ct":"bGS4zAQJBi7FmB22P7lmZ7WCb9Ll+Pw891dA+dKRZDkl9wD5LqpTC4iYcQRwRL3JGWBo24KunnfOaj+dN7CqLYsIWE4DRmpxOmhxi47FJHWBp/nYe4mwwRQKdKr756Fh/KzSeY3hEdJLfT9Qk9GhKc9Rr1tWEHrJzb8SP1U8XIeIbaBfhPXxmC90pdotC6r1+UfnREnkAJPDyM8jlokBiAStN0wE2toOc+puJDXO35FzcpfN/VnuWqSjxWR4pvglIAZ2z5DxBk8exuz1FPqQ6iaQxvCHLXIMIUnLngby0aSA6P8QIiN2OhVL4vnXaf05CCSP8j5WwgKHHmZqPXfdmIJxHfu1Fc1HkBYsWLAGe4KMJWzfQhRh/yso/s+WavgI9LPiFZl5KbA+GkgfHsCrGkuzXz1HSCZRfUAm84kMoMdN6UvOMSMy2zcC+s8uEc9lj8Qu3M03OyyGbRC3ckwzJHtYf6GghXvtjOuGHKDt2eFXU1HCSvjE+149rB6Qh8VUgwk1xzvoJR19szVyAUw/RLBKDxfiY2Uq3tcYNULXYcrTMrmNrq4eARj7CMZfFtcQagp2LTR+q4uHIiMCdUAPLur8sbOgLHzJqFcmLZyLdMsgpqdJ54DNJLbJRmJEypJrB3Cc3CjwVtZYfIiwcMmoMCTWA6d/A/4jt+P4c39e9JX8fAHCyvmLdJ6wmBoSDS4S3nq/VF4WpnGWwCn7kK57qtB6Or0+I/09pQ4y6L6KnI1pFstcfOseHS0un4JWMz3UYtbAlK6kwPu0hSECfGjH7eT4QuMhq6n+rzOV7597gNKvNufcdAoboZERaCsyvVNxErnyOaqyvfWKEkvM55h7Q7hPkp34w/pXRIBKy1jjk+5UOuiNsr+IP35b4bCC6wK+fBR584m+EkkZAhjZ9llWkHzFwKneN7+DFL58QpyqDFIxdqOCmbVHnz6KETDtWEX9nSlbjs80qArtqRr3l0JWDVgbbuM8rDuVfSoyBXq3tnVS2yhp55ov9LtXPEztVUlRQgZGsYOD710z0RMIYBE09DhrSRjkLpZ7hxRch3OICttPMJdEuknzdtOG0Gq1nWmUNPCNv+77XdprJHOiugC+3SvmooBfBbQYay9v0C5ZKLkfsisNVtEPSneSz7gGYlfnGa2RaviG781YaRJp"},{"iv":"NhJ17l0QhOL1G7kq","ct":"W6PL5vffDH4swc/9v2/lsxayvypOeGRhNda9sTkPh4GGjcoGA5ieGFZ4BjCJMoAbRI8tsS97tZhcWo1f4U5wVH15lnmvZdWcBzwFcr0ew43ZPuwDmrz0li2RKNxoPe2TdPDHmhAcT7YA4FFwMYu3KL4NnX9kRf/ZU7GufbitN4WK64lZWekLkEpaMEd1komtuqqszjGpE2FtX4DppmUwnQzmsh/w9twJ6dpA7fNBmjo7gLOoVioQ33koV7/7XYgPK3vvcaVgbtnXbojYrff4yoXmMFubeS65JBsDcLvU+UMtQhBOOaxoLGL4lvW2/lE2A9YVoXXFwlKUSNLoea1twqeOZHJlRJtQ4RIEcv8ebyQAMclTK0MKBk0hbmc1U4LLXHxyZfbP/fmHnuz9RVNRvt8aCGkvrn3ZnPuqKVb1gIGBB1Wo3Fd8OgDJcjNcVJR0vgO8Y4wAmyKBbQuaJNEnIGS9q4Ki4ZHJn0AoUacK+c30lTX8AjhihZsRWjbgYsl6dtA/etfnZ1CB/uu8aegZEarglyzlZodVh/arsbnHq57FfpdfsmB4KSzr3XQDy2vma4Hxloi+tynGH6V1AMs/DJOKROyFMLcxpIwbI0lxmoVZaidRcODFhyBwZjnkFTWcoJ2A0a2wNHPNvRLDxBGRWX2mNp1KEmMz8CS11XoExcAjPzjkzc3pSu2kPyXfNDHDjcHXhs0JFgoxKJl6HfDYYCxADwKyjdZn7ymwGrE8GicsgNMdIO1afbAl7hk+fs1xBTTr3JoQEWDU004KNuubbj1/4REwZHOVGu0Wm0clzFqrjYeZ+I0gb0mksH8ExmTNj2Z4jjh65rkiujZm0li4JlW3NMZUeWFzWndcAwJc6KJnepDb6VWqCRi0x9a3zCPecIEAYoK9T+7BV/k94MVd7VDAOKGmROR+6XQ5rLU="},{"iv":"085TynJ6j/q96jNB","ct":"9k+nHYYJgLxShUAEq7d+/skCW/is2XJODiGFMgoL9phj7RSL5XOeMmzOBE+1naBGDu3fvlNeeROSf8TkG2KuxwnMpvlbqEavM7y7WJGCburccadmUszKFHhU2bI4MCH9jQIxOgTp+ZtYxk7Ixjq9qvAblwt4oWmI+jMjaeel15A2BeEEWht5DqiN2lKXfXlv2Fc7FYbO30JYAd2WxT7JxiTTiFtQMeodzdXk4YUH0srl5Rt4HtQaGOpB8rsXpqg7r8MHt4hBEcCvpbwZSM/RVYOcG7sCCH+YrzEYtVc7PMisvOzQrw3obJHH9s/fBPqaZO3HLjZ5/Fxxm+QtTZvwQpXfjxEY0xwlNHHzgwDVd4nCIwteXn9WJ6QyDcB9S1FddW++1uNPjCxBcO5Phdy6x1uo+XRDh5na7TYqZEUpCTv5o8QODkoKbn+fgQKORKAaO3yX2rLyq5fj0BQSDyWfv5TvvdQJWtaIsjPkOe0hcfVYHMrmroMV2wKxH1Hyc0lLGLcob6RavENYnZHJZ3gW8/3S0Q2xXi85GONMK4zgynoBNY3ZnN4Oclo4zazGEuTGVtBjMLbrru+55Wznpr8F7KDyZIn378HH6ZVM8J6PiAGhfP4I+ea4Ugy+GrZBA0Gw5J5LBflC1IAzWbLOFtEKuBfb78YFrcpQwjTPF8eZ/aFmFJN++BkAPYahyE6+xrkDW9v7G9m0MIoWboDzcnAilGbI5ZoXJKVysBVPhY0WWdTsyWGKW9fkUjFY5WNtcD2GcVwKnexxm/ltkPoFpKVJZTsSiV8+jDHRyJ6aCiTFdIwLRdytKt46Vk21c/ktHpLoZ21vq4ctZ0628aEaL3UKkzH5jYV1Tjp3uMPdc8Or5hKBLx9ErtSnsgXp/sCNtyUSGsBXbCPGT9qP04LgVT//Z0/jHvhkINBaQQCh2szyAFodDe1rlU1/2TAhi5hXUjVxFbcWuw7NFX1pzQa2Jxcsca3vpuJhS0cVaURKL89SJzAoLp/troSrkQ9qs/H0VFwntgs6Vv4f5dQLu+pSdKvmvFpi/SQ/2nfxZ0030w6DUeG6T2jTh/ZTF+6cTPhGrM2MXTWTW/O6zrk="},{"iv":"mXBo6psBx3fJvVnK","ct":"omtS68DzDpzZu1VR8b8XqHGmq1BzmmGVTZy23DHbHQUNtlDHValtNLxupx4oVXFkum6vTdOQ5l8QeFgxXA1yxDfeqm5oPZjaCmhozPWDHTT/FWedmo6k1XEenm5XBpmEkngCYpz3xQ9/hS81a+Vx+kVzPnKsyZzOp/8zd5Ucc2G5wSyEv43KtoRC/8ZZLNl24It2/W0jpBZBY4REAo72j+eyJYJJch1nfvzHVUCwHXHX5uuiIFW6oQnPeaVOWHxQa9ybH8yuzzHhn1K4Kns2/k+byAkE/gmmMLEP3OI7LMCsdRyRzlWhAo8adaPHEIANRHoKhBdosjVj4ojiFTBwYhkiJ2p9VU68CXDY1kwiz3kExYFN8BV/pgx8QFaPG+RXBDgWpRxJWyvXaS3l2PirCV1fo3REArGx9pVgQ8ilm6dki8Ol1HcQcTQRneViY8ZFj18tVhWKn4OtsdswJF43Vsde9SamtPt7YXXoDK/HK56rlzxbHQcQJW6Tp75RyglPqgU/dME33lxHXJ8UxiNrctSXj+5BVhW/bcPSqZv7rT5nZ6LtdDSB3OEvVxxgWnGoFH35/4BZHI07rfbxsAu6n8U5KYUv8Xx0Z1qe+9JpSG6XnDSMVfcnkXJxlWAYmKytUzNO62aKk3C/rgdu6Zwr+4bQXG2OQ3pAnjSL/RGhWatwqQ6JDnmi5n/6JAc02SdBHSpLYs+B0QY2jtuL1GtPPTW7v0VKJYfbJ0M/TRB1D03xwVUynV8HUHUZrioNr935BY2AMesk7TZtbQlbtoIC8dcdY3JMpDARZjxb3BzJ/TGRzR+PHzF/vf/bIIrQlOI01+GKIOumYZ1l+tbXWVXfoe0f4Orj3c0+uydB4yLYQS2+4N+haySmu68WgxM+axq1ITOWTaSIc3fAA3YTpu+jhIReqjTGMYyylWF+OD4="},{"iv":"7xEL5vPbhiqqCKwk","ct":"RN9HlyqeA47TpUbuGOBRi2UiRJDib11PAtYzHDp0a5x8ZJTcWEdfpI9Y7i3/ytGkQSwIwiW0Zu/CfKU5RInGPAYOgtrEzU94aXyuEbdcIa+LZpUGcgfJgXr0xwkuNrU45hDLLlmCmPEfxoNMp4ymC9ge6T1scBJ4qJI+7CdCwOJINpGEmKmgsBoyvdYV9tfgAFldBv0aj+6LRLboKUFx48n8ky4E4KAgGCFGO/1B7snLMvqJARKsAqJo5MVdci4wbV06WTARR32sgfoaPgFuKd4ilTLmVdFSbbRPIE6uvzMuxp+CrZHoeGCETECXbFqPZGpxih/dizPLuyLfEj1zsSPPQN/uQDzf7TxcmemBrKXH2zRxVTjou+Pp/ij+rrMCVNBgUZnNFr86G7zcy9c2OPiUjNQqlQzlaKdKFflw0K3ceJW0FKjdSttzA03KcET9tsL2ci1Z8Kk/JcyBUvMmdWCvDT9VdLMJxasEYi5lV0qsY9NO54XVjL6resgZdaurWeAXItvxt6fmXgfjmQsqPMRP885v+s054fpRWj4wNRXewv+1hgFllxolVRTEYZHg3xVPDVGiEcSAjxQEkmscbfD/3Xm8mhjPnWuJNzqqeDDJ2E2xKSYJbnt7V5+vqACbBTc0y9mQeWdDUtLuJwpWMXa7Fya0YFHpm5hB2mjvcZgZYxQPNUYTq2gEVb/Bc8Dw3CJ7kZhYOY3YV8YHwDP08RER6l2HgFMsEYgaQKYFbqg3B2Z1jm0R0iVlXekyG6GzGwP1So0WVLBC5H/J7HGt1i3w8NtdHdkmsFudqqKYzbw1IndLMu6B6xrCdUeHR9uxaRt4iR5rQBM1UXpt2qyEQUnjlGl/NPcqiD52nR/aZELrPQLc3eB14tUeGlJsIwpPZXqs3SJf7asuFU1/CHxpkR3oieVi3RFsy8lEJ5lqaVyvd+BuUziJ2gWz9lnY1pXw6kip/dHGSazAAppdSSEpcNJ8ePurWNDc5C1BOqUEXyuYJdK6MSytEgsskRwN6moEU3RCKI9ozoxGpKS33YT78uNoX3O/xLFRLXPO5tVsrsubug=="},{"iv":"8M+0V9p1hRUvwpg7","ct":"NA+OAhaPmyp5x8MfMvOaZuyeIx2d/NIIXE5vP2hBa3WFtgcr"},{"iv":"CKrPr4FpBR8cNQb5","ct":"BF1QBUYNWq7Ra/CFhTR9UE9TEUtEXzEkSsI5K3O4lfNb/4W4"},{"iv":"yP8ScC/IaoBbGo5H","ct":"hKpcDrdYfZDvvgcysgntkABtAyVNSDkgIU/PEpvfXZ5Gb5RqyXd6htuGBDOMF1FatZNLhcnAy8W9fT5/fmeJHKmBTLXvy3QoNVArtiwl5tdTOdlDeWnOyus+bBnoo4K0D4063RGGf97h2XTo9/cVOYfRHICkH3nt/lWRFhkj5vXYliJ7QM0ZCo5M8mTpYvjhOxuZ2DTARYGok/J4kDfQkzhQikhmC4dOXeKSlWCJOPhLXAWiXUmGjOVfOY9EbeVwC566IsyPZwwJ4EPlwDTIY4bq4mruoh2oYij6GPESNYDixGEouTKuedmNOD1+0xZ3whT3SSyWdL9qk1yW7KYhyvcc33bUByeLYzZjWucgwc2pw7PIdODELJ46XuEWJiThzhYKA5bVZZGXBpN+MknVKadBRz3OcrDp3tqdNMvjAoFiUF1jhLwlekqFAbFHohWUgIRsdj3217nSLTU20fLiXVI1sAIJBkHilRMYcNOPuOCQnhrYNh/jopN5ZNUGIlTH1osZFYo/L3gIbu6PcEJN09LQ7bcdXrWE50nSdJ3Z6oKdX55ZwDFeurYsJ2Ar50z1dobT4TdsFkm9T7I9Oms22KYTwguQ8YWASJEPNpTab+LlKUXlfKWJkxGJiAPOEbNRTtibqGLhcfiVUACbSYcwLwgiqQlTe7C8C2hnKOIBJPNYCUCV4BesuPRDjejI8uzEf+1wU7YayCJxjUqHI3PR5Z2qi7sdydj7WG3JKKpQtKOOySN/5XxGthbmA36Z885fG6LqNs93xEu2NXFHtCPb33iNiAQK4/n7hY4dkJcrqBFHFYuhW9yZLhZM0COE5i8LDx7Ux+BbHVzMzqWxn4mGA8bXTlyGTeP/c7px5N/X6MdQeY9sMbRDrc9WHlgzYw/QVmts7Irk9B7xdq1ZQmV8doImk2wRFMGDIGvYUz/+rdUf5H7fg6nwb0MmKf2PgaCb3b2EqhEHu8Xj6OcZli6gzSO/HN9HobDsKwsi1Bp+GO4Ur8qRJeTEMfClI41sk53Et8I7+xIfmowXH5mj/v3CHznk4t9W945MKx+PXSIGF1c5p5c2kKuEM5nq482BqYuVvBWa5J7j9eEg+o0AcWHxJ5suGTA="},{"iv":"gIfq2S/AOtqmCrR+","ct":"bU6GYqmwh4emaJlQsNCFF/sEtAvRhKAYuoIeyMVY8TUN++7cgm3ydrh4oXCsORjmgLT3sn9nHyZBpI1yyQ0XJjwHQ1CsYZAPI714OnrF7abc9j7I3MP/FV4gMd9JRABzlaOb3RH0cGn0MG0ESl1WbgrTviALDsnD/JG2g5HfWM4kp+dnUiBUYTI26tcj560ECrZuypFO6tDVZ91qqVpyo1JFD7l6IBque02B5V7x+UQC/sJV+vBZTl5ThUB6Rj3MWsltpOa8ZZDBv45Wyf0z/jsAO8KgvUrxYTxo+nPo79ELhaLBwQAokhvSFiUdygDir1rCjW5Msgb9uc4vVwr/Hpz37+ApglWeVUNRf/n+6HQEiDBtxXBnxELbU3CCQYKXvpaVjclqHEMvp6T+h4xwTHt8GA8LGJcx2HcqdJyRhZKzqo33Urn+VBB17c64bKOgOtSuZvxMvpIOv5/DPiaPlWgTsFVlqNck2wLi6MlMEGcKldDve5ewcu8oMQmEIPGpGGWjDFrMGfWBajZW9acwW4uOg2tHddtHcUEKP1KxJ4wtOCma4fYaU9nVMGr/KmVDqfh4sqkT1/XHntEAzw8KxgxAiDQJd+qiQFHsbBA8Oe1ca3KGqaDeDRWR/igRvxoNIcHmH82zD3LAWfcXOvtYAqQst/ApfzTPoT65D7w/35evfvIsAbx/1mbXpW/rqH+R65905hF/rtd6WLZ6eGSxUvkABO25XYhmUHoR46kGtfvM55VrZHuLKoC43vcZ/E4vTnFI/KMiC/UHNwlBqMl96rh5bm2MpcjE32ZHZ3mJVr0v63us2VH2TOt4LRqE+E9xVbrHk7rcG1NlCl4mvZb/G9AC0u0EYVhuqh8lnjuCsZEL6LqgkECHJDkH8dI5kgx5jt3gSKHDuOdebX1Nuv79TjKdu82Wo5CH5lSkLW787Ee9Ln/ZfsTQNgzYJKD4TBrAWQepupK/cG8Z6/c1xL1fsdwCfN58hBkZQkn5khPfqXfkDxcjJrnk78BbPIX786gQiQ20Dtca7p3eBxK1p9trXEI0fa56EYVfHuw/vrKlYuDipzF2lulJ5dgHbqvg4FcclLZ1I5cm2dbknOpd9b6ygV3KbFAzZVlsXA3gaFRQMIcJ"},{"iv":"BM+/PpPaqabDBI2h","ct":"ZncjbAu7Y5cLzP4aheSjQY/F9BKl2e5TN0HdC9vGEbkumtvQWLeDVYTp6NS2j/kxJrnII9ac0QJtlarrD8XVjkICmDob1WzuMw5yDsqPj93vDkHg4J/yyc2jZADaTZYIxvHPHIqqMKI1PkSt4ZCsiK9lupxVc9kW7jfeWw8rjhXF9C/jczl+wuIyQC9MJmpkua8ygleG6LmfZerOw03iYl5RqSHQNkiR2mHF/jDhYRaFEO9lRXbXGTh9AKDa6ZXjFGU5/N/v1qmVBCLGtgW49mhituXPk057XaOg/zwU2AdqeExAaWzvj+5fJ9zjkgLK91ZJbIedSP8LDCAfYuF+5lKLoKH1E61rwgq8mS4Gb0XNz9ykxF31awMAZ8FDJzL+Elp8RfejdpeA+Iwd2Zv9BhQSVDK8V892FM2SuPPGeahji+m9Z3a55pqk/uSHH2+5hy1Ovy0K+1x6tYuPaTHd71UJ2Vm8xHbEyGi80HpNa9gcCJqcZM7hZI5IeDGzUijWzpdPKvOZgEY4pqXemY13MSG442hvQxs2D5YRjsulNzpMTBNpYBtLNY9aNJU3uC7mGOAJgsxb/ZBRYUCgg9CNK9NhRVUr6bJjEt9AQlNbY5DUSjspcBv3lqtSxkUXQ1diX6zrjA4OhiZi1HJ3wAO14snXCpJAq1+imsRrC+zyRigmvRJV+OshScVGYFv6/IDE893/Wk9aMDwRHpJlAOG7cXy4nnRbBHbs4KnH0TziSWU9O8KcOUdm6RcyCKOh7QLTCIMlIIQGRTk5+fzNBuaRhbkFJ2mkneR2T7hgJ5tlVX9Z97mSCu0W8X0dQUpHKHk7w5xD/MXYwIykilqhOg9HEsl116PtjxA5XpIgU93YSFhVn2oAbPtGNKvmMXJjQYmviTXczRp9H6e6LIOpEQsezDA8kQvk2G6bUjSkaARcskcheDQ9JG2Oh8OKCrUnTISK0bQtbqUatpip3nwIa+Kes0SE"},{"iv":"sU5hExMz0MdVE4ur","ct":"ZWkGtukr2cHfwNgDFfU+D4YTqHSLP+RNLpHmnDbjKV2DS5abiaxLvtK8Z1YISrodNfILZfgsdG/8w8sKEx6GzR/F/uRPhyWzPALDI3TTt6YERm43h+ZRZuZQLTQoOA5l+KEKy9GvAtVLc1DasODWAIiqHsARXbXGzcPoiqu/FP23JJkVsFzb5vmJAOkttnoV9sp/68PvMTrCE6OSZ744xD0M+c4lO6w6oTTNY0za8O8g+wh+2xgymT+HVBu9aGZNOdne8v0PyxTJWZOs7MH6Nlb8+Ieuqb/ozr11uTF/EYtzF93AsLQuVf+xEAHK5ICiuS8hWdA9cuqV96RpBshMq0E/Bndah2WjWDYit1mlx7rv3gnL1tQlGi9aEQvn9+vxy8zzD62+SOEATf2u4dgHwVP1VEjrxT9GJKe7++7/ZFxoo2IzMFz44YiCeHBZn640kskwZsDZQEMfGgLLJI6QOEVLlNK7vTz/lFhftPssOs0wCOnGHPs5HdHwvi58kZH3OmE18pISH3yLCe8FPAa7TYl8vBM2rLUlvb6TubAH+n/69pqVaGan+NaWr3odukCJIwWd9BhtC6eIcQgBEXAngYZOSpyL3s4lRTaSKvvymQ9tBxDthD69RW9TmRw5RtdKPwoAyQt42fIKSpJ69NkXU2Z0sTpR7JQubm4T8N60AXwjNdOaQ04Pp+lB8KZiZ7ItJIGuIdKNm0s8DykK1mtcT0WSn2hc7ZOvvSF8vk/99LmTnjafsfL35nL0Cceu7p/D+d2mhNZaleZb7rdVxBUM+vt4dzvQY7iG6DdXqthmoKG2ojrCALAYYYsxXVAh2CrXAMNLGy19OXy5PwdAl1woWnjuJX3H9MQSChLG5zCp2D9YTY2SLzocFbpcVXfvC9URWDvQVyZXqgWMLe8iXuPtO9wtgx6Qca1qZ1Z5mEVYezEQe9X5LkhO1+RDanmYUll91cC4u7/LS9/Vpll2IJC+ZxMAyrNh9b666YgUGLbA513JPt7hGcp3nj5PrRgDguIg0MoTBMSDG44eUa7M3tZQwu/lYengLvgAEb5QWkt6912wu3kTp5ju9iZZvX+OU+gchu9UOO7/zDTu8Ryo6uPPzksNmHf4Cwg+fmY1eaDJp/BDlncdXtHe2ty+3G4Ev//0vQeX5kzhJ+vWJyb4bPi/zh53fhS8nopL5O0QK9f7E60="},{"iv":"h+ec/+7CHp3BcnzG","ct":"7EmgVljwJ6y4lNcBx9IZr24/pFl/kTuOroN0gXwJT58fcdDskbvpzITcnLx00L9F1LzUzq9SotKXeGaM/ct9ekEVr2zfV7r17CreBlGtoTBm/weCzQzSR8fErLCKjap6IcOFTEw1GOOGgkUd9j7Sm/OHLUQhutFRI0qKI7ioxyMgezssi/mH1YCICX4M2VQh90ScFPVzp4Yj4+3G8SAic+gY3KzqDYY6tF5B9Hdu7xjfWf2Ea2+wjP2jChhM1oC3EzKArShf5SviilbgNitHmGCiKq3k/50QjiJuqM0n++JmKntHfOHN0qQQF7yvC14GcUJkSr7r0S5jDW1xfFWcl6rW8xtnmDZ0V/+BSpzA8DOZjxHvU5u8vsjITpPBQQq261RijhOsnQRF/tHsuNTaRB99nJy6yXxh33vUNSUo/cfKP9CHikIlPY9nhFrVKmmxFT2ulZZZuOJMshAoO5FNSDitYoEuVeF88oxrWxmYbiUJjOnSU/Oc7wH/YgboyB9EY4Nbl7gsTTeYFcvC7bb00SddoNfJtEFbTilVaSS7UtBtXHD1bFug8umWcguNMVGElLRCKRvI5X6p7/KjGfVeipRp17fGW14C5o+ap1XM9Es6sxfHh8OwE6iVMSE9tgfNh6LkYFEjbGOJrXTQAAES39aU9swQXNKqxAlytZ+j68IZIVwbisDc26kB1rW026GLoGxAoQGYzYYSiz5i7po3VDZzacEocuvSU48wz7mZebnqQQEXNeGxe8tjUULSZuF5aP5jtRH0PspT0DanWHEc4Pji8glhvFIjwKPj6tOz42oqicfbnwjw8xUWcYwL6opskr2/pVDcFW6l7wOxsDXXIPBJGVjebG3tKyVw1gyXnw7fyENjrLkWVT54IF0PgDqCmUXBjQ9uqbEwX6VA9TOH701m19L+eEu8c7kxBi6j6xeKK6ertzb+DN7Cdg/mwS/lKNm79k0UQtEYn6Ik4TihTfiSKlw7eolZRm3U7eTIgfBc2qtyQqHi3JxCHimUX+PgvNIsz37YvNFX6fnwDqXqBjTmK7i6Vws3"},{"iv":"SmDo80Bn7XDw/O6/","ct":"DCY3LEIlzX54aG1uR1JweGGq4bZkjxQKFrZprwRcMjM+DqqnjQK6I+w2ES95S8rQNoFY2e5fgRcAjT8VhdGDE9LU4f1Rp9XfoaAGnq45r24XaosbiddtbwSt7giC6sjFkDBIU3XWHNeOYzkbGmrPKbBQKxM0izQerJHRtn4sjS5KryciA/KmEMIeSmuEzVnvR1p6uxKCvHgi1Up+QZpufgRzqapqo2WOZzXEjpr5YiwfEy/GnbUE+edY/n76kWyQJf2Ms49FOWoir71JteLKwG/n4apgr8ZdicrG2okwtoYgD3otd6pskA13xeDCZVRmWuxMCyZ7d5+UarOVAy/UFOUSS855n//XxX28P45O2vTHwqDt1kr99DFae3kV8eJVyShsayHHh/0PUxeXf2IzKzxltpazew8Y17YCmPAfg0StTgaLaU+YUaJd15qBfDk2GwbIYKNoYcqbCEcxzLr3MflT641OAITY103MdyYLyV7cF2h3K5NMAcyoUeGi2zjpwMGMRPiW/7+vnN1pC/kDcDSlZkxENLG7GRDl/t9KPXR+41xnKjC0ZwdvhHdpXN4XZM2AcNqNhotc0w4Lm8HskWeyzO9KaakBuSY9GoiTqvdTZIw5dQQzosx1dwKKZrteyNOH8vgXJv62fAFX7jKPHxExsx73dfpBCocwq7yq65xhXapzIL5rYRgKkpQ22SDZkweZKF02P8zooIFm9RtE62b+CarhinXCeTI/OBt7oquMp0quTmeD1QDiL63QNaDFS+Bu1SJ7TEmXZqu4gKrRHbcK+nm0yv2nJaIPLyV1MIeR2lrzQLkC+salIwaHhdL/Q3WDoLMGqXmOrPkENgSU6PW9/+eztuzW2y3Ba1/0KnhKPwnhdHOgdLPLvqWOYOXaV48Mb1d9La3AoIQSfSnMSKtMvF5oEHm8UmcBFfRZBylpfrP6bhwBM012k7+rbWCsXbSXG3EF+cqZ6Tc="}],"verify":{"Mericca":"kEV2im78RmJ50EcL7LOCZ9IOQ0bAFxpcemCOfoYf2aQ=","Renece":"FslzMRA2Mw/MJfxnpvQO4WqX4wHchjil/m4qR6ju4oc=","Kiana":"+vu/vio5hrc1nL3uUAihJq9jZZx0MQRsdOCFtZ5qOoY=","Richard":"cYG2ek5t/hTjAx97Kc/GwLS0wPCE2B3p5bVHDu2Rgkk=","Evelyn":"ipF6f9fgO/+nPeXFigh6YGlAhNKZtD5qIvZl5E+jarg=","Emmanuel":"1Kk/vVbqg9CyzSErRc2ehMwx9vLrpDhyLTK2WNUqak0=","Elvis":"c+k87AQpJa/ZWWTmKPzTpnetFlaEF+sJaJHkURxSIw0=","Vera":"DVlJ29Vzjd3QhwKd7ydtMGVLFYWStxFPJAz8kGSTgHw=","Charles":"dqFujicpfLtDsOyarSzqrpmt3RteBERgrp4RtVVUSTU=","Ester":"YK6GWlGKVXk4Zt2kmW3mx7o7JEJSms0i/27noYZS3fQ=","Jessica":"HumjPqDt1XzlkNkHjVwAav6fpKW1CTAE3Cw8mt8YnIY=","Gloria":"MXJ3xnhb2QdRiWzkHdGOnfhgNq/vgpLCywxi8neeioo=","Silvia":"EX8qSOLz9u59il5kx0YWpfJvN8SyAIXNUe9nfvs1lO4=","Honest":"a8b4z3kMnf2poTTFetpSMeTcg0lfiEWUfyEHIfrMj7Q=","Nazario":"rrRpjTtifDydqWORrFl7yR8aQ3nPi1lkFsbw+iulcZI=","Alessia":"tlcobCy2e15hPC2KtGBptLOW9W2WN3N79gtpSQ2vcB4=","Marco":"unZxvN4g2RZCqjdJg9S5xAgsYDjTiGVB3Kb0kEOLq40=","Philip":"tAzmzbwFzvBS/acv9xDy/Y4/Jxuc6rBGYRwwdzfNnwQ=","Federico":"+5LBnWIeibrnPNZjtt9CWupe0sJnsGsRClhRCBjG9Vk=","Fidelis":"WgPKhVbPyKmTkzYN9i0AWAhpvDbEBmIRB10r4dwQQzs=","Chinedu":"45m6x8ZK5zB0WItuZCOOEo+H2N3olRdJL1Qam1Ul9sQ="},"mystery":[[{"l":1,"t":"Federico","c":{"it":"per fortuna","en":"luckily"}},{"l":2,"t":"Vera","c":{"it":"la frase che dice più spesso","en":"the phrase they say most often"}},{"l":3,"t":"Richard","c":{"it":"posa da copertina di un disco","en":"an album cover pose"}}],[{"l":1,"t":"Chinedu","c":{"it":"film","en":"movie"}},{"l":2,"t":"Renece","c":{"it":"una superstizione che segue","en":"a superstition they follow"}},{"l":3,"t":"Honest","c":{"it":"finti detective che si guardano intorno","en":"fake detectives looking around"}}],[{"l":1,"t":"Ester","c":{"it":"fortuna","en":"luck"}},{"l":2,"t":"Kiana","c":{"it":"la cosa che porta sempre con sé","en":"the thing they always carry with them"}},{"l":3,"t":"Chinedu","c":{"it":"puntate entrambi verso il soffitto come se aveste visto un’astronave","en":"both point at the ceiling as if you had seen a spaceship"}}],[{"l":1,"t":"Charles","c":{"it":"assolutamente","en":"absolutely"}},{"l":2,"t":"Honest","c":{"it":"un talento nascosto","en":"a hidden talent"}},{"l":3,"t":"Gloria","c":{"it":"finti detective che si guardano intorno","en":"fake detectives looking around"}}],[{"l":1,"t":"Charles","c":{"it":"film","en":"movie"}},{"l":2,"t":"Nazario","c":{"it":"cosa farebbe con un giorno in più a settimana","en":"what they would do with an extra day each week"}},{"l":3,"t":"Elvis","c":{"it":"puntate entrambi verso il soffitto come se aveste visto un’astronave","en":"both point at the ceiling as if you had seen a spaceship"}}],[{"l":1,"t":"Evelyn","c":{"it":"davvero","en":"really"}},{"l":2,"t":"Richard","c":{"it":"che impressione ha avuto di Manu la prima volta che l’ha incontrata","en":"their first impression of Manu when they met her"}},{"l":3,"t":"Gloria","c":{"it":"come se foste sulla copertina di una rivista","en":"as if you were on a magazine cover"}}]]};
+
+    /* ====================== Testi IT / EN ====================== */
+    const T = {
+      it: {
+        sponsor: "Sponsorizzato da Team Legacy", h1: "25 anni di Manu.",
+        lead: "Qui i drink si pagano con un <strong>“Auguri Manu!” urlato a voce alta</strong>. Se non senti la tua voce, non vale.",
+        tabDrink: "🍹 Drink", tabGame: "🕵️ Missione segreta",
+        quizCta: "Cosa consiglia Manu? 💬", quizHint: "Non sai cosa scegliere? Rispondi a 4 domande e Manu ti consiglia il drink giusto.",
+        badge: "✦ Drink speciale della festa ✦", menu: "La lista", fTaste: "Gusto", fBase: "Base",
+        reset: "Azzera i filtri", empty: "Nessun drink con questa combinazione.", drinks: "drink",
+        all: "Tutti", fresco: "Freschi", tropicale: "Tropicali", erbaceo: "Erbacei", classico: "Classici",
+        gin: "Gin", rum: "Rum", tequila: "Tequila", aperitivo: "Aperitivo",
+        str: ["", "Leggero", "Medio", "Deciso"], strLabel: "Gradazione",
+        foot1: "Chi guida beve analcolico. Chi non guida offre da bere a chi guida.",
+        foot2: "Vuoi qualcosa senza alcol o più leggero? Chiedi al barman: quasi tutti i drink si possono preparare anche in versione analcolica.",
+        foot3: "Allergie o intolleranze? Dillo al barman prima di ordinare.",
+        shoutBtn: "Auguri Manu!", shoutAria: "Auguri Manu! Urlati finora: ",
+        shouts: ["Più forte, il barman non ha sentito.", "Ecco, così. Questo vale un drink.", "Bis! Stavolta ti ha sentito tutta la sala.", "Voce da prima fila. Il drink è tuo.", "Gola in forma. Alterna con un bicchiere d’acqua."],
+        qOf: (a, b) => "Domanda " + a + " di " + b, back: "‹ Indietro", cancel: "Annulla",
+        recommends: "Manu ti consiglia", planB: "Piano B", seeList: "Vedi nella lista ↓", share: "Condividi 📲", again: "Rifai il test",
+        copied: "Copiato ✓", copyFail: "Copia non riuscita",
+        shareText: (n, e) => "Manu mi consiglia: " + n + " " + e + ". E a te cosa consiglia?",
+        /* gioco */
+        gTitle: "Missione segreta", gIntro: "Ogni persona ha 3 missioni segrete su 3 persone diverse. Scrivi il tuo nome per vedere la tua scheda.",
+        gHow: "Come si gioca", gHowSteps: [
+          "Scrivi il tuo nome qui sotto. Si apre la tua scheda segreta.",
+          "Nella scheda ci sono 3 missioni. Ogni missione ha il nome di una persona: è il tuo bersaglio.",
+          "Parla con quella persona. Non far capire qual è la tua missione.",
+          "Se ci riesci, di’ «Preso!» e chiedi il suo codice (4 lettere o numeri).",
+          "Scrivi il codice nella tua scheda. Hai fatto punti e si apre la missione dopo.",
+          "Anche altre persone hanno te come bersaglio. Se ti scoprono, dai il tuo codice.",
+          "Punti: livello 1 = 1, livello 2 = 2, livello 3 = 3. Se fai tutti e 3 hai 2 punti in più.",
+          "A mezzanotte scopri chi ti cercava."],
+        gExample: "Esempio: la tua missione dice «Fai dire a Elvis la parola “esatto”». Parli con Elvis. Quando dice “esatto”, tu dici «Preso! Dammi il tuo codice». Elvis ti fa vedere il suo codice. Tu lo scrivi nella scheda e prendi 1 punto.",
+        gName: "Il tuo nome", gPh: "es. Charles", gEnter: "Entra",
+        gHonor: "Scrivi solo il tuo nome: guardare la scheda degli altri rovina il gioco.",
+        gNotFound: "Non ti trovo. Controlla come hai scritto il nome.", gMystery: "Sono un ospite misterioso",
+        gAgent: "Agente", gMysteryTitle: "Ospite misterioso",
+        gMysteryText: "Hai tre missioni su tre agenti, ma nessuno può cacciare te.",
+        gCode: "Il tuo codice", gCodeHint: "Dai il tuo codice solo a chi ti scopre. Non prima.", gShow: "Mostra", gHide: "Nascondi",
+        gPoints: "Punti", gLevel: "Livello",
+        gL: ["", "Parola proibita", "Domanda segreta", "Foto-prova"],
+        gM1: (t, w) => "Fai dire a " + t + " la parola " + w + ". La persona deve dirla da sola. Tu non la dici.",
+        gM2: (t, q) => "Fai parlare " + t + " e scopri: " + q + ".",
+        gM3: (t, p) => "Fatti una foto con " + t + ". Posa: " + p + ". Chiedi sempre il permesso.",
+        gCodeOf: t => "Codice di " + t, gCodePh: "Codice", gCheck: "Verifica", gChecking: "…", gWrong: "Codice sbagliato. Riprova.",
+        gLocked: n => "Si sblocca dopo il livello " + n + ".", gDone: p => "Fatto! +" + p,
+        gAll: "Agente leggendario! Missione completata, bonus +2.",
+        gRules: "Regole", gRulesList: [
+          "Non dire a nessuno chi è il tuo bersaglio.",
+          "La persona deve dire la parola o rispondere da sola. Tu non la aiuti.",
+          "Chiunque può dire «passo» se non vuole rispondere o fare la foto.",
+          "Niente cibo o bevande da far provare.",
+          "Niente abbracci o contatto se la persona non vuole.",
+          "Non obbligare nessuno a bere alcol.",
+          "Non guardare la scheda degli altri."],
+        gReveal: "Rivelazione", gRevealText: "A mezzanotte Richard dice una parola. Scrivila qui e scopri chi ti cercava.",
+        gRevealPh: "Parola di rivelazione", gRevealPh2: "Parola", gRevealBtn: "Rivela", gRevealWrong: "Non è questa.",
+        gHunters: "Ti stavano cacciando…", gHunterLine: (h, l, what) => h + " (livello " + l + "): " + what,
+        gBossTitle: "Sei la festeggiata!", gBossText: "Oggi non giochi: comandi. Tutti gli altri sono agenti e tu sei la boss. A fine serata premia l’agente più bravo.",
+        gLogout: n => "Non sei " + n + "? Esci", gNoCrypto: "Questo browser non supporta il gioco. Apri il sito con Chrome o Safari aggiornati."
+      },
+      en: {
+        sponsor: "Sponsored by Team Legacy", h1: "Manu turns 25.",
+        lead: "Here drinks are paid for with a <strong>“Happy birthday Manu!” shouted out loud</strong>. If you can’t hear your own voice, it doesn’t count.",
+        tabDrink: "🍹 Drinks", tabGame: "🕵️ Secret mission",
+        quizCta: "What does Manu recommend? 💬", quizHint: "Can’t decide? Answer 4 questions and Manu picks the right drink for you.",
+        badge: "✦ The party’s special drink ✦", menu: "The list", fTaste: "Taste", fBase: "Base",
+        reset: "Clear filters", empty: "No drinks match this combination.", drinks: "drinks",
+        all: "All", fresco: "Fresh", tropicale: "Tropical", erbaceo: "Herbal", classico: "Classics",
+        gin: "Gin", rum: "Rum", tequila: "Tequila", aperitivo: "Aperitif",
+        str: ["", "Light", "Medium", "Strong"], strLabel: "Strength",
+        foot1: "Whoever drives drinks alcohol-free. Whoever doesn’t drive buys a drink for whoever does.",
+        foot2: "Want something alcohol-free or lighter? Ask the bartender: almost every drink can be made without alcohol.",
+        foot3: "Allergies or intolerances? Tell the bartender before ordering.",
+        shoutBtn: "Happy birthday Manu!", shoutAria: "Happy birthday Manu! Shouted so far: ",
+        shouts: ["Louder, the bartender didn’t hear you.", "There it is. That’s worth a drink.", "Encore! This time the whole room heard you.", "Front-row voice. The drink is yours.", "Great voice. Alternate with a glass of water."],
+        qOf: (a, b) => "Question " + a + " of " + b, back: "‹ Back", cancel: "Cancel",
+        recommends: "Manu recommends", planB: "Plan B", seeList: "See in the list ↓", share: "Share 📲", again: "Retake the quiz",
+        copied: "Copied ✓", copyFail: "Copy failed",
+        shareText: (n, e) => "Manu recommends: " + n + " " + e + ". What does she recommend for you?",
+        gTitle: "Secret mission", gIntro: "Everyone has 3 secret missions on 3 different people. Type your name to see your file.",
+        gHow: "How to play", gHowSteps: [
+          "Type your name below. Your secret file opens.",
+          "Your file has 3 missions. Each mission has the name of a person: that is your target.",
+          "Talk to that person. Don’t let them guess your mission.",
+          "If you do it, say “Got you!” and ask for their code (4 letters or numbers).",
+          "Type the code in your file. You get points and the next mission opens.",
+          "Other people have you as their target too. If they catch you, give them your code.",
+          "Points: level 1 = 1, level 2 = 2, level 3 = 3. Do all 3 and you get 2 extra points.",
+          "At midnight you find out who was after you."],
+        gExample: "Example: your mission says “Get Elvis to say the word ‘exactly’”. You talk to Elvis. When he says “exactly”, you say “Got you! Give me your code”. Elvis shows you his code. You type it in your file and get 1 point.",
+        gName: "Your name", gPh: "e.g. Charles", gEnter: "Enter",
+        gHonor: "Only type your own name: peeking at other people’s files ruins the game.",
+        gNotFound: "I can’t find you. Check how you spelled your name.", gMystery: "I’m a mystery guest",
+        gAgent: "Agent", gMysteryTitle: "Mystery guest",
+        gMysteryText: "You have three missions on three agents, but nobody can hunt you.",
+        gCode: "Your code", gCodeHint: "Give your code only to someone who catches you. Not before.", gShow: "Show", gHide: "Hide",
+        gPoints: "Points", gLevel: "Level",
+        gL: ["", "Forbidden word", "Secret question", "Photo proof"],
+        gM1: (t, w) => "Get " + t + " to say the word " + w + ". They must say it on their own. You don’t say it.",
+        gM2: (t, q) => "Get " + t + " talking and find out: " + q + ".",
+        gM3: (t, p) => "Take a photo with " + t + ". Pose: " + p + ". Always ask first.",
+        gCodeOf: t => t + "’s code", gCodePh: "Code", gCheck: "Check", gChecking: "…", gWrong: "Wrong code. Try again.",
+        gLocked: n => "Unlocks after level " + n + ".", gDone: p => "Done! +" + p,
+        gAll: "Legendary agent! Mission complete, bonus +2.",
+        gRules: "Rules", gRulesList: [
+          "Tell nobody who your target is.",
+          "The person must say the word or answer on their own. You don’t help.",
+          "Anyone can say “pass” if they don’t want to answer or take the photo.",
+          "No food or drinks to try.",
+          "No hugs or touching if the person doesn’t want it.",
+          "Don’t push anyone to drink alcohol.",
+          "Don’t look at other people’s files."],
+        gReveal: "Reveal", gRevealText: "At midnight Richard says a word. Type it here and find out who was after you.",
+        gRevealPh: "Reveal word", gRevealPh2: "Word", gRevealBtn: "Reveal", gRevealWrong: "That’s not it.",
+        gHunters: "They were hunting you…", gHunterLine: (h, l, what) => h + " (level " + l + "): " + what,
+        gBossTitle: "It’s your birthday!", gBossText: "You don’t play today: you rule. Everyone else is an agent and you’re the boss. At the end of the night, reward the best agent.",
+        gLogout: n => "Not " + n + "? Log out", gNoCrypto: "This browser can’t run the game. Open the site with an up-to-date Chrome or Safari."
+      }
+    };
+
+    const DRINKS = [
+      { id: "pina", e: "🍍", c: "#ffd23f", name: "Piña Colada", base: "rum", tags: ["tropicale"], s: 2,
+        ing: { it: "Rum, cocco, ananas", en: "Rum, coconut, pineapple" },
+        d: { it: "Cremosa e golosa, è il drink più dolce della lista.", en: "Creamy and indulgent, the sweetest drink on the list." } },
+      { id: "mojito", e: "🍃", c: "#b8f0c8", name: "Mojito", base: "rum", tags: ["tropicale", "erbaceo", "fresco"], s: 2,
+        ing: { it: "Rum bianco, lime, menta, zucchero di canna, soda", en: "White rum, lime, mint, cane sugar, soda" },
+        d: { it: "Menta, lime e soda: fresco e facile da bere. Controlla di non avere la menta tra i denti prima delle foto.", en: "Mint, lime and soda: fresh and easy to drink. Check your teeth for mint before the photos." } },
+      { id: "gintonic", e: "🥤", c: "#5ed1c4", name: "Gin Tonic", base: "gin", tags: ["classico", "fresco"], s: 2,
+        ing: { it: "Gin, acqua tonica", en: "Gin, tonic water" },
+        d: { it: "Il classico che non sbaglia mai: secco, frizzante e leggermente amaro grazie alla tonica.", en: "The classic that never fails: dry, fizzy and slightly bitter thanks to the tonic." } },
+      { id: "ginlemon", e: "🍋", c: "#f2ee6e", name: "Gin Lemon", base: "gin", tags: ["classico", "fresco"], s: 2,
+        ing: { it: "Gin, lemon soda", en: "Gin, lemon soda" },
+        d: { it: "Come il Gin Tonic, ma più dolce e morbido. Per chi trova la tonica troppo amara.", en: "Like a Gin Tonic but sweeter and softer. For anyone who finds tonic too bitter." } },
+      { id: "basil", e: "🌿", c: "#a6e86a", name: "Basil Smash", base: "gin", tags: ["erbaceo", "fresco"], s: 2,
+        ing: { it: "Gin, sciroppo di basilico, sambuco, limone, cetriolo, menta", en: "Gin, basil syrup, elderflower, lemon, cucumber, mint" },
+        d: { it: "Verde, fresco e profumato di basilico, con cetriolo e menta. Per chi ama i sapori erbacei.", en: "Green, fresh and fragrant with basil, plus cucumber and mint. For anyone who loves herbal flavours." } },
+      { id: "breeze", e: "🌸", c: "#c9b0ff", name: "Mediterranean Breeze", base: "gin", tags: ["erbaceo", "fresco"], s: 2,
+        ing: { it: "Gin, pompelmo rosa, sciroppo di rosa e di basilico, lime, tonica", en: "Gin, pink grapefruit, rose and basil syrup, lime, tonic" },
+        d: { it: "Floreale e leggera, con il pompelmo rosa in primo piano. Ideale se ami i sapori delicati.", en: "Floral and light, with pink grapefruit up front. Ideal if you like delicate flavours." } },
+      { id: "collins", e: "🥒", c: "#9ad9ff", name: "Cucumber & Elderflower Collins", base: "gin", tags: ["erbaceo", "fresco"], s: 2,
+        ing: { it: "Gin, liquore di sambuco, limone, cetriolo, menta", en: "Gin, elderflower liqueur, lemon, cucumber, mint" },
+        d: { it: "Fresca, floreale e leggermente dolce. Cetriolo e sambuco la rendono delicata e facile da bere.", en: "Fresh, floral and slightly sweet. Cucumber and elderflower make it delicate and easy to drink." } },
+      { id: "paloma", e: "🍊", c: "#ff8a65", name: "Paloma", base: "tequila", tags: ["fresco", "classico"], s: 2,
+        ing: { it: "Tequila, pompelmo rosa, lime, soda", en: "Tequila, pink grapefruit, lime, soda" },
+        d: { it: "Agrumata e frizzante, con il pompelmo rosa in primo piano e un bordo di sale. Il drink messicano più bevuto.", en: "Citrusy and fizzy, with pink grapefruit up front and a salted rim. Mexico’s most popular drink." } },
+      { id: "margarita", e: "🍹", c: "#ffe8a3", name: "Margarita", base: "tequila", tags: ["classico"], s: 3,
+        ing: { it: "Tequila, triple sec, lime, sale", en: "Tequila, triple sec, lime, salt" },
+        d: { it: "Secca, acida e col bordo di sale: un classico dal carattere deciso. Per chi non ha paura di un drink forte.", en: "Dry, tart and salt-rimmed: a classic with real character. For anyone not afraid of a strong drink." } },
+      { id: "spritz", e: "🥂", c: "#ff9a3c", name: "Aperol Spritz", base: "aperitivo", tags: ["classico"], s: 1,
+        ing: { it: "Aperol, prosecco, soda", en: "Aperol, prosecco, soda" },
+        d: { it: "Il più leggero della lista: frizzante, leggermente amaro e perfetto per iniziare la serata.", en: "The lightest on the list: fizzy, slightly bitter and perfect to start the night." } }
+    ];
+    const SIG = { id: "manu", e: "🥂", name: "Manu", s: 3, badge: true,
+      ing: { it: "Il cocktail esclusivo dei 25 anni. Tocca per scoprire il segreto.", en: "The exclusive cocktail for turning 25. Tap to find out the secret." },
+      d: { it: "Ingredienti segreti: allegria, risate, amici e un pizzico di follia. Preparato solo per questo compleanno e impossibile da replicare.", en: "Secret ingredients: joy, laughter, friends and a pinch of madness. Made only for this birthday and impossible to replicate." } };
+
+    const TASTES = ["fresco", "tropicale", "erbaceo", "classico"];
+    const BASES = ["gin", "rum", "tequila", "aperitivo"];
+
+    const QUIZ = [
+      { q: { it: "Che gusto preferisci?", en: "What flavour do you like?" }, e: "😋", w: 2, a: [
+        ["🍬", { it: "Dolce e goloso", en: "Sweet and indulgent" }, ["pina", "pina", "breeze", "collins", "ginlemon", "spritz"]],
+        ["🧊", { it: "Fresco e frizzante", en: "Fresh and fizzy" }, ["mojito", "mojito", "gintonic", "paloma", "basil", "collins", "ginlemon"]],
+        ["🍊", { it: "Amaro e secco", en: "Bitter and dry" }, ["spritz", "spritz", "gintonic", "gintonic"]],
+        ["🌿", { it: "Erbaceo e floreale", en: "Herbal and floral" }, ["basil", "basil", "collins", "breeze", "mojito"]],
+        ["🍋", { it: "Agrumato e deciso", en: "Citrusy and bold" }, ["margarita", "margarita", "paloma", "paloma"]]
+      ]},
+      { q: { it: "Che base preferisci?", en: "Which base do you prefer?" }, e: "🍸", w: 2, a: [
+        ["🍸", { it: "Gin", en: "Gin" }, ["gintonic", "ginlemon", "basil", "breeze", "collins"]],
+        ["🥥", { it: "Rum", en: "Rum" }, ["pina", "pina", "mojito", "mojito"]],
+        ["🌵", { it: "Tequila", en: "Tequila" }, ["paloma", "paloma", "margarita", "margarita"]],
+        ["🥂", { it: "Aperitivo", en: "Aperitif" }, ["spritz", "spritz", "spritz"]],
+        ["🤷", { it: "Per me è uguale", en: "Doesn’t matter to me" }, []]
+      ]},
+      { q: { it: "Che drink cerchi?", en: "What kind of drink are you after?" }, e: "🎯", w: 1, a: [
+        ["🛡️", { it: "Un classico sicuro", en: "A safe classic" }, ["gintonic", "ginlemon", "margarita", "mojito", "spritz", "pina"]],
+        ["🎨", { it: "Qualcosa di particolare", en: "Something unusual" }, ["basil", "breeze", "collins", "paloma"]],
+        ["🪶", { it: "Leggero, per durare tutta la sera", en: "Light, to last all night" }, ["spritz", "spritz", "spritz", "ginlemon", "mojito"]],
+        ["🎲", { it: "Non so, sorprendimi", en: "No idea, surprise me" }, []]
+      ]},
+      { q: { it: "Che tipo da festa sei?", en: "What kind of party person are you?" }, e: "🥳", w: 1, a: [
+        ["🪩", { it: "Quello che balla", en: "The one who dances" }, ["margarita", "pina", "mojito"]],
+        ["🗣️", { it: "Fa amicizia anche con chi è in fila in bagno", en: "Makes friends with people in the bathroom queue" }, ["spritz", "gintonic", "ginlemon"]],
+        ["📸", { it: "Quello che fa le foto", en: "The one taking the photos" }, ["breeze", "collins", "basil"]],
+        ["🍾", { it: "Dice «un ultimo drink» almeno tre volte", en: "Says “one last drink” at least three times" }, ["paloma", "gintonic", "spritz"]],
+        ["🥴", { it: "Alterna conversazioni profonde e momenti totalmente senza senso", en: "Alternates deep conversations with total nonsense" }, ["spritz", "spritz", "mojito", "ginlemon"]]
+      ]}
+    ];
+    const REC = {
+      pina: { it: "Se ami i drink dolci e cremosi, è la scelta giusta.", en: "If you love sweet, creamy drinks, this is the one." },
+      mojito: { it: "È fresco e facile da bere, ideale se ti piace la menta.", en: "Fresh and easy to drink, ideal if you like mint." },
+      gintonic: { it: "È un classico che non delude, ideale se vuoi andare sul sicuro.", en: "A classic that never lets you down, ideal if you want to play it safe." },
+      ginlemon: { it: "È più dolce e morbido del Gin Tonic, quindi adatto a chi non ama l’amaro.", en: "Softer and sweeter than a Gin Tonic, so great if you don’t like bitterness." },
+      basil: { it: "Ha un gusto verde e profumato, ideale se ti piacciono le erbe aromatiche.", en: "Green and fragrant, ideal if you like fresh herbs." },
+      breeze: { it: "È floreale e delicata, ideale se vuoi provare qualcosa di diverso senza esagerare.", en: "Floral and delicate, ideal if you want to try something different without overdoing it." },
+      collins: { it: "È fresca e delicata, con cetriolo e sambuco: ideale se cerchi qualcosa di particolare.", en: "Fresh and delicate, with cucumber and elderflower: ideal if you want something unusual." },
+      paloma: { it: "È agrumata e frizzante, ideale se ti piace il pompelmo e vuoi qualcosa di diverso dal solito gin.", en: "Citrusy and fizzy, ideal if you like grapefruit and want something other than the usual gin." },
+      margarita: { it: "Ha il carattere deciso della tequila con lime e sale: ideale se ti piacciono i gusti secchi e decisi.", en: "It has the bold character of tequila with lime and salt: ideal if you like dry, punchy flavours." },
+      spritz: { it: "È il più leggero della lista, ideale per iniziare o per durare tutta la sera.", en: "The lightest on the list, ideal for starting the night or lasting all night." }
+    };
+    const PERSONA = [
+      { it: "Ottimo da tenere in mano mentre balli.", en: "Great to hold while you dance." },
+      { it: "Perfetto per fare amicizia anche in fila al bagno.", en: "Perfect for making friends in the bathroom queue." },
+      { it: "Fa la sua figura nelle foto.", en: "Looks great in photos." },
+      { it: "Ideale per l’ultimo drink. Anzi, il penultimo.", en: "Ideal for the last drink. Or rather, the second to last." },
+      { it: "Perfetto per conversazioni profonde e momenti senza senso: alterna con un bicchiere d’acqua.", en: "Perfect for deep conversations and total nonsense: alternate with a glass of water." }
+    ];
+
+    // Se metti il sito online, scrivi qui l'indirizzo finale: sarà il link nei messaggi di condivisione.
+    const SITE_URL = "";
+    const CHEV = '<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+
+    /* ====================== Utilità ====================== */
+    const $ = id => document.getElementById(id);
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const rnd = a => a[Math.floor(Math.random() * a.length)];
+    const reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
+    const siteUrl = () => SITE_URL || location.href.split("#")[0];
+    const store = {
+      get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+      set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* senza memoria il sito funziona lo stesso */ } },
+      del(k) { try { localStorage.removeItem(k); } catch (e) { /* idem */ } }
+    };
+
+    /* ====================== Lingua ====================== */
+    let lang = store.get("manu25-lang") || ((navigator.language || "it").toLowerCase().startsWith("it") ? "it" : "en");
+    if (lang !== "it" && lang !== "en") lang = "it";
+    const t = k => T[lang][k];
+    const L = o => o[lang];
+
+    function applyStatic() {
+      document.documentElement.lang = lang;
+      document.querySelectorAll("[data-t]").forEach(el => { el.textContent = t(el.dataset.t); });
+      document.querySelectorAll("[data-th]").forEach(el => { el.innerHTML = t(el.dataset.th); });
+      document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", b.dataset.l === lang));
+    }
+
+    /* ====================== Schede (Drink / Missione) ====================== */
+    function showView(v, updateHash) {
+      $("v-drink").hidden = v !== "drink";
+      $("v-game").hidden = v !== "game";
+      $("tab-drink").setAttribute("aria-selected", v === "drink");
+      $("tab-game").setAttribute("aria-selected", v === "game");
+      if (updateHash) { try { history.replaceState(null, "", "#" + (v === "game" ? "missione" : "drink")); } catch (e) { /* ok */ } }
+    }
+    document.querySelector(".tabs").addEventListener("click", e => {
+      const b = e.target.closest("[data-v]");
+      if (b) showView(b.dataset.v, true);
+    });
+    addEventListener("hashchange", () => showView(location.hash === "#missione" ? "game" : "drink", false));
+
+    /* ====================== Lista drink ====================== */
+    function item(x, cls) {
+      const dots = [1, 2, 3].map(i => '<span class="dot' + (i <= x.s ? ' on' : '') + '"></span>').join("");
+      return '<li id="li-' + x.id + '" class="drink ' + (cls || "") + '" data-tags="' + (x.tags || []).join(" ") + '" data-base="' + (x.base || "") + '"' + (x.c ? ' style="--c:' + x.c + '"' : '') + '>' +
+        '<button class="row" type="button" aria-expanded="false" aria-controls="m-' + x.id + '">' +
+        '<span class="em" aria-hidden="true">' + x.e + '</span>' +
+        '<span class="txt">' + (x.badge ? '<span class="sig-tag">' + esc(t("badge")) + '</span>' : '') +
+        '<span class="name">' + esc(x.name) + '</span><span class="ing">' + esc(L(x.ing)) + '</span></span>' + CHEV +
+        '</button>' +
+        '<div class="more" id="m-' + x.id + '"><div><p>' + esc(L(x.d)) + '</p>' +
+        '<div class="str" role="img" aria-label="' + esc(t("strLabel") + ": " + t("str")[x.s].toLowerCase()) + '">' + dots + '<span>' + esc(t("str")[x.s]) + '</span></div></div></div></li>';
+    }
+    function toggle(li, force) {
+      const btn = li.querySelector(".row");
+      const open = force !== undefined ? force : btn.getAttribute("aria-expanded") !== "true";
+      btn.setAttribute("aria-expanded", open);
+      li.querySelector(".more").classList.toggle("open", open);
+    }
+    const filters = { taste: "tutti", base: "tutti" };
+    function chipsHtml(group, list) {
+      return ["tutti"].concat(list).map(f =>
+        '<button class="chip" type="button" data-g="' + group + '" data-f="' + f + '" aria-pressed="' + (filters[group] === f) + '">' + esc(f === "tutti" ? t("all") : t(f)) + '</button>').join("");
+    }
+    function applyFilters() {
+      let shown = 0;
+      document.querySelectorAll("#list li").forEach(li => {
+        const ok = (filters.taste === "tutti" || li.dataset.tags.split(" ").includes(filters.taste)) &&
+                   (filters.base === "tutti" || li.dataset.base === filters.base);
+        li.classList.toggle("hide", !ok);
+        if (ok) shown++;
+      });
+      $("count").textContent = shown + " " + t("drinks");
+      $("empty").hidden = shown > 0;
+      $("reset").hidden = filters.taste === "tutti" && filters.base === "tutti";
+    }
+    function syncChips() {
+      document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", filters[c.dataset.g] === c.dataset.f));
+    }
+    function resetFilters() { filters.taste = filters.base = "tutti"; syncChips(); applyFilters(); }
+    function renderDrinks() {
+      const open = [...document.querySelectorAll(".row[aria-expanded='true']")].map(r => r.parentElement.id);
+      $("list").innerHTML = DRINKS.map(d => item(d)).join("");
+      $("sig").innerHTML = item(SIG, "signature");
+      $("chips-taste").innerHTML = chipsHtml("taste", TASTES);
+      $("chips-base").innerHTML = chipsHtml("base", BASES);
+      open.forEach(id => { const li = $(id); if (li) toggle(li, true); });
+      applyFilters();
+    }
+    function reveal(id) {
+      resetFilters();
+      const li = $("li-" + id);
+      if (!li) return;
+      toggle(li, true);
+      li.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
+      li.classList.add("flash");
+      setTimeout(() => li.classList.remove("flash"), 1800);
+      li.querySelector(".row").focus({ preventScroll: true });
+    }
+    document.addEventListener("click", e => {
+      const row = e.target.closest(".row");
+      if (row) toggle(row.parentElement);
+      const chip = e.target.closest(".chip");
+      if (chip) { filters[chip.dataset.g] = chip.dataset.f; syncChips(); applyFilters(); }
+      if (e.target.closest("#reset, #empty-reset")) resetFilters();
+    });
+
+    /* ====================== Coriandoli e "Auguri Manu!" ====================== */
+    function confetti(emoji, n) {
+      if (reduce) return;
+      const set = emoji.concat(["🎉", "✨", "🥳"]);
+      for (let i = 0; i < n; i++) {
+        const b = document.createElement("span");
+        b.className = "bit";
+        b.textContent = rnd(set);
+        b.setAttribute("aria-hidden", "true");
+        b.style.left = Math.random() * 100 + "vw";
+        b.style.setProperty("--dx", (Math.random() * 160 - 80) + "px");
+        b.style.setProperty("--r", (Math.random() * 720 - 360) + "deg");
+        b.style.setProperty("--t", (1.6 + Math.random() * 1.4) + "s");
+        document.body.appendChild(b);
+        setTimeout(() => b.remove(), 3200);
+      }
+    }
+    let shouts = parseInt(store.get("manu25-auguri"), 10) || 0;
+    let toastTimer = 0;
+    function paintShouts() {
+      $("shout-n").textContent = shouts;
+      $("shout").setAttribute("aria-label", t("shoutAria") + shouts);
+    }
+    $("shout").addEventListener("click", () => {
+      shouts++;
+      store.set("manu25-auguri", shouts);
+      paintShouts();
+      const btn = $("shout");
+      btn.classList.remove("bump");
+      void btn.offsetWidth;
+      btn.classList.add("bump");
+      const tt = $("toast");
+      tt.textContent = t("shouts")[(shouts - 1) % t("shouts").length];
+      tt.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => tt.classList.remove("show"), 2600);
+      confetti(["📣", "🥂"], 12);
+      if (navigator.vibrate) navigator.vibrate(25);
+    });
+
+    /* ====================== Quiz ====================== */
+    const quiz = $("quiz");
+    const qs = { mode: "idle", answers: [], res: null };
+
+    function scoreAll() {
+      const s = {};
+      qs.answers.forEach((ai, qi) => { QUIZ[qi].a[ai][2].forEach(id => { s[id] = (s[id] || 0) + QUIZ[qi].w; }); });
+      return s;
+    }
+    const drinkById = id => DRINKS.find(d => d.id === id);
+
+    function renderQuiz() {
+      if (qs.mode === "q") {
+        const qi = qs.answers.length, q = QUIZ[qi];
+        quiz.className = "";
+        quiz.style.removeProperty("--c");
+        quiz.innerHTML =
+          '<div class="prog" aria-hidden="true">' + QUIZ.map((_, i) => '<i' + (i <= qi ? ' class="on"' : '') + '></i>').join("") + '</div>' +
+          '<div class="qbody"><p class="qn">' + esc(t("qOf")(qi + 1, QUIZ.length)) + '</p>' +
+          '<div class="qe" aria-hidden="true">' + q.e + '</div>' +
+          '<h2 class="qq" tabindex="-1">' + esc(L(q.q)) + '</h2>' +
+          '<div class="qa">' + q.a.map((a, i) => '<button class="opt" type="button" data-i="' + i + '"><span class="oe" aria-hidden="true">' + a[0] + '</span><span>' + esc(L(a[1])) + '</span></button>').join("") + '</div>' +
+          '<div class="qnav">' + (qi > 0 ? '<button class="qx" type="button" id="qb">' + esc(t("back")) + '</button>' : '<span></span>') +
+          '<button class="qx" type="button" id="qx">' + esc(t("cancel")) + '</button></div></div>';
+      } else if (qs.mode === "done") {
+        const first = drinkById(qs.res.first), alt = drinkById(qs.res.alt);
+        quiz.className = "done";
+        quiz.style.setProperty("--c", first.c);
+        quiz.innerHTML =
+          '<div class="qbody"><div class="rbig" aria-hidden="true">' + first.e + '</div>' +
+          '<p class="rsub">' + esc(t("recommends")) + '</p>' +
+          '<h2 class="rname" tabindex="-1">' + esc(first.name) + '</h2>' +
+          '<p class="rsub">' + esc(L(first.ing)) + '</p>' +
+          '<p class="rwho">' + esc(L(REC[first.id]) + " " + L(PERSONA[qs.res.persona])) + '</p>' +
+          '<p class="rmatch">' + esc(t("planB")) + ': <b>' + alt.e + ' ' + esc(alt.name) + '</b></p>' +
+          '<div class="racts">' +
+          '<button class="go" type="button" data-reveal="' + first.id + '">' + esc(t("seeList")) + '</button>' +
+          '<a class="go" target="_blank" rel="noopener" href="https://wa.me/?text=' + encodeURIComponent(t("shareText")(first.name, first.e) + " " + siteUrl()) + '">WhatsApp 💬</a>' +
+          '<button class="re" type="button" id="share">' + esc(t("share")) + '</button>' +
+          '<button class="re" type="button" id="again">' + esc(t("again")) + '</button></div></div>';
+      } else return;
+      const h = quiz.querySelector(".qq, .rname");
+      if (h) h.focus({ preventScroll: true });
+    }
+    function finishQuiz() {
+      const score = scoreAll();
+      const rank = DRINKS.map(d => ({ d, n: score[d.id] || 0 }));
+      const top = Math.max(...rank.map(r => r.n));
+      const first = rnd(rank.filter(r => r.n === top)).d;
+      const rest = rank.filter(r => r.d !== first);
+      const next = Math.max(...rest.map(r => r.n));
+      const alt = rnd(rest.filter(r => r.n === next)).d;
+      qs.mode = "done";
+      qs.res = { first: first.id, alt: alt.id, persona: qs.answers[QUIZ.length - 1] };
+      renderQuiz();
+      confetti([first.e, first.e], 28);
+      if (navigator.vibrate) navigator.vibrate([30, 40, 30]);
+    }
+    function startQuiz() {
+      qs.mode = "q"; qs.answers = []; qs.res = null;
+      quiz.hidden = false;
+      renderQuiz();
+      quiz.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    }
+    async function shareResult(btn) {
+      const first = drinkById(qs.res.first);
+      const text = t("shareText")(first.name, first.e), url = siteUrl();
+      if (navigator.share) {
+        try { await navigator.share({ title: "Manu 25", text, url }); return; }
+        catch (err) { if (err && err.name === "AbortError") return; }
+      }
+      const full = text + " " + url;
+      let ok = false;
+      try { await navigator.clipboard.writeText(full); ok = true; } catch (err) { /* proviamo il metodo vecchio */ }
+      if (!ok) {
+        const ta = document.createElement("textarea");
+        ta.value = full; ta.setAttribute("readonly", ""); ta.style.cssText = "position:fixed;opacity:0";
+        document.body.appendChild(ta); ta.select();
+        try { ok = document.execCommand("copy"); } catch (err) { /* niente da fare */ }
+        ta.remove();
+      }
+      btn.textContent = ok ? t("copied") : t("copyFail");
+    }
+    $("who").addEventListener("click", startQuiz);
+    quiz.addEventListener("click", e => {
+      if (e.target.closest("#qx")) { quiz.hidden = true; qs.mode = "idle"; return; }
+      if (e.target.closest("#again")) { startQuiz(); return; }
+      if (e.target.closest("#qb")) { qs.answers.pop(); renderQuiz(); return; }
+      const go = e.target.closest("[data-reveal]");
+      if (go) { reveal(go.dataset.reveal); return; }
+      const sh = e.target.closest("#share");
+      if (sh) { shareResult(sh); return; }
+      const opt = e.target.closest(".opt");
+      if (!opt) return;
+      qs.answers.push(+opt.dataset.i);
+      if (qs.answers.length < QUIZ.length) renderQuiz(); else finishQuiz();
+    });
+
+    /* ====================== Missione segreta ====================== */
+    const enc = new TextEncoder(), dec = new TextDecoder();
+    const b64d = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+    const b64e = buf => btoa(String.fromCharCode(...new Uint8Array(buf)));
+    const hasCrypto = !!(window.crypto && crypto.subtle);
+    const norm = s => String(s).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]/g, "");
+
+    async function aesKeyFrom(text, salt) {
+      const base = await crypto.subtle.importKey("raw", enc.encode(norm(text)), "PBKDF2", false, ["deriveKey"]);
+      return crypto.subtle.deriveKey({ name: "PBKDF2", salt: enc.encode(salt), iterations: GAME.kdf, hash: "SHA-256" },
+        base, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+    }
+    async function open(blob, key) {
+      try {
+        const pt = await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64d(blob.iv) }, key, b64d(blob.ct));
+        return JSON.parse(dec.decode(pt));
+      } catch (e) { return null; }
+    }
+    async function codeHash(target, code) {
+      const base = await crypto.subtle.importKey("raw", enc.encode(code), "PBKDF2", false, ["deriveBits"]);
+      const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt: enc.encode("v|" + target), iterations: GAME.vkdf, hash: "SHA-256" }, base, 256);
+      return b64e(bits);
+    }
+
+    const gs = { howtoOpen: false, status: "login", typed: "", notFound: false, payload: null, canon: "", display: "", done: [], showCode: false, wrong: 0, revealRows: null, revealWrong: false };
+    const progKey = () => "manu25-done-" + gs.canon;
+
+    function contentText(m) {
+      const c = m.c, mine = c[lang], other = c[lang === "it" ? "en" : "it"];
+      if (m.l === 1) {
+        const w = "“" + mine + "”" + (mine.toLowerCase() === other.toLowerCase() ? "" : " (“" + other + "”)");
+        return t("gM1")(m.t, w);
+      }
+      if (m.l === 2) return t("gM2")(m.t, mine);
+      return t("gM3")(m.t, mine);
+    }
+    const pointsOf = () => gs.done.reduce((s, l) => s + l, 0) + (gs.done.length === 3 ? 2 : 0);
+
+    function howSteps() {
+      return '<ol class="steps">' + t("gHowSteps").map(x => '<li>' + esc(x) + '</li>').join("") + '</ol>' +
+        '<p class="example">' + esc(t("gExample")) + '</p>';
+    }
+    function howHtml(isOpen) {
+      return '<details class="howd" id="howto"' + (isOpen ? ' open' : '') + '><summary>❓ ' + esc(t("gHow")) + '</summary>' + howSteps() + '</details>';
+    }
+    function loginHtml() {
+      return '<section class="gcard how"><h2 class="gh" style="font-size:1.35rem">❓ ' + esc(t("gHow")) + '</h2>' + howSteps() + '</section>' +
+        '<form class="login" id="gform" autocomplete="off">' +
+        '<h2 class="gh">' + esc(t("gTitle")) + '</h2><p class="gp">' + esc(t("gIntro")) + '</p>' +
+        '<label for="gname">' + esc(t("gName")) + '</label>' +
+        '<div class="frow"><input id="gname" name="gname" type="text" autocapitalize="words" autocorrect="off" spellcheck="false" placeholder="' + esc(t("gPh")) + '" value="' + esc(gs.typed) + '"><button type="submit">' + esc(t("gEnter")) + '</button></div>' +
+        (gs.notFound ? '<p class="err" role="alert">' + esc(t("gNotFound")) + '<button type="button" data-act="mystery">' + esc(t("gMystery")) + '</button></p>' : '') +
+        '<p class="honor">' + esc(t("gHonor")) + '</p></form>';
+    }
+    function bossHtml() {
+      return '<div class="gcard boss"><div class="big" aria-hidden="true">👑</div><h2 class="gh">' + esc(t("gBossTitle")) + '</h2><p class="gp">' + esc(t("gBossText")) + '</p></div>' +
+        '<button class="link" type="button" data-act="logout">' + esc(t("gLogout")("Manu")) + '</button>';
+    }
+    function agentHtml() {
+      const p = gs.payload, mystery = p.k === "m";
+      const total = gs.done.length === 3;
+      let h = '<p class="who">' + esc(mystery ? t("gMysteryTitle") : t("gAgent")) + '</p><h2 class="gh">' + esc(gs.display) + '</h2>';
+      if (mystery) h += '<p class="gp">' + esc(t("gMysteryText")) + '</p>';
+      else {
+        h += '<div class="codebox"><div><span class="lbl">' + esc(t("gCode")) + '</span><span class="code" id="mycode">' + (gs.showCode ? esc(p.c) : "••••") + '</span></div>' +
+          '<button type="button" data-act="togglecode">' + esc(gs.showCode ? t("gHide") : t("gShow")) + '</button><p class="mini">' + esc(t("gCodeHint")) + '</p></div>';
+      }
+      h += '<p class="pts"><span>' + esc(t("gPoints")) + '</span><b>' + pointsOf() + ' / 8</b></p>';
+      h += howHtml(gs.howtoOpen);
+      if (total) h += '<div class="legend">' + esc(t("gAll")) + '</div>';
+      h += '<ol>' + p.m.map(m => {
+        const done = gs.done.includes(m.l), locked = !done && m.l > 1 && !gs.done.includes(m.l - 1);
+        let body = '';
+        if (done) body = '<p><b>' + esc(t("gDone")(m.l)) + '</b></p>';
+        else if (locked) body = '<p>' + esc(t("gLocked")(m.l - 1)) + '</p>';
+        else {
+          body = '<p>' + esc(contentText(m)) + '</p>' +
+            '<form data-verify="' + m.l + '" autocomplete="off"><input name="code" type="text" maxlength="12" autocapitalize="characters" autocorrect="off" spellcheck="false" aria-label="' + esc(t("gCodeOf")(m.t)) + '" placeholder="' + esc(t("gCodePh")) + '"><button type="submit">' + esc(t("gCheck")) + '</button></form>' +
+            (gs.wrong === m.l ? '<p class="merr" role="alert">' + esc(t("gWrong")) + '</p>' : '');
+        }
+        return '<li class="mission' + (done ? ' done' : '') + (locked ? ' locked' : '') + '"><div class="lv" aria-hidden="true">' + (done ? '✓' : m.l) + '</div><div>' +
+          '<h3>' + esc(t("gL")[m.l]) + '<span>' + m.l + ' pt</span></h3>' + body + '</div></li>';
+      }).join("") + '</ol>';
+      h += '<details class="rules"><summary>' + esc(t("gRules")) + '</summary><ol>' + t("gRulesList").map(r => '<li>' + esc(r) + '</li>').join("") + '</ol></details>';
+      if (!mystery) {
+        h += '<section class="gcard reveal"><h3>' + esc(t("gReveal")) + '</h3><p class="gp" style="margin:0">' + esc(t("gRevealText")) + '</p>';
+        if (gs.revealRows) {
+          h += '<p style="margin:.8rem 0 0"><b>' + esc(t("gHunters")) + '</b></p><ul>' + gs.revealRows.map(r => '<li>' + esc(t("gHunterLine")(r.h, r.l, contentWhat(r))) + '</li>').join("") + '</ul>';
+        } else {
+          h += '<form id="rform" autocomplete="off"><input id="rword" type="text" autocapitalize="characters" autocorrect="off" spellcheck="false" aria-label="' + esc(t("gRevealPh")) + '" placeholder="' + esc(t("gRevealPh2")) + '"><button type="submit">' + esc(t("gRevealBtn")) + '</button></form>' +
+            (gs.revealWrong ? '<p class="merr" role="alert">' + esc(t("gRevealWrong")) + '</p>' : '');
+        }
+        h += '</section>';
+      }
+      h += '<button class="link" type="button" data-act="logout">' + esc(t("gLogout")(gs.display)) + '</button>';
+      return h;
+    }
+    function contentWhat(r) {
+      const c = r.c[lang];
+      return r.l === 1 ? "“" + c + "”" : c;
+    }
+    function renderGame() {
+      const box = $("game");
+      if (!hasCrypto) { box.innerHTML = '<div class="gcard"><p>' + esc(t("gNoCrypto")) + '</p></div>'; return; }
+      const focusName = document.activeElement && document.activeElement.id === "gname";
+      box.innerHTML = gs.status === "login" ? loginHtml() : gs.status === "boss" ? bossHtml() : agentHtml();
+      if (focusName) { const i = $("gname"); if (i) { i.focus(); i.setSelectionRange(i.value.length, i.value.length); } }
+    }
+
+    function enter(payload, display, canon, typed) {
+      gs.payload = payload; gs.display = display; gs.canon = canon; gs.typed = typed;
+      gs.status = payload.k === "b" ? "boss" : "agent";
+      gs.howtoOpen = !store.get("manu25-seen"); store.set("manu25-seen", "1");
+      gs.notFound = false; gs.wrong = 0; gs.showCode = false; gs.revealRows = null; gs.revealWrong = false;
+      try { gs.done = JSON.parse(store.get(progKey()) || "[]"); } catch (e) { gs.done = []; }
+      renderGame();
+    }
+    async function login(name, remember) {
+      const typed = name.trim();
+      if (!typed || !norm(typed)) { gs.typed = ""; gs.notFound = false; renderGame(); return; }
+      const key = await aesKeyFrom(typed, GAME.salt);
+      for (const blob of GAME.blobs) {
+        const p = await open(blob, key);
+        if (p) {
+          if (remember !== false) store.set("manu25-me", typed);
+          enter(p, p.n, "p-" + norm(p.n), typed);
+          return;
+        }
+      }
+      gs.typed = typed; gs.notFound = true; gs.status = "login";
+      renderGame();
+    }
+    function enterMystery() {
+      const typed = gs.typed.trim() || "?";
+      let h = 0; for (const ch of norm(typed)) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+      const set = GAME.mystery[h % GAME.mystery.length];
+      store.set("manu25-me", "mystery:" + typed);
+      enter({ k: "m", n: typed, m: set }, typed, "m-" + norm(typed), typed);
+    }
+    function logout() {
+      store.del("manu25-me");
+      Object.assign(gs, { status: "login", typed: "", notFound: false, payload: null, revealRows: null });
+      renderGame();
+    }
+    async function verify(level, code) {
+      const m = gs.payload.m.find(x => x.l === level);
+      const clean = code.toUpperCase().replace(/[^A-Z0-9]/g, "");
+      if (!clean) return;
+      const ok = (await codeHash(m.t, clean)) === GAME.verify[m.t];
+      if (ok) {
+        if (!gs.done.includes(level)) gs.done.push(level);
+        store.set(progKey(), JSON.stringify(gs.done));
+        gs.wrong = 0;
+        confetti(["🕵️", "🎯"], 18);
+        if (navigator.vibrate) navigator.vibrate([30, 40, 30]);
+      } else gs.wrong = level;
+      renderGame();
+    }
+    async function doReveal(word) {
+      try {
+        const key = await aesKeyFrom(word, GAME.salt + "|reveal");
+        const rows = await open(gs.payload.rv, key);
+        if (rows) { gs.revealRows = rows.sort((a, b) => a.l - b.l); gs.revealWrong = false; confetti(["🕵️", "🎉"], 22); }
+        else gs.revealWrong = true;
+      } catch (e) { gs.revealWrong = true; }
+      renderGame();
+    }
+
+    $("game").addEventListener("toggle", e => { if (e.target.id === "howto") gs.howtoOpen = e.target.open; }, true);
+    $("game").addEventListener("input", e => { if (e.target.id === "gname") gs.typed = e.target.value; });
+    $("game").addEventListener("submit", async e => {
+      e.preventDefault();
+      const f = e.target;
+      const btn = f.querySelector("button[type=submit]");
+      if (btn) { btn.disabled = true; btn.textContent = t("gChecking"); }
+      if (f.id === "gform") await login($("gname").value);
+      else if (f.id === "rform") await doReveal($("rword").value);
+      else if (f.dataset.verify) await verify(+f.dataset.verify, f.elements.code.value);
+    });
+    $("game").addEventListener("click", e => {
+      const a = e.target.closest("[data-act]");
+      if (!a) return;
+      if (a.dataset.act === "mystery") enterMystery();
+      else if (a.dataset.act === "logout") logout();
+      else if (a.dataset.act === "togglecode") { gs.showCode = !gs.showCode; renderGame(); }
+    });
+
+    /* ====================== Avvio ====================== */
+    function renderAll() {
+      applyStatic();
+      renderDrinks();
+      paintShouts();
+      renderQuiz();
+      renderGame();
+    }
+    document.querySelector(".lang").addEventListener("click", e => {
+      const b = e.target.closest("[data-l]");
+      if (!b || b.dataset.l === lang) return;
+      lang = b.dataset.l;
+      store.set("manu25-lang", lang);
+      renderAll();
+    });
+
+    renderAll();
+    showView(location.hash === "#missione" ? "game" : "drink", false);
+    (async () => {
+      const me = store.get("manu25-me");
+      if (!me || !hasCrypto) return;
+      if (me.startsWith("mystery:")) { gs.typed = me.slice(8); enterMystery(); }
+      else { await login(me, false); }
+    })();
+  </script>
+</body>
+</html>
